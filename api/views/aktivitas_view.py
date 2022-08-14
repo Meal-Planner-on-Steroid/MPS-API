@@ -2,7 +2,7 @@ import imp
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from base.models import TingkatAktivitas
-from api.serializers import TingkatAktivitasSerializer
+from api.serializers.TingkatAktivitasSerializer import TingkatAktivitasSerializer
 
 @api_view(['GET'])
 def getData(request):
