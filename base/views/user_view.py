@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from base.models import User
 
 # Create your views here.
-def index(response):
-    return HttpResponse("This is user panel")
+def index(response, id):
+    user = User.objects.get(id=id)
+    
+    return render(response, "base/user_home.html", {"user": user})
 
 def getUser(response, id):
     user = User.objects.get(id=id)
