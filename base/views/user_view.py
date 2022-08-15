@@ -6,7 +6,7 @@ from base.models import User
 def index(response, id):
     user = User.objects.get(id=id)
     
-    return render(response, "base/user_home.html", {"user": user})
+    return render(response, "base/admin_user_home.html", {"user": user})
 
 def getUser(response, id):
     user = User.objects.get(id=id)

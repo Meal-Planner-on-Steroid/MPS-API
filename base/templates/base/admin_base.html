@@ -8,13 +8,22 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'js/flowbite.css' %}">
 
     {% block head %}{% endblock %}
 </head>
 <body>
 
-    <div id="content" class="container mx-auto">
-        {% block content %}{% endblock %}
+    <div class="bg-gray-200 min-h-screen max-h-screen overflow-hidden">
+        {% include 'base/components/navbar.html' %}
+
+        <div class="flex">
+            {% include 'base/components/sidebar.html' %}
+
+            <div id="content" class="p-4 pb-14 max-h-screen w-full overflow-y-auto">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
     </div>
 
     {% block body %}{% endblock %}
