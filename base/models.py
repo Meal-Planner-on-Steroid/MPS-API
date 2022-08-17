@@ -50,6 +50,7 @@ class User(models.Model):
     email = models.EmailField(max_length=50)
     username = models.CharField(max_length=50)
     password = models.CharField(max_length=100)
+    is_admin = models.BooleanField(default=False)
     tingkat_aktivitas = models.ForeignKey(TingkatAktivitas, related_name="tingkat_aktivitas",on_delete=models.SET_NULL, null=True)
     berat_badan = models.FloatField(null=True);
     tinggi_badan = models.FloatField(null=True);
