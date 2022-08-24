@@ -18,12 +18,6 @@ class JenisMakanan(models.TextChoices):
 class Status(models.IntegerChoices):
     COMPLETE = 1
     INCOMPLETE = 2
-    
-class JenisSatuan(models.TextChoices):
-    GRAM = 'GR', _('GRAM')
-    KILOGRAM = 'KG', _('KILOGRAM')
-    MILILITER = 'ML', _('MILILITER')
-    LITER = 'LI', _('LITER')
 
 class JenisPreferensiMakanan(models.TextChoices):
     FAVORIT = 'FV', _('FAVORIT')
@@ -87,17 +81,25 @@ class Minum(models.Model):
     progress = models.IntegerField();
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+class Satuan(models.Model):
+    
+    nama = models.CharField(max_length=100)
 
 class Makanan(models.Model):
     
-    nama = models.CharField(max_length=50)
+    nama = models.CharField(max_length=200)
     porsi = models.IntegerField()
+    besar_porsi = models.ForeignKey(Satuan, related_name="satuan_porsi",on_delete=models.SET_NULL, null=True)
+    berat_porsi = models.IntegerField(null=True)
     protein = models.IntegerField()
     lemak = models.IntegerField()
     karbo = models.IntegerField()
     energi = models.IntegerField()
     jenis = models.CharField(max_length=2, choices=JenisMakanan.choices, default=JenisMakanan.MENU)
-    created_at = models.DateTimeField(auto_now_add=True)
+    kelompok = models.CharField(null=True, max_length=50)
+    sumber = models.TextField(null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)
     
 
@@ -106,7 +108,7 @@ class BahanMakanan(models.Model):
     menu_makanan = models.ForeignKey(Makanan, related_name="menu_makanan",on_delete=models.CASCADE)
     bahan_makanan = models.ForeignKey(Makanan, related_name="bahan_makanan",on_delete=models.CASCADE)
     berat = models.IntegerField(null=True)
-    satuan = models.CharField(max_length=2, choices=JenisSatuan.choices, null=True)
+    satuan = models.ForeignKey(Satuan, related_name="satuan_bahan",on_delete=models.SET_NULL, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
