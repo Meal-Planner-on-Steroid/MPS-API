@@ -1,0 +1,191 @@
+{% extends "base/admin_base.html" %} {% block title %} User {% endblock %}
+{%block head %} {% endblock %} {% block content %}
+
+<button
+	type="button"
+	onclick="history.back()"
+	class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center inline-flex items-center mr-2"
+>
+	<span
+		class="iconify mr-2 -ml-1 w-4 h-4"
+		data-icon="material-symbols:arrow-back"
+	></span>
+
+	Kembali
+</button>
+
+{% comment %} Profile pengguna {% endcomment %}
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">Profil Pengguna</h2>
+
+	<form action="#" method="POST">
+		<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-2">
+			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+				<tbody>
+					<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+						<th
+							scope="row"
+							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+						>
+							Nama
+						</th>
+						<td class="py-4 px-6">
+							<input
+								type="text"
+								id="nama"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+								placeholder="Korg stone"
+								required=""
+								value="Korg Stone"
+							/>
+						</td>
+					</tr>
+					<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+						<th
+							scope="row"
+							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+						>
+							Email
+						</th>
+						<td class="py-4 px-6">
+							<input
+								type="email"
+								id="email"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+								placeholder="korg@gmail.com"
+								required=""
+								value="korg@gmail.com"
+							/>
+						</td>
+					</tr>
+					<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+						<th
+							scope="row"
+							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+						>
+							username
+						</th>
+						<td class="py-4 px-6">
+							<input
+								type="text"
+								id="username"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+								placeholder="Korgstone"
+								required=""
+								value="Korgstone"
+							/>
+						</td>
+					</tr>
+					<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+						<th
+							scope="row"
+							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+						>
+							is admin
+						</th>
+						<td class="py-4 px-6">
+							<div class="flex items-start">
+								<div class="flex items-center h-5">
+									<input
+										id="remember"
+										type="checkbox"
+										value=""
+										class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300"
+										required
+									/>
+								</div>
+								<label
+									for="remember"
+									class="ml-2 text-sm font-medium text-gray-900"
+									>Admin</label
+								>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<button
+			type="submit"
+			class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center inline-flex items-center mr-2"
+		>
+			<span
+				class="iconify mr-2 -ml-1 w-4 h-4"
+				data-icon="material-symbols:save-outline"
+			></span>
+
+			Simpan Perubahan
+		</button>
+	</form>
+</div>
+
+{% comment %} List riwayat rekomendasi menu {% endcomment %}
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Riwayat generate rekomendasi menu
+	</h2>
+
+	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+			<thead
+				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+			>
+				<tr>
+					<th scope="col" class="py-3 px-6">Date & Time</th>
+					<th scope="col" class="py-3 px-6">Menu</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in '12345'|make_list %}
+
+				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						<a href="{% url 'user_detail_menu' %}"> Apr 23 ,2021 </a>
+					</th>
+					<td class="py-4 px-6 flex gap-x-2">
+						<button
+							type="button"
+							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+							onclick="return confirm('Ingin menghapus pengguna ini?');"
+						>
+							<span
+								class="iconify mr-2 -ml-1 w-4 h-4"
+								data-icon="material-symbols:delete-outline-sharp"
+							></span>
+							Delete
+						</button>
+					</td>
+				</tr>
+				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						<a href="{% url 'user_detail_menu' %}"> Apr 24 ,2021 </a>
+					</th>
+					<td class="py-4 px-6 flex gap-x-2">
+						<button
+							type="button"
+							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+							onclick="return confirm('Ingin menghapus pengguna ini?');"
+						>
+							<span
+								class="iconify mr-2 -ml-1 w-4 h-4"
+								data-icon="material-symbols:delete-outline-sharp"
+							></span>
+							Delete
+						</button>
+					</td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% endblock %} {% block body %}{% endblock %}

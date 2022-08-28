@@ -8,7 +8,8 @@
 
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'js/flowbite.css' %}">
+    <script src="{% static 'js/flowbite.js' %}"></script>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
 
     {% block head %}{% endblock %}
 </head>
@@ -22,9 +23,14 @@
 
             <div id="content" class="p-4 pb-14 max-h-screen w-full overflow-y-auto">
                 {% block content %}{% endblock %}
+                
+                {% include 'base/components/footer.html' %}
             </div>
+            
         </div>
     </div>
+
+
 
     {% block body %}{% endblock %}
 
