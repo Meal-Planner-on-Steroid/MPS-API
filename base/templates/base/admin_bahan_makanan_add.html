@@ -1,0 +1,396 @@
+{% extends "base/admin_base.html" %} {% block title %} User - Add {% endblock %}
+{%block head %}
+
+{% comment %} filepondcss {% endcomment %}
+<link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
+<link
+	href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+	rel="stylesheet"
+/>
+
+{% endblock %} {% block content %}
+
+<button
+	type="button"
+	onclick="history.back()"
+	class="mb-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center inline-flex items-center mr-2"
+>
+	<span
+		class="iconify mr-2 -ml-1 w-4 h-4"
+		data-icon="material-symbols:arrow-back"
+	></span>
+
+	Kembali
+</button>
+
+{% comment %} Keterangan umum makanan {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-4">Bahan Makanan</h2>
+
+	<div class="mb-2">
+		<label for="nama" class="block mb-2 text-sm font-medium text-gray-900"
+			>Nama</label
+		>
+		<input
+			type="text"
+			id="nama"
+			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			placeholder="Swedish Fish"
+			required=""
+		/>
+	</div>
+	<div class="mb-2">
+		<label for="porsi" class="block mb-2 text-sm font-medium text-gray-900"
+			>Porsi</label
+		>
+		<div class="flex gap-x-2">
+			<input
+				type="text"
+				id="porsi"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="1"
+				required=""
+			/>
+
+			<select
+				id="countries"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			>
+				<option selected="">---</option>
+				<option value="1">Serving</option>
+				<option value="2">g</option>
+				<option value="3">package</option>
+			</select>
+		</div>
+	</div>
+	<div class="mb-2">
+		<label
+			for="berat_porsi"
+			class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+			>Berat porsi</label
+		>
+		<div class="flex">
+			<input
+				type="text"
+				id="berat_porsi"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="100"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				gram
+			</span>
+		</div>
+	</div>
+	<div class="mb-2">
+		<label for="kelompok" class="block mb-2 text-sm font-medium text-gray-900"
+			>Kelompok</label
+		>
+		<input
+			type="text"
+			id="kelompok"
+			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			placeholder="1"
+			required=""
+		/>
+		<p class="mt-2 text-sm text-red-600 dark:text-red-500">
+			<span class="font-medium">*Optional</span>
+		</p>
+	</div>
+	<div class="mb-2">
+		<label for="sumber" class="block mb-2 text-sm font-medium text-gray-900"
+			>Sumber</label
+		>
+		<input
+			type="text"
+			id="sumber"
+			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			placeholder="Penelitian sendiri"
+			required=""
+		/>
+		<p class="mt-2 text-sm text-red-600 dark:text-red-500">
+			<span class="font-medium">*Optional</span>
+		</p>
+	</div>
+	
+</div>
+
+{% comment %} Kandungan gizi makanan {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-4">Kandungan Gizi</h2>
+
+	<div class="mb-2">
+		<label
+			for="energi"
+			class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+			>Kandungan Energi</label
+		>
+		<div class="flex">
+			<input
+				type="text"
+				id="energi"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="100"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				kcal
+			</span>
+		</div>
+	</div>
+
+	<div class="mb-2">
+		<label
+			for="protein"
+			class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+			>Protein</label
+		>
+		<div class="flex">
+			<input
+				type="text"
+				id="protein"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="100"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				gram
+			</span>
+		</div>
+	</div>
+
+	<div class="mb-2">
+		<label
+			for="karbohidrat"
+			class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+			>Karbohidrat</label
+		>
+		<div class="flex">
+			<input
+				type="text"
+				id="karbohidrat"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="100"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				gram
+			</span>
+		</div>
+	</div>
+
+	<div class="mb-2">
+		<label
+			for="lemak"
+			class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+			>Lemak</label
+		>
+		<div class="flex">
+			<input
+				type="text"
+				id="lemak"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="100"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				gram
+			</span>
+		</div>
+	</div>
+</div>
+
+{% comment %} Makanan yang terkait search dan add form {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<div class="flex gap-x-2">
+		<label
+			for="terkait"
+			class="block text-sm font-medium text-gray-900 dark:text-gray-300 self-center"
+			>Menu/Camilan terkait :
+		</label>
+		<input
+			type="text"
+			id="terkait"
+			list="menudancamilan"
+			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			placeholder="Kopi panas"
+			required
+		/>
+		<button
+			type="submit"
+			class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center inline-flex items-center mr-2"
+		>
+			<span
+				class="iconify mr-2 -ml-1 w-4 h-4"
+				data-icon="material-symbols:add"
+			></span>
+			Tambah
+		</button>
+	</div>
+
+	<datalist id="menudancamilan">
+		<option value="Internet Explorer"></option>
+		<option value="Firefox"></option>
+		<option value="Google Chrome"></option>
+		<option value="Opera"></option>
+		<option value="Safari"></option>
+	</datalist>
+</div>
+
+{% comment %} Makanan yang terkait: list yang telah ditambahkan {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">Menu/Camilan terkait</h2>
+
+	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+			<thead
+				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+			>
+				<tr>
+					<th scope="col" class="py-3 px-6">Nama</th>
+					<th scope="col" class="py-3 px-6">Energi</th>
+					<th scope="col" class="py-3 px-6">Protein</th>
+					<th scope="col" class="py-3 px-6">Lemak</th>
+					<th scope="col" class="py-3 px-6">Karbohidrat</th>
+					<th scope="col" class="py-3 px-6">Porsi</th>
+					<th scope="col" class="py-3 px-6">Menu</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in '12'|make_list %}
+
+				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						<a href="{% url 'user_detail_menu' %}"> Nama makanan </a>
+					</th>
+					<td class="py-4 px-6">xxxx kcal</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">porsi</td>
+					<td class="py-4 px-6 flex gap-x-2">
+						<button
+							type="button"
+							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+						>
+							<span
+								class="iconify mr-2 -ml-1 w-4 h-4"
+								data-icon="material-symbols:delete-outline-sharp"
+							></span>
+							Delete
+						</button>
+					</td>
+				</tr>
+				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						<a href="{% url 'user_detail_menu' %}"> Nama makanan </a>
+					</th>
+					<td class="py-4 px-6">xxxx kcal</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">porsi</td>
+
+					<td class="py-4 px-6 flex gap-x-2">
+						<button
+							type="button"
+							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+						>
+							<span
+								class="iconify mr-2 -ml-1 w-4 h-4"
+								data-icon="material-symbols:delete-outline-sharp"
+							></span>
+							Delete
+						</button>
+					</td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% comment %} Foto makanan {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">Foto Bahan Makanan</h2>
+
+	{% comment %} input file {% endcomment %}
+
+	<input type="file" name="" id="" />
+
+	{% comment %} delete file ketike edit {% endcomment %}
+	<div class="grid grid-cols-3 gap-4">
+		{% for x in '1234'|make_list %}
+
+		<div class="relative">
+			<button
+				class="absolute p-2 bg-red-600 text-white rounded-tr-lg right-0 top-0"
+			>
+				<span
+					class="iconify w-4 h-4"
+					data-icon="material-symbols:delete-outline-sharp"
+				></span>
+			</button>
+			<img
+				class="h-auto rounded-lg"
+				{% load static %}
+				src="{% static 'public/images/image-none.jpg' %}"
+				alt=""
+			/>
+		</div>
+
+		{% endfor %}
+	</div>
+</div>
+
+<button
+	type="button"
+	class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-base px-6 py-3.5 inline-flex items-center mr-2 mb-4 w-full justify-center"
+>
+	<span
+		class="iconify mr-2 -ml-1 w-4 h-4"
+		data-icon="material-symbols:add"
+	></span>
+	Tambah Bahan Makanan
+</button>
+
+{% endblock %} {% block body %}
+
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		FilePond.registerPlugin(FilePondPluginImagePreview);
+
+		// Get a reference to the file input element
+		const inputElement = document.querySelector('input[type="file"]');
+
+		// Create a FilePond instance
+		const pond = FilePond.create(inputElement);
+	});
+</script>
+
+{% endblock %}
