@@ -1,7 +1,8 @@
-{% extends "base/admin_base.html" %} {% block title %} User {% endblock %}
+{% extends "base/admin_base.html" %} {% block title %} Menu Makanan {% endblock %}
 {%block head %} {% endblock %} {% block content %}
+
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 w-full mb-4">
-	{% comment %} Form cari & Tombol tambah pengguna {% endcomment %}
+	{% comment %} Form cari & Tombol tambah makanan {% endcomment %}
 	<div class="flex gap-x-2 w-full justify-start mb-4">
 		<form action="#" method="GET" class="flex gap-x-2">
 			<div class="relative">
@@ -17,7 +18,7 @@
 					type="text"
 					id="input-group-1"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5"
-					placeholder="Cari pengguna..."
+					placeholder="Cari makanan..."
 				/>
 			</div>
 			<button
@@ -29,49 +30,56 @@
 		</form>
 
 		<a
-			href="{% url 'user_add' %}"
+			href="{% url 'menu_makanan_add' %}"
 			class="ml-auto text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2"
 		>
 			<span
 				class="iconify mr-2 -ml-1 w-4 h-4"
 				data-icon="material-symbols:add"
 			></span>
-			Tambah Pengguna
+			Tambah menu makanan
 		</a>
 	</div>
 
-	{% comment %} Tabel view data pengguna {% endcomment %}
+	{% comment %} Tabel view data makanan {% endcomment %}
 	<div class="">
-		<h2 class="text-xl font-bold dark:text-white mb-2">Pengguna</h2>
+		<h2 class="text-xl font-bold dark:text-white mb-2">Menu Makanan</h2>
 
-		<div class="overflow-x-auto relative">
+		<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 				<thead
 					class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
 				>
 					<tr>
-						<th scope="col" class="py-3 px-6">No.</th>
 						<th scope="col" class="py-3 px-6">Nama</th>
-						<th scope="col" class="py-3 px-6">Email</th>
-						<th scope="col" class="py-3 px-6">Aksi</th>
+						<th scope="col" class="py-3 px-6">Energi</th>
+						<th scope="col" class="py-3 px-6">Protein</th>
+						<th scope="col" class="py-3 px-6">Lemak</th>
+						<th scope="col" class="py-3 px-6">Karbohidrat</th>
+						<th scope="col" class="py-3 px-6">Porsi</th>
+						<th scope="col" class="py-3 px-6">Menu</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for x in '1234567890'|make_list %}
-					<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
-						<td class="py-4 px-6">{{ forloop.counter }}</td>
+					{% for x in '12345'|make_list %}
+
+					<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 						<th
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 						>
-							<a href="{% url 'user_detail' %}"> Korg </a>
+							<a href="{% url 'menu_makanan_detail' %}"> Nama makanan </a>
 						</th>
-						<td class="py-4 px-6">korg@gmail.com</td>
+						<td class="py-4 px-6">xxxx kcal</td>
+						<td class="py-4 px-6">xx g</td>
+						<td class="py-4 px-6">xx g</td>
+						<td class="py-4 px-6">xx g</td>
+						<td class="py-4 px-6">porsi</td>
 						<td class="py-4 px-6 flex gap-x-2">
 							<button
 								type="button"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-								onclick="return confirm('Ingin menghapus pengguna ini?');"
+								onclick="return confirm('Ingin menghapus menu makanan ini?');"
 							>
 								<span
 									class="iconify mr-2 -ml-1 w-4 h-4"
@@ -82,7 +90,7 @@
 							<button
 								type="button"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
-								onclick="return confirm('Ingin memperbarui data pengguna ini?');"
+								onclick="return confirm('Ingin memperbarui data menu makanan ini?');"
 							>
 								<span
 									class="iconify mr-2 -ml-1 w-4 h-4"
@@ -92,6 +100,45 @@
 							</button>
 						</td>
 					</tr>
+					<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+						<th
+							scope="row"
+							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+						>
+							<a href="{% url 'menu_makanan_detail' %}"> Nama makanan </a>
+						</th>
+						<td class="py-4 px-6">xxxx kcal</td>
+						<td class="py-4 px-6">xx g</td>
+						<td class="py-4 px-6">xx g</td>
+						<td class="py-4 px-6">xx g</td>
+						<td class="py-4 px-6">porsi</td>
+
+						<td class="py-4 px-6 flex gap-x-2">
+							<button
+								type="button"
+								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+								onclick="return confirm('Ingin menghapus menu makanan ini?');"
+							>
+								<span
+									class="iconify mr-2 -ml-1 w-4 h-4"
+									data-icon="material-symbols:delete-outline-sharp"
+								></span>
+								Delete
+							</button>
+							<button
+								type="button"
+								class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
+								onclick="return confirm('Ingin memperbarui data menu makanan ini?');"
+							>
+								<span
+									class="iconify mr-2 -ml-1 w-4 h-4"
+									data-icon="material-symbols:edit"
+								></span>
+								Update
+							</button>
+						</td>
+					</tr>
+
 					{% endfor %}
 				</tbody>
 			</table>
