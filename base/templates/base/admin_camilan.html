@@ -1,4 +1,4 @@
-{% extends "base/admin_base.html" %} {% block title %} Bahan Makanan {% endblock %}
+{% extends "base/admin_base.html" %} {% block title %} Camilan {% endblock %}
 {%block head %} {% endblock %} {% block content %}
 
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 w-full mb-4">
@@ -30,20 +30,20 @@
 		</form>
 
 		<a
-			href="{% url 'bahan_makanan_add' %}"
+			href="{% url 'camilan_add' %}"
 			class="ml-auto text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2"
 		>
 			<span
 				class="iconify mr-2 -ml-1 w-4 h-4"
 				data-icon="material-symbols:add"
 			></span>
-			Tambah bahan makanan
+			Tambah camilan
 		</a>
 	</div>
 
 	{% comment %} Tabel view data makanan {% endcomment %}
 	<div class="">
-		<h2 class="text-xl font-bold dark:text-white mb-2">Bahan Makanan</h2>
+		<h2 class="text-xl font-bold dark:text-white mb-2">Camilan</h2>
 
 		<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -68,7 +68,7 @@
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 						>
-							<a href="{% url 'bahan_makanan_detail' %}"> Bahan makanan </a>
+							<a href="{% url 'camilan_detail' %}"> Camilan </a>
 						</th>
 						<td class="py-4 px-6">xxxx kcal</td>
 						<td class="py-4 px-6">xx g</td>
@@ -79,7 +79,7 @@
 							<button
 								type="button"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-								onclick="return confirm('Ingin menghapus bahan makanan ini?');"
+								onclick="return confirm('Ingin menghapus camilan ini?');"
 							>
 								<span
 									class="iconify mr-2 -ml-1 w-4 h-4"
@@ -90,7 +90,7 @@
 							<button
 								type="button"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
-								onclick="return confirm('Ingin memperbarui data bahan makanan ini?');"
+								onclick="return confirm('Ingin memperbarui data camilan ini?');"
 							>
 								<span
 									class="iconify mr-2 -ml-1 w-4 h-4"
@@ -105,7 +105,7 @@
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 						>
-							<a href="{% url 'bahan_makanan_detail' %}"> Bahan makanan </a>
+							<a href="{% url 'camilan_detail' %}"> Camilan </a>
 						</th>
 						<td class="py-4 px-6">xxxx kcal</td>
 						<td class="py-4 px-6">xx g</td>
@@ -117,7 +117,7 @@
 							<button
 								type="button"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-								onclick="return confirm('Ingin menghapus bahan makanan ini?');"
+								onclick="return confirm('Ingin menghapus camilan ini?');"
 							>
 								<span
 									class="iconify mr-2 -ml-1 w-4 h-4"
@@ -128,7 +128,7 @@
 							<button
 								type="button"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
-								onclick="return confirm('Ingin memperbarui data bahan makanan ini?');"
+								onclick="return confirm('Ingin memperbarui data camilan ini?');"
 							>
 								<span
 									class="iconify mr-2 -ml-1 w-4 h-4"

@@ -1,4 +1,4 @@
-{% extends "base/admin_base.html" %} {% block title %} Menu Makanan - Add {% endblock %}
+{% extends "base/admin_base.html" %} {% block title %} Camilan - Add {% endblock %}
 {%block head %} {% comment %} filepondcss {% endcomment %}
 <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 <link
@@ -24,7 +24,7 @@
 {% comment %} Keterangan umum makanan {% endcomment %}
 
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
-	<h2 class="text-xl font-bold dark:text-white mb-4">Menu Makanan</h2>
+	<h2 class="text-xl font-bold dark:text-white mb-4">Camilan</h2>
 
 	<div class="mb-2">
 		<label for="nama" class="block mb-2 text-sm font-medium text-gray-900"
@@ -302,7 +302,7 @@
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'bahan_makanan_detail' %}"> Nama makanan </a>
+						<a href="{% url 'bahan_makanan_detail' %}"> Bahan Makanan </a>
 					</th>
 					<td class="py-4 px-6">xxxx kcal</td>
 					<td class="py-4 px-6">xx g</td>
@@ -327,7 +327,7 @@
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'bahan_makanan_detail' %}"> Nama makanan </a>
+						<a href="{% url 'bahan_makanan_detail' %}"> Bahan Makanan </a>
 					</th>
 					<td class="py-4 px-6">xxxx kcal</td>
 					<td class="py-4 px-6">xx g</td>
@@ -358,7 +358,7 @@
 {% comment %} Foto makanan {% endcomment %}
 
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
-	<h2 class="text-xl font-bold dark:text-white mb-2">Foto Menu Makanan</h2>
+	<h2 class="text-xl font-bold dark:text-white mb-2">Foto Camilan</h2>
 
 	{% comment %} input file {% endcomment %}
 

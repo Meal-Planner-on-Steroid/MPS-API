@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import overview_view, user_view, bahan_makanan_view, menu_makanan_view
+from .views import overview_view, user_view, bahan_makanan_view, menu_makanan_view, camilan_view
 
 urlpatterns = [
     path("", overview_view.index, name="admin_index"),
@@ -19,5 +19,11 @@ urlpatterns = [
     path("/menu-makanan/add", menu_makanan_view.add, name="menu_makanan_add"),
     path(
         "/menu-makanan/detail", menu_makanan_view.detail, name="menu_makanan_detail"
+    ),
+    
+    path("/camilan", camilan_view.index, name="camilan_index"),
+    path("/camilan/add", camilan_view.add, name="camilan_add"),
+    path(
+        "/camilan/detail", camilan_view.detail, name="camilan_detail"
     ),
 ]
