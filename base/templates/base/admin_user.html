@@ -1,6 +1,6 @@
 {% extends "base/admin_base.html" %} {% block title %} User {% endblock %}
 {%block head %} {% endblock %} {% block content %}
-
+{{ request.path }}
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 w-full mb-4">
 	{% comment %} Form cari & Tombol tambah pengguna {% endcomment %}
 	<div class="flex gap-x-2 w-full justify-start mb-4">

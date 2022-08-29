@@ -6,28 +6,22 @@
 			<li>
 				<a
 					href="{% url 'admin_index' %}"
-					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group"
+					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group {% if request.path == '/admin-panel' %} text-purple-800 bg-gray-100 {% endif %}"
 				>
-					<svg
-						aria-hidden="true"
-						class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800"
-						fill="currentColor"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-						<path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-					</svg>
+					<span
+						class="iconify w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800 {% if request.path == '/admin-panel' %} text-purple-800 {% endif %}"
+						data-icon="dashicons:chart-pie"
+					></span>
 					<span class="ml-3">Dashboard</span>
 				</a>
 			</li>
 			<li>
 				<a
 					href="{% url 'user_index' %}"
-					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group"
+					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group {% if 'user' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 				>
 					<span
-						class="iconify w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800"
+						class="iconify w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800 {% if 'user' in request.path %} text-purple-800 {% endif %}"
 						data-icon="mdi:account-multiple"
 					></span>
 
@@ -37,12 +31,12 @@
 			<li>
 				<button
 					type="button"
-					class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+					class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 {% if 'makanan' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 					aria-controls="dropdown-example"
 					data-collapse-toggle="dropdown-example"
 				>
 					<span
-						class="iconify flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800 group"
+						class="iconify flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800 group {% if 'makanan' in request.path %} text-purple-800 {% endif %}"
 						data-icon="mdi:food"
 					></span>
 
@@ -58,21 +52,21 @@
 					<li>
 						<a
 							href="{% url 'bahan_makanan_index' %}"
-							class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 {% if 'bahan-makanan' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 							>Bahan Makanan</a
 						>
 					</li>
 					<li>
 						<a
 							href="#"
-							class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 {% if 'menu' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 							>Menu Makanan</a
 						>
 					</li>
 					<li>
 						<a
 							href="#"
-							class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 {% if 'camilan' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 							>Camilan</a
 						>
 					</li>
@@ -81,10 +75,10 @@
 			<li>
 				<a
 					href="#"
-					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group"
+					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group {% if 'generate-menu' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 				>
 					<span
-						class="iconify w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800"
+						class="iconify w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800 {% if 'generate-menu' in request.path %} text-purple-800 {% endif %}"
 						data-icon="mdi:blender"
 					></span>
 					<span class="ml-3">Generate Menu Diet</span>
@@ -93,10 +87,10 @@
 			<li>
 				<a
 					href="#"
-					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group"
+					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group {% if 'tingkat-aktivitas' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 				>
 					<span
-						class="iconify w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800"
+						class="iconify w-6 h-6 text-gray-500 transition duration-75 group-hover:text-purple-800 {% if 'tingkat-aktivitas' in request.path %} text-purple-800 {% endif %}"
 						data-icon="mdi:weight-lifter"
 					></span>
 					<span class="ml-3">Tingkat Aktivitas</span>
