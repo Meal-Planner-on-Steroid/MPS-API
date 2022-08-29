@@ -1068,6 +1068,10 @@ input[type="range"]::-ms-fill-lower {
   margin-left: 0.75rem;
 }
 
+.-mr-1 {
+  margin-right: -0.25rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }

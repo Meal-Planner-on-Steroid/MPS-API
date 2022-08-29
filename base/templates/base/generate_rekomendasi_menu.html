@@ -1,0 +1,254 @@
+{% extends "base/admin_base.html" %} {% block title %} Generate Menu Diet {% endblock %}
+{%block head %}
+
+{% endblock %} {% block content %}
+
+{% comment %} Keterangan umum makanan {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-4">Data Personal</h2>
+
+	<div class="mb-2">
+		<label for="berat_badan" class="block mb-2 text-sm font-medium text-gray-900"
+			>Berat badan</label
+		>
+		<div class="flex">
+			<input
+				type="number"
+				id="berat_badan"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="60"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				kg
+			</span>
+		</div>
+	</div>
+		<div class="mb-2">
+		<label for="tinggi_badan" class="block mb-2 text-sm font-medium text-gray-900"
+			>Tinggi badan</label
+		>
+		<div class="flex">
+			<input
+				type="number"
+				id="tinggi_badan"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="60"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				cm
+			</span>
+		</div>
+	</div>
+		<div class="mb-2">
+		<label for="usia" class="block mb-2 text-sm font-medium text-gray-900"
+			>Usia</label
+		>
+		<div class="flex">
+			<input
+				type="number"
+				id="usia"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+				placeholder="60"
+				required=""
+			/>
+			<span
+				class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+			>
+				tahun
+			</span>
+		</div>
+	</div>
+	<div class="mb-2">
+		<label for="gender" class="block mb-2 text-sm font-medium text-gray-900"
+			>Gender</label
+		>
+		<div class="">
+			<select
+				id="gender"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			>
+				<option selected="">---</option>
+				<option value="PA">Perempuan</option>
+				<option value="LA">Laki-laki</option>
+			</select>
+		</div>
+	</div>
+	<div class="mb-2">
+		<label for="tingkat_aktivitas" class="block mb-2 text-sm font-medium text-gray-900"
+			>Tingkat Aktivitas</label
+		>
+		<div class="">
+			<select
+				id="tingkat_aktivitas"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			>
+				<option selected="">---</option>
+				<option value="PA">Ringan</option>
+				<option value="LA">Sangat Berat</option>
+			</select>
+		</div>
+	</div>
+	
+</div>
+
+{% comment %} Makanan yang terkait search dan add form {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<div class="flex gap-x-2">
+		<label
+			for="terkait"
+			class="block text-sm font-medium text-gray-900 dark:text-gray-300 self-center"
+			>Bahan Makanan terkait :
+		</label>
+		<input
+			type="text"
+			id="terkait"
+			list="menudancamilan"
+			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			placeholder="Biji kopi"
+			required
+		/>
+		<button
+			type="submit"
+			class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-auto px-5 py-2.5 text-center inline-flex items-center mr-2"
+		>
+			<span
+				class="iconify mr-2 -ml-1 w-4 h-4"
+				data-icon="material-symbols:add"
+			></span>
+			Tambah
+		</button>
+	</div>
+
+	<datalist id="menudancamilan">
+		<option value="Internet Explorer"></option>
+		<option value="Firefox"></option>
+		<option value="Google Chrome"></option>
+		<option value="Opera"></option>
+		<option value="Safari"></option>
+	</datalist>
+</div>
+
+{% comment %} Makanan yang terkait: list yang telah ditambahkan {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">Bahan Makanan terkait</h2>
+
+	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+			<thead
+				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+			>
+				<tr>
+					<th scope="col" class="py-3 px-6">Nama</th>
+					<th scope="col" class="py-3 px-6">Energi</th>
+					<th scope="col" class="py-3 px-6">Protein</th>
+					<th scope="col" class="py-3 px-6">Lemak</th>
+					<th scope="col" class="py-3 px-6">Karbohidrat</th>
+					<th scope="col" class="py-3 px-6">Porsi</th>
+					<th scope="col" class="py-3 px-6">Menu</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in '12'|make_list %}
+
+				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						<a href="{% url 'user_detail_menu' %}"> Bahan makanan </a>
+					</th>
+					<td class="py-4 px-6">xxxx kcal</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">porsi</td>
+					<td class="py-4 px-6 flex gap-x-2">
+						<button
+							type="button"
+							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+						>
+							<span
+								class="iconify mr-2 -ml-1 w-4 h-4"
+								data-icon="material-symbols:delete-outline-sharp"
+							></span>
+							Delete
+						</button>
+					</td>
+				</tr>
+				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						<a href="{% url 'user_detail_menu' %}"> Bahan makanan </a>
+					</th>
+					<td class="py-4 px-6">xxxx kcal</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">porsi</td>
+
+					<td class="py-4 px-6 flex gap-x-2">
+						<button
+							type="button"
+							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+						>
+							<span
+								class="iconify mr-2 -ml-1 w-4 h-4"
+								data-icon="material-symbols:delete-outline-sharp"
+							></span>
+							Delete
+						</button>
+					</td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{% comment %} Kandungan gizi makanan {% endcomment %}
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-4">Goal</h2>
+
+	<div class="mb-2">
+		<div class="">
+			<select
+				id="goal"
+				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+			>
+				<option value="" selected>Otomatis</option>
+				<option value="">Turun Berat Badan</option>
+				<option value="">Jaga Berat Badan</option>
+				<option value="">Naik Berat Badan</option>
+			</select>
+		</div>
+		<p class="mt-2 text-sm text-red-600 dark:text-red-500">
+			<span class="font-medium">*Optional</span>
+		</p>
+	</div>
+</div>
+
+<button
+	type="button"
+	class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-base px-6 py-3.5 inline-flex items-center mr-2 mb-4 w-full justify-center"
+>
+
+	Buat Rekomendasi Menu Makanan
+	<span class="iconify ml-2 -mr-1 w-4 h-4" data-icon="material-symbols:start"></span>
+</button>
+
+{% endblock %} {% block body %}
+
+{% endblock %}
