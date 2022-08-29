@@ -6,6 +6,7 @@ from .views import (
     menu_makanan_view,
     camilan_view,
     generate_rekomendasi_menu_view,
+    tingkat_aktivitas_view
 )
 
 urlpatterns = [
@@ -33,4 +34,6 @@ urlpatterns = [
     # Generate menu
     path("/generate-menu", generate_rekomendasi_menu_view.index, name="generate_menu_index"),
     path("/generate-menu-hasil", generate_rekomendasi_menu_view.hasil, name="generate_menu_index"),
+    # Tingkat aktivitas
+    path("/tingkat-aktivitas", tingkat_aktivitas_view.index, name="tingkat_aktivitas_index"),
 ]
