@@ -6,12 +6,17 @@ from .views import (
     menu_makanan_view,
     camilan_view,
     generate_rekomendasi_menu_view,
-    tingkat_aktivitas_view
+    tingkat_aktivitas_view,
+    auth_view,
 )
 
 urlpatterns = [
     # index
     path("", overview_view.index, name="admin_index"),
+    # Auth
+    path("/login", auth_view.login, name="login"),
+    path("/lupa-password", auth_view.lupaPassword, name="lupa_password"),
+    path("/reset-password", auth_view.resetPassword, name="reset_password"),
     # User
     path("/user", user_view.index, name="user_index"),
     path("/user/add", user_view.add, name="user_add"),
@@ -32,8 +37,20 @@ urlpatterns = [
     path("/camilan/add", camilan_view.add, name="camilan_add"),
     path("/camilan/detail", camilan_view.detail, name="camilan_detail"),
     # Generate menu
-    path("/generate-menu", generate_rekomendasi_menu_view.index, name="generate_menu_index"),
-    path("/generate-menu-hasil", generate_rekomendasi_menu_view.hasil, name="generate_menu_index"),
+    path(
+        "/generate-menu",
+        generate_rekomendasi_menu_view.index,
+        name="generate_menu_index",
+    ),
+    path(
+        "/generate-menu-hasil",
+        generate_rekomendasi_menu_view.hasil,
+        name="generate_menu_index",
+    ),
     # Tingkat aktivitas
-    path("/tingkat-aktivitas", tingkat_aktivitas_view.index, name="tingkat_aktivitas_index"),
+    path(
+        "/tingkat-aktivitas",
+        tingkat_aktivitas_view.index,
+        name="tingkat_aktivitas_index",
+    ),
 ]
