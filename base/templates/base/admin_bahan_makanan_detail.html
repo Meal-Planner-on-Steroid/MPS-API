@@ -33,6 +33,7 @@
 		<input
 			type="text"
 			id="nama"
+			nama="nama"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="Swedish Fish"
 			required=""
@@ -47,6 +48,7 @@
 			<input
 				type="text"
 				id="porsi"
+				nama="porsi"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="1"
 				required=""
@@ -55,6 +57,7 @@
 
 			<select
 				id="countries"
+				nama="countries"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			>
 				<option selected="">---</option>
@@ -74,6 +77,7 @@
 			<input
 				type="text"
 				id="berat_porsi"
+				nama="berat_porsi"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -93,6 +97,7 @@
 		<input
 			type="text"
 			id="kelompok"
+			nama="kelompok"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="1"
 			required=""
@@ -107,6 +112,7 @@
 		<input
 			type="text"
 			id="sumber"
+			nama="sumber"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="Penelitian sendiri"
 			required=""
@@ -142,6 +148,7 @@
 			<input
 				type="text"
 				id="energi"
+				nama="energi"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -165,6 +172,7 @@
 			<input
 				type="text"
 				id="protein"
+				nama="protein"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -188,6 +196,7 @@
 			<input
 				type="text"
 				id="karbohidrat"
+				nama="karbohidrat"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -211,6 +220,7 @@
 			<input
 				type="text"
 				id="lemak"
+				nama="lemak"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -248,6 +258,7 @@
 		<input
 			type="text"
 			id="terkait"
+			nama="terkait"
 			list="menudancamilan"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="Kopi panas"
@@ -362,7 +373,7 @@
 
 	{% comment %} input file {% endcomment %}
 
-	<input type="file" name="" id="" />
+	<input type="file" name="file[]" id="file" />
 
 	{% comment %} delete file ketike edit {% endcomment %}
 	<div class="grid grid-cols-3 gap-4">

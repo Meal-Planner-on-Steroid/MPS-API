@@ -1,7 +1,5 @@
-{% extends "base/admin_base.html" %} {% block title %} Bahan Makanan - Add {% endblock %}
-{%block head %}
-
-{% comment %} filepondcss {% endcomment %}
+{% extends "base/admin_base.html" %} {% block title %} Bahan Makanan - Add {%endblock %} 
+{%block head %} {% comment %} filepondcss {% endcomment %}
 <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 <link
 	href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
@@ -35,6 +33,7 @@
 		<input
 			type="text"
 			id="nama"
+			nama="nama"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="Swedish Fish"
 			required=""
@@ -48,13 +47,15 @@
 			<input
 				type="text"
 				id="porsi"
+				nama="porsi"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="1"
 				required=""
 			/>
 
 			<select
-				id="countries"
+				id="satuan_porsi"
+				nama="satuan_porsi"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			>
 				<option selected="">---</option>
@@ -74,6 +75,7 @@
 			<input
 				type="text"
 				id="berat_porsi"
+				nama="berat_porsi"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -92,9 +94,9 @@
 		<input
 			type="text"
 			id="kelompok"
+			nama="kelompok"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="1"
-			required=""
 		/>
 		<p class="mt-2 text-sm text-red-600 dark:text-red-500">
 			<span class="font-medium">*Optional</span>
@@ -107,15 +109,14 @@
 		<input
 			type="text"
 			id="sumber"
+			nama="sumber"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="Penelitian sendiri"
-			required=""
 		/>
 		<p class="mt-2 text-sm text-red-600 dark:text-red-500">
 			<span class="font-medium">*Optional</span>
 		</p>
 	</div>
-	
 </div>
 
 {% comment %} Kandungan gizi makanan {% endcomment %}
@@ -133,6 +134,7 @@
 			<input
 				type="text"
 				id="energi"
+				nama="energi"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -155,6 +157,7 @@
 			<input
 				type="text"
 				id="protein"
+				nama="protein"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -177,6 +180,7 @@
 			<input
 				type="text"
 				id="karbohidrat"
+				nama="karbohidrat"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -199,6 +203,7 @@
 			<input
 				type="text"
 				id="lemak"
+				nama="lemak"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="100"
 				required=""
@@ -224,6 +229,7 @@
 		<input
 			type="text"
 			id="terkait"
+			nama="terkait"
 			list="menudancamilan"
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			placeholder="Kopi panas"
@@ -338,7 +344,7 @@
 
 	{% comment %} input file {% endcomment %}
 
-	<input type="file" name="" id="" />
+	<input type="file" name="file[]" id="file" />
 
 	{% comment %} delete file ketike edit {% endcomment %}
 	<div class="grid grid-cols-3 gap-4">

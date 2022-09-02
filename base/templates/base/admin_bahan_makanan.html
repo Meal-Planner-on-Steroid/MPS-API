@@ -16,9 +16,10 @@
 				</div>
 				<input
 					type="text"
-					id="input-group-1"
+					id="cari"
+					name="cari"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5"
-					placeholder="Cari makanan..."
+					placeholder="Cari bahan makanan..."
 				/>
 			</div>
 			<button
@@ -48,7 +49,7 @@
 		<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 				<thead
-					class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+					class="text-xs text-gray-700 uppercase w-20 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
 				>
 					<tr>
 						<th scope="col" class="py-3 px-6">Nama</th>
@@ -70,10 +71,74 @@
 						>
 							<a href="{% url 'bahan_makanan_detail' %}"> Bahan makanan </a>
 						</th>
-						<td class="py-4 px-6">xxxx kcal</td>
-						<td class="py-4 px-6">xx g</td>
-						<td class="py-4 px-6">xx g</td>
-						<td class="py-4 px-6">xx g</td>
+						<td class="py-4 px-6">
+							<div class="flex">
+								<input
+									type="text"
+									id="energi"
+									name="energi"
+									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+									placeholder="1000"
+									required=""
+								/>
+								<span
+									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+								>
+									kcal
+								</span>
+							</div>
+						</td>
+						<td class="py-4 px-6">
+							<div class="flex">
+								<input
+									type="text"
+									id="protein"
+									name="protein"
+									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+									placeholder="100"
+									required=""
+								/>
+								<span
+									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+								>
+									gram
+								</span>
+							</div>
+						</td>
+						<td class="py-4 px-6">
+							<div class="flex">
+								<input
+									type="text"
+									id="lemak"
+									name="lemak"
+									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+									placeholder="100"
+									required=""
+								/>
+								<span
+									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+								>
+									gram
+								</span>
+							</div>
+						</td>
+						<td class="py-4 px-6">
+							<div class="flex">
+								<input
+									type="text"
+									id="karbohidrat"
+									name="karbohidrat"
+									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+									placeholder="100"
+									required=""
+								/>
+								<span
+									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+								>
+									gram
+								</span>
+							</div>
+						</td>
 						<td class="py-4 px-6">porsi</td>
 						<td class="py-4 px-6 flex gap-x-2">
 							<button
@@ -100,7 +165,7 @@
 							</button>
 						</td>
 					</tr>
-					<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+					<tr class="w-20 bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
 						<th
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
