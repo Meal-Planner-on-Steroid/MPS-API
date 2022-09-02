@@ -1,4 +1,4 @@
-{% extends "base/admin_base.html" %} {% block title %} User - detail{% endblock %}
+{% extends "base/admin_base.html" %} {% block title %} User - detail{% endblock%} 
 {%block head %} {% endblock %} {% block content %}
 
 <button
@@ -19,7 +19,7 @@
 	<h2 class="text-xl font-bold dark:text-white mb-2">Profil Pengguna</h2>
 
 	<form action="#" method="POST">
-		<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-2">
+		<div class="overflow-x-auto relative sm:rounded-lg mb-2">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 				<tbody>
 					<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -33,6 +33,7 @@
 							<input
 								type="text"
 								id="nama"
+								name="nama"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 								placeholder="Korg stone"
 								required=""
@@ -51,6 +52,7 @@
 							<input
 								type="email"
 								id="email"
+								name="email"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 								placeholder="korg@gmail.com"
 								required=""
@@ -69,6 +71,7 @@
 							<input
 								type="text"
 								id="username"
+								name="username"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 								placeholder="Korgstone"
 								required=""
@@ -88,10 +91,10 @@
 								<div class="flex items-center h-5">
 									<input
 										id="remember"
+										name="remember"
 										type="checkbox"
 										value=""
 										class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300"
-										required
 									/>
 								</div>
 								<label

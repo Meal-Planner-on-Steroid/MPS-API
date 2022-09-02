@@ -16,12 +16,13 @@
 				<input
 					type="text"
 					id="input-group-1"
+					name="cari"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5"
 					placeholder="Cari pengguna..."
 				/>
 			</div>
 			<button
-				type="button"
+				type="submit"
 				class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2"
 			>
 				🔎
@@ -58,7 +59,9 @@
 				</thead>
 				<tbody>
 					{% for x in '1234567890'|make_list %}
-					<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50">
+					<tr
+						class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
+					>
 						<td class="py-4 px-6">{{ forloop.counter }}</td>
 						<th
 							scope="row"
@@ -66,7 +69,17 @@
 						>
 							<a href="{% url 'user_detail' %}"> Korg </a>
 						</th>
-						<td class="py-4 px-6">korg@gmail.com</td>
+						<td class="py-4 px-6">
+							<input
+								type="email"
+								id="email"
+								name="email"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+								placeholder="12"
+								required=""
+								value="korg@gmail.com"
+							/>
+						</td>
 						<td class="py-4 px-6 flex gap-x-2">
 							<button
 								type="button"

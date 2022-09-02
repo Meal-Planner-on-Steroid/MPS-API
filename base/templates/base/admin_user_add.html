@@ -17,7 +17,7 @@
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-4">Tambah Pengguna</h2>
 
-	<form>
+	<form method="POST" action="#">
 		<div class="mb-6">
 			<label for="nama" class="block mb-2 text-sm font-medium text-gray-900"
 				>Nama</label
@@ -25,6 +25,7 @@
 			<input
 				type="text"
 				id="nama"
+				name="nama"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="Korg stone"
 				required=""
@@ -37,6 +38,7 @@
 			<input
 				type="email"
 				id="email"
+				name="email"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="korg@gmai.com"
 				required=""
@@ -49,6 +51,7 @@
 			<input
 				type="text"
 				id="username"
+				name="username"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="Korgstone"
 				required=""
@@ -61,6 +64,7 @@
 			<input
 				type="password"
 				id="password"
+				name="password"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				required=""
 			/>
@@ -68,14 +72,14 @@
 		<div class="flex items-start mb-6">
 			<div class="flex items-center h-5">
 				<input
-					id="remember"
+					id="is_admin"
+					name="is_admin"
 					type="checkbox"
 					value=""
 					class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300"
-					required
 				/>
 			</div>
-			<label for="remember" class="ml-2 text-sm font-medium text-gray-900"
+			<label for="is_admin" class="ml-2 text-sm font-medium text-gray-900"
 				>Admin</label
 			>
 		</div>
