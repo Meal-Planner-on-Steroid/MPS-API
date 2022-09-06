@@ -4,8 +4,8 @@ from base.models import User
 
 # Create your views here.
 def index(response):
-    
-    return render(response, "base/admin_user.html")
+    user = response.user
+    return render(response, "base/admin_user.html", {"user": user})
 
 def add(response):
     

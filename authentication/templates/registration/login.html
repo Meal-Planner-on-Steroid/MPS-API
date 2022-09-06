@@ -5,9 +5,12 @@
 >
 	Admin Log In
 </h1>
-<form class="space-y-4 md:space-y-6" action="#">
+<form class="space-y-4 md:space-y-6" action="#" method="POST">
 	{% csrf_token %}
 	<div>
+		<p>
+			{{ form.errors }}
+		</p>
 		<label
 			for="username"
 			class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -39,7 +42,7 @@
 	</div>
 	<div class="flex justify-end">
 		<a
-			href="{% url 'lupa_password' %}"
+			href="#"
 			class="text-sm font-medium text-purple-600 hover:underline dark:text-purple-500"
 			>Lupa password?</a
 		>
@@ -50,6 +53,5 @@
 	>
 		Log in
 	</button>
-	{{ form }}
 </form>
 {% endblock %}

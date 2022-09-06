@@ -6,10 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 def login(response):
-    if response.method == 'GET':
-        return render(response, "auth/auth_login.html")
-    if response.method == 'POST':
-        return render(response, "auth/auth_lupa_password.html")
+    return render(response, "auth/auth_login.html")
 
 
 # def register(response):
@@ -21,8 +18,7 @@ def login(response):
 #     else:
 #         form = UserCreationForm()
 
-#     return render(response, 'auth/auth_register.html', {"form": form}) 
-
+#     return render(response, 'auth/auth_register.html', {"form": form})
 
 
 def lupaPassword(response):

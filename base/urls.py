@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import (
     overview_view,
     user_view,
@@ -15,10 +15,11 @@ urlpatterns = [
     # index
     path("", overview_view.index, name="admin_index"),
     # Auth
-    path("login/", va.login, name="login"),
     # path("register/", va.register, name="register"),
-    path("lupa-password/", va.lupaPassword, name="lupa_password"),
-    path("reset-password/", va.resetPassword, name="reset_password"),
+    path('', include("django.contrib.auth.urls")),
+    # path("login/", va.login, name="login"),
+    # path("lupa-password/", va.lupaPassword, name="lupa_password"),
+    # path("reset-password/", va.resetPassword, name="reset_password"),
     # User
     path("user/", user_view.index, name="user_index"),
     path("user/add/", user_view.add, name="user_add"),
@@ -33,7 +34,8 @@ urlpatterns = [
     # Menu makananan
     path("menu-makanan/", menu_makanan_view.index, name="menu_makanan_index"),
     path("menu-makanan/add/", menu_makanan_view.add, name="menu_makanan_add"),
-    path("menu-makanan/detail/", menu_makanan_view.detail, name="menu_makanan_detail"),
+    path("menu-makanan/detail/", menu_makanan_view.detail,
+        name="menu_makanan_detail"),
     # Camilan
     path("camilan/", camilan_view.index, name="camilan_index"),
     path("camilan/add/", camilan_view.add, name="camilan_add"),
