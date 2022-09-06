@@ -4,6 +4,7 @@ from pyexpat import model
 from random import choices
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Gender(models.TextChoices):
@@ -30,21 +31,22 @@ class WaktuMakan(models.TextChoices):
     CAMILAN = 'CA', _('CAMILAN')
     
 class TingkatAktivitas(models.Model):
-    
+
     nama = models.CharField(max_length=100)
     gender = models.CharField(max_length=2, choices=Gender.choices, default=Gender.PEREMPUAN)
     nilai = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-class User(models.Model):
-        
+class UserProfile(models.Model):
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     avatar = models.CharField(max_length=100, null=True)
-    nama = models.CharField(max_length=100)
-    email = models.EmailField(max_length=50)
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=100)
-    is_admin = models.BooleanField(default=False)
+    # nama = models.CharField(max_length=100)
+    # email = models.EmailField(max_length=50)
+    # username = models.CharField(max_length=50)
+    # password = models.CharField(max_length=100)
+    # is_admin = models.BooleanField(default=False)
     tingkat_aktivitas = models.ForeignKey(TingkatAktivitas, related_name="tingkat_aktivitas",on_delete=models.SET_NULL, null=True)
     berat_badan = models.FloatField(null=True);
     tinggi_badan = models.FloatField(null=True);

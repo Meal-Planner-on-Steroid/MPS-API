@@ -5,4 +5,4 @@ class TingkatAktivitasSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = TingkatAktivitas
-        fields = ['name', 'nilai', 'gender']
+        fields = ['nama', 'nilai', 'gender']

@@ -19,8 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('admin-panel', include('base.urls')),
+    path('gogogaga/', admin.site.urls),
+    path('admin-panel/', include('base.urls')),
     path('api/', include('api.urls')),
 ]
 
