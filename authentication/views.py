@@ -12,16 +12,16 @@ def login(response):
         return render(response, "auth/auth_lupa_password.html")
 
 
-def register(response):
-    if response.method == 'POST':
-        form = UserCreationForm(response.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("login")
-    else:
-        form = UserCreationForm()
+# def register(response):
+#     if response.method == 'POST':
+#         form = UserCreationForm(response.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("login")
+#     else:
+#         form = UserCreationForm()
 
-    return render(response, 'auth/auth_register.html', {"form": form}) 
+#     return render(response, 'auth/auth_register.html', {"form": form}) 
 
 
 

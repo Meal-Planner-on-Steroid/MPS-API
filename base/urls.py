@@ -16,7 +16,7 @@ urlpatterns = [
     path("", overview_view.index, name="admin_index"),
     # Auth
     path("login/", va.login, name="login"),
-    path("register/", va.register, name="register"),
+    # path("register/", va.register, name="register"),
     path("lupa-password/", va.lupaPassword, name="lupa_password"),
     path("reset-password/", va.resetPassword, name="reset_password"),
     # User
