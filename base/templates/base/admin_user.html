@@ -3,7 +3,7 @@
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 w-full mb-4">
 	{% comment %} Form cari & Tombol tambah pengguna {% endcomment %}
 	<div class="flex gap-x-2 w-full justify-start mb-4">
-		<form action="#" method="GET" class="flex gap-x-2">
+		<form action="{% url 'user_index' %}" method="GET" class="flex gap-x-2">
 			<div class="relative">
 				<div
 					class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
@@ -19,6 +19,7 @@
 					name="cari"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5"
 					placeholder="Cari pengguna..."
+					value="{% if cari %}{{cari}}{% endif %}"
 				/>
 			</div>
 			<button
@@ -44,56 +45,80 @@
 	{% comment %} Tabel view data pengguna {% endcomment %}
 	<div class="">
 		<h2 class="text-xl font-bold dark:text-white mb-2">Pengguna</h2>
-
+		{% include 'base/components/messages.html' %}
+		
 		<div class="overflow-x-auto relative">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 				<thead
 					class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
 				>
 					<tr>
-						<th scope="col" class="py-3 px-6">No.</th>
-						<th scope="col" class="py-3 px-6">Nama</th>
+						<th scope="col" class="py-3 px-6">ID</th>
+						<th scope="col" class="py-3 px-6">Username</th>
 						<th scope="col" class="py-3 px-6">Email</th>
+						<th scope="col" class="py-3 px-6">is staf</th>
 						<th scope="col" class="py-3 px-6">Menu</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for x in '1234567890'|make_list %}
+					{% for end_user in page_obj %}
+					<form method="POST" id="form_in_table_{{ end_user.id }}" action="{% url 'user_index' %}">
+						<input type="hidden" value="{{ end_user.id }}" name="id">
+						{% csrf_token %}
+					</form>
 					<tr
 						class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50"
 					>
-						<td class="py-4 px-6">{{ forloop.counter }}</td>
+						<td class="py-4 px-6">{{ end_user.id }}</td>
 						<th
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 						>
-							<a href="{% url 'user_detail' %}"> Korg </a>
+							<a href="{% url 'user_detail' end_user.id %}"> {{ end_user.username }} </a>
 						</th>
 						<td class="py-4 px-6">
 							<input
+								form="form_in_table_{{ end_user.id }}"
 								type="email"
 								id="email"
 								name="email"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-								placeholder="12"
+								placeholder=""
 								required=""
-								value="korg@gmail.com"
+								value="{{ end_user.email }}"
 							/>
 						</td>
-						<td class="py-4 px-6 flex gap-x-2">
-							<button
-								type="button"
-								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-								onclick="return confirm('Ingin menghapus pengguna ini?');"
+						<td class="py-4 px-6">
+							<select
+								form="form_in_table_{{ end_user.id }}"
+								id="is_staff"
+								name="is_staff"
+								autocomplete="off"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 							>
-								<span
-									class="iconify mr-2 -ml-1 w-4 h-4"
-									data-icon="material-symbols:delete-outline-sharp"
-								></span>
-								Delete
-							</button>
+								<option value="True" {% if end_user.is_staff == 1%} selected {% endif %}>Yes</option>
+								<option value="False" {% if end_user.is_staff == 0%} selected {% endif %}>No</option>
+							</select>
+						</td>
+						
+						<td class="py-4 px-6 flex gap-x-2">
+							<form action={% url 'user_delete' end_user.id %} method="POST">	
+								{% csrf_token %}						
+								<button
+									type="submit"
+									class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+									onclick="return confirm('Ingin menghapus pengguna ini?');"
+								>
+									<span
+										class="iconify mr-2 -ml-1 w-4 h-4"
+										data-icon="material-symbols:delete-outline-sharp"
+									></span>
+									Delete
+								</button>
+							</form>
 							<button
-								type="button"
+								form="form_in_table_{{ end_user.id }}"
+								type="submit"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
 								onclick="return confirm('Ingin memperbarui data pengguna ini?');"
 							>
@@ -112,59 +137,33 @@
 
 		{% comment %} Pagination {% endcomment %}
 		<div class="mt-4 w-full flex">
-			<nav aria-label="Page navigation example" class="ml-auto">
-				<ul class="inline-flex -space-x-px">
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>Previous</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>1</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>2</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							aria-current="page"
-							class="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-							>3</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>4</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>5</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>Next</a
-						>
-					</li>
-				</ul>
+			<nav aria-label="Page navigation example" class="mx-auto flex-row">
+				<div class="text-sm text-gray-700 dark:text-gray-400 mb-2 w-full text-center">
+					Page <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.number }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.num_pages }}</span>
+				</div>
+				<div class="flex gap-x-2">			
+					{% if page_obj.has_previous %}
+						<a href="?page=1" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							<span class="iconify mr-2 w-5 h-5" data-icon="fa6-solid:angles-left"></span>
+							First
+						</a>
+						<a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							<span class="iconify mr-2 w-5 h-5" data-icon="fa6-solid:arrow-left-long"></span>
+							Previous
+						</a>
+					{% endif %}
+
+					{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							Next
+							<span class="iconify ml-2 w-5 h-5" data-icon="fa6-solid:arrow-right-long"></span>
+						</a>
+						<a href="?page={{ page_obj.paginator.num_pages }}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							Last
+							<span class="iconify ml-2 w-5 h-5" data-icon="fa6-solid:angles-right"></span>
+						</a>
+					{% endif %}
+				</div>
 			</nav>
 		</div>
 	</div>

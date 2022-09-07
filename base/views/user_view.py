@@ -1,25 +1,121 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+import imp
+from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseNotFound
 from base.models import User
+from django.core.paginator import Paginator
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.db.models import Exists
 
 # Create your views here.
+
+
 def index(response):
-    user = response.user
-    return render(response, "base/admin_user.html", {"user": user})
+    if response.method == 'GET':
+        end_users = User.objects.all().exclude(is_superuser=1).order_by(
+            'id').values('id', 'email', 'username')
+        return_var = {}
+
+        if 'cari' in response.GET:
+            end_users = end_users.filter(
+                username__contains=response.GET['cari'])
+            return_var['cari'] = response.GET['cari']
+
+        paginator = Paginator(end_users, 10)
+
+        page_number = response.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        return_var['page_obj'] = page_obj
+
+        return render(response, "base/admin_user.html", return_var)
+
+    if response.method == 'POST':
+        body = response.POST
+        try:
+            end_user = User.objects.get(id=body['id'])
+
+            end_user.email = body['email']
+            end_user.is_staff = body['is_staff']
+
+            end_user.save()
+
+            messages.add_message(response, messages.SUCCESS,
+                                 'Berhasil update data pengguna')
+            return redirect('user_index')
+        except Exception as e:
+            messages.add_message(response, messages.ERROR, e)
+            return redirect('user_index')
+
 
 def add(response):
-    
-    return render(response, "base/admin_user_add.html")
+    if response.method == "POST":
+        body = response.POST
 
-def detail(response):
-    
-    return render(response, "base/admin_user_detail.html")
+        try:
+            thingToInsert = User(
+                first_name=body['first_name'],
+                last_name=body['last_name'],
+                email=body['email'],
+                username=body['username'],
+                password=body['password'],
+                is_staff=False if 'is_staff' not in body else body['is_staff']
+            )
+
+            thingToInsert.save()
+
+            messages.add_message(
+                response, messages.SUCCESS, 'Berhasil menambah pengguna %s' % body['username'])
+            return redirect('user_index')
+        except Exception as e:
+            messages.add_message(response, messages.ERROR, e)
+            return redirect('user_add')
+
+    if response.method == "GET":
+        return render(response, "base/admin_user_add.html")
+
+
+def detail(response, id):
+    if response.method == 'GET':
+        end_user = User.objects.filter(id=id).get()
+
+        return render(response, "base/admin_user_detail.html", {'end_user': end_user})
+
+    if response.method == 'POST':
+        body = response.POST
+        try:
+            end_user = User.objects.get(id=id)
+
+            end_user.first_name = body['first_name']
+            end_user.last_name = body['last_name']
+            end_user.email = body['email']
+            end_user.username = body['username']
+            end_user.is_staff = body['is_staff']
+
+            end_user.save()
+
+            messages.add_message(response, messages.SUCCESS,
+                                 'Berhasil update data pengguna')
+            return redirect('user_detail', id=id)
+        except Exception as e:
+            messages.add_message(response, messages.ERROR, e)
+            return redirect('user_detail', id=id)
+
 
 def detailRiwayat(response):
-    
+
     return render(response, "base/admin_user_detail_riwayat_menu.html")
 
-def getUser(response, id):
-    user = User.objects.get(id=id)
-    
-    return HttpResponse("%s" % user.name)
+
+def delete(response, id):
+    if response.method == "POST":
+        try:
+            User.objects.filter(id=id).delete()
+            messages.add_message(response, messages.SUCCESS,
+                                 'Berhasil menghapus pengguna')
+            return redirect('user_index')
+        except Exception as e:
+            messages.add_message(response, messages.ERROR, e)
+            return redirect('user_index')
+
+    else:
+        return HttpResponseNotFound("Route does not exist")

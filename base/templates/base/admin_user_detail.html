@@ -17,8 +17,10 @@
 {% comment %} Profile pengguna {% endcomment %}
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">Profil Pengguna</h2>
-
-	<form action="#" method="POST">
+	{% include 'base/components/messages.html' %}
+	
+	<form action="{% url 'user_detail' end_user.id %}" method="POST">
+		{% csrf_token %}
 		<div class="overflow-x-auto relative sm:rounded-lg mb-2">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 				<tbody>
@@ -29,15 +31,24 @@
 						>
 							Nama
 						</th>
-						<td class="py-4 px-6">
+						<td class="py-4 px-6 flex gap-x-2">
 							<input
 								type="text"
-								id="nama"
-								name="nama"
+								id="first_name"
+								name="first_name"
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 								placeholder="Korg stone"
 								required=""
-								value="Korg Stone"
+								value="{{ end_user.first_name }}"
+							/>
+							<input
+								type="text"
+								id="last_name"
+								name="last_name"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+								placeholder="Korg stone"
+								required=""
+								value="{{ end_user.last_name }}"
 							/>
 						</td>
 					</tr>
@@ -56,7 +67,7 @@
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 								placeholder="korg@gmail.com"
 								required=""
-								value="korg@gmail.com"
+								value="{{ end_user.email }}"
 							/>
 						</td>
 					</tr>
@@ -75,7 +86,7 @@
 								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 								placeholder="Korgstone"
 								required=""
-								value="Korgstone"
+								value="{{ end_user.username }}"
 							/>
 						</td>
 					</tr>
@@ -84,25 +95,18 @@
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 						>
-							is admin
+							is staff
 						</th>
 						<td class="py-4 px-6">
-							<div class="flex items-start">
-								<div class="flex items-center h-5">
-									<input
-										id="remember"
-										name="remember"
-										type="checkbox"
-										value=""
-										class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300"
-									/>
-								</div>
-								<label
-									for="remember"
-									class="ml-2 text-sm font-medium text-gray-900"
-									>Admin</label
-								>
-							</div>
+							<select
+								id="is_staff"
+								name="is_staff"
+								autocomplete="off"
+								class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+							>
+								<option value="True" {% if end_user.is_staff %} selected {% endif %}>Yes</option>
+								<option value="False" {% if not end_user.is_staff %} selected {% endif %}>No</option>
+							</select>
 						</td>
 					</tr>
 				</tbody>

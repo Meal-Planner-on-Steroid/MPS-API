@@ -16,20 +16,36 @@
 
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-4">Tambah Pengguna</h2>
-
+	{% include 'base/components/messages.html' %}
 	<form method="POST" action="#">
-		<div class="mb-6">
-			<label for="nama" class="block mb-2 text-sm font-medium text-gray-900"
-				>Nama</label
-			>
-			<input
-				type="text"
-				id="nama"
-				name="nama"
-				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-				placeholder="Korg stone"
-				required=""
-			/>
+		{% csrf_token %}
+		<div class="flex gap-x-2 mb-6">
+			<div class="">
+				<label for="first_name" class="block mb-2 text-sm font-medium text-gray-900"
+					>Nama depan</label
+				>
+				<input
+					type="text"
+					id="first_name"
+					name="first_name"
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+					placeholder="Korg stone"
+					required=""
+				/>
+			</div>
+			<div class="">
+				<label for="last_name" class="block mb-2 text-sm font-medium text-gray-900"
+					>Nama belakang</label
+				>
+				<input
+					type="text"
+					id="last_name"
+					name="last_name"
+					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+					placeholder="Korg stone"
+					required=""
+				/>
+			</div>
 		</div>
 		<div class="mb-6">
 			<label for="email" class="block mb-2 text-sm font-medium text-gray-900"
@@ -72,14 +88,14 @@
 		<div class="flex items-start mb-6">
 			<div class="flex items-center h-5">
 				<input
-					id="is_admin"
-					name="is_admin"
+					id="is_staff"
+					name="is_staff"
 					type="checkbox"
-					value=""
+					value="True"
 					class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300"
 				/>
 			</div>
-			<label for="is_admin" class="ml-2 text-sm font-medium text-gray-900"
+			<label for="is_staff" class="ml-2 text-sm font-medium text-gray-900"
 				>Admin</label
 			>
 		</div>

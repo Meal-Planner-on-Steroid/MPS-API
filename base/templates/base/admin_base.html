@@ -16,29 +16,34 @@
 	<body>
 		{% if user.is_authenticated %}
 
-		<div class="bg-gray-200 min-h-screen max-h-screen overflow-hidden">
-			{% include 'base/components/navbar.html' %}
+			<div class="bg-gray-200 min-h-screen max-h-screen overflow-hidden">
+				{% include 'base/components/navbar.html' %}
 
-			<div class="flex">
-				{% include 'base/components/sidebar.html' %}
+				<div class="flex">
+					{% include 'base/components/sidebar.html' %}
 
-				<div id="content" class="p-4 pb-14 max-h-screen w-full overflow-y-auto">
-					{% block content %}{% endblock %} {% include
-					'base/components/footer.html' %}
+					<div id="content" class="p-4 pb-14 max-h-screen w-full overflow-y-auto">
+						{% block content %}{% endblock %} 
+						{% include 'base/components/footer.html' %}
+					</div>
 				</div>
 			</div>
-		</div>
 
-		{% else %} {% load static %}
+			{% block body %}{% endblock %}
 
-		<a href="login">
-			<img
-				src="{% static 'public/images/kind-sir-can-you-please-login.jpg' %}"
-				class="h-auto mx-auto justify-center object-center"
-				alt="kind-sir-can-you-please-login"
-			/>
-		</a>
+		{% else %} 
+		
+			{% load static %}
 
-		{% endif %} {% block body %}{% endblock %}
+			<a href="{% url 'login' %}">
+				<img
+					src="{% static 'public/images/kind-sir-can-you-please-login.jpg' %}"
+					class="h-auto mx-auto justify-center object-center"
+					alt="kind-sir-can-you-please-login"
+				/>
+			</a>
+
+		{% endif %} 
+		
 	</body>
 </html>

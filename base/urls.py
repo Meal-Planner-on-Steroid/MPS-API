@@ -22,8 +22,9 @@ urlpatterns = [
     # path("reset-password/", va.resetPassword, name="reset_password"),
     # User
     path("user/", user_view.index, name="user_index"),
+    path("user/<int:id>", user_view.delete, name="user_delete"),
     path("user/add/", user_view.add, name="user_add"),
-    path("user/detail/", user_view.detail, name="user_detail"),
+    path("user/detail/<int:id>", user_view.detail, name="user_detail"),
     path("user/detail/menu/", user_view.detailRiwayat, name="user_detail_menu"),
     # Bahan makanan
     path("bahan-makanan/", bahan_makanan_view.index, name="bahan_makanan_index"),
