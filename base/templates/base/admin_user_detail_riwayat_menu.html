@@ -14,7 +14,7 @@
 {% comment %} Status gizi pengguna {% endcomment %}
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">
-		Status Gizi [username/nama]
+		Status Gizi {{ end_user.username }}
 	</h2>
 
 	<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-2">
@@ -27,7 +27,7 @@
 					>
 						IMT
 					</th>
-					<td class="py-4 px-6">xx</td>
+					<td class="py-4 px-6">{{ rrr_diet.imt }}</td>
 				</tr>
 				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
 					<th
@@ -36,7 +36,7 @@
 					>
 						Kebutuhan energi
 					</th>
-					<td class="py-4 px-6">xxxx kcal</td>
+					<td class="py-4 px-6">{{ rrr_diet.keseluruhan_energi }} kcal</td>
 				</tr>
 			</tbody>
 		</table>
@@ -46,7 +46,7 @@
 {% comment %} Kebutuhan gizi pengguna {% endcomment %}
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">
-		Kebutuhan Gizi [username/nama]
+		Kebutuhan Gizi {{ end_user.username }}
 	</h2>
 
 	<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-2">
@@ -59,7 +59,7 @@
 					>
 						Protein
 					</th>
-					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">{{ rrr_diet.butuh_protein }} g</td>
 				</tr>
 				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
 					<th
@@ -68,7 +68,7 @@
 					>
 						Karbohidrat
 					</th>
-					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">{{ rrr_diet.butuh_karbo }} g</td>
 				</tr>
 				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 					<th
@@ -77,7 +77,7 @@
 					>
 						Lemak
 					</th>
-					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">{{ rrr_diet.butuh_lemak }} g</td>
 				</tr>
 			</tbody>
 		</table>
@@ -90,6 +90,7 @@
 		Riwayat generate rekomendasi menu
 	</h2>
 
+	{% comment %} Todo: Flexibel link sesuai dengan jenis (camilan, bahan, menu) {% endcomment %}
 	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
 		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 			<thead
@@ -114,7 +115,7 @@
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'user_detail_menu' %}"> Nama makanan </a>
+						<a href="#"> Nama makanan </a>
 					</th>
 					<td class="py-4 px-6">waktu makan</td>
 					<td class="py-4 px-6">xxxx kcal</td>
@@ -124,7 +125,7 @@
 					<td class="py-4 px-6">porsi</td>
 					<td class="py-4 px-6 flex gap-x-2">
 						<a
-							href="{% url 'user_detail_menu' %}"
+							href="#"
 							class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
 						>
 							<span
@@ -140,7 +141,7 @@
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'user_detail_menu' %}"> Nama makanan </a>
+						<a href="#"> Nama makanan </a>
 					</th>
 					<td class="py-4 px-6">waktu makan</td>
 					<td class="py-4 px-6">xxxx kcal</td>
@@ -151,7 +152,7 @@
 
 					<td class="py-4 px-6 flex gap-x-2">
 						<a
-							href="{% url 'user_detail_menu' %}"
+							href="#"
 							class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
 						>
 							<span

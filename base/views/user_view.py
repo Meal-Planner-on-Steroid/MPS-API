@@ -1,7 +1,7 @@
 import imp
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseNotFound
-from base.models import User
+from base.models import RiwayatRekomendasiRencanaDiet, User
 from django.core.paginator import Paginator
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -42,12 +42,16 @@ def index(response):
             messages.add_message(response, messages.SUCCESS,
                                  'Berhasil update data pengguna')
             return redirect('user_index')
+
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
             return redirect('user_index')
 
 
 def add(response):
+    if response.method == "GET":
+        return render(response, "base/admin_user_add.html")
+
     if response.method == "POST":
         body = response.POST
 
@@ -66,19 +70,19 @@ def add(response):
             messages.add_message(
                 response, messages.SUCCESS, 'Berhasil menambah pengguna %s' % body['username'])
             return redirect('user_index')
+
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
             return redirect('user_add')
-
-    if response.method == "GET":
-        return render(response, "base/admin_user_add.html")
 
 
 def detail(response, id):
     if response.method == 'GET':
         end_user = User.objects.filter(id=id).get()
+        rrr_diets = RiwayatRekomendasiRencanaDiet.objects.filter(
+            user_id=end_user.id)
 
-        return render(response, "base/admin_user_detail.html", {'end_user': end_user})
+        return render(response, "base/admin_user_detail.html", {'end_user': end_user, "rrr_diets": rrr_diets})
 
     if response.method == 'POST':
         body = response.POST
@@ -96,14 +100,32 @@ def detail(response, id):
             messages.add_message(response, messages.SUCCESS,
                                  'Berhasil update data pengguna')
             return redirect('user_detail', id=id)
+
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
             return redirect('user_detail', id=id)
 
 
-def detailRiwayat(response):
+def detailRiwayat(response, id):
+    if response.method == 'GET':
+        rrr_diet = RiwayatRekomendasiRencanaDiet.objects.filter(id=id).get()
+        end_user = User.objects.filter(id=rrr_diet.user_id).get()
 
-    return render(response, "base/admin_user_detail_riwayat_menu.html")
+        return render(response, "base/admin_user_detail_riwayat_menu.html", {"rrr_diet": rrr_diet, 'end_user': end_user})
+
+    if response.method == 'POST':
+        try:
+            rrr_diet = RiwayatRekomendasiRencanaDiet.objects.filter(id=id)
+            end_user_id = rrr_diet.get().user_id
+            rrr_diet.delete()
+
+            messages.add_message(response, messages.SUCCESS,
+                                 'Berhasil menghapus riwayat')
+            return redirect('user_detail', id=end_user_id)
+
+        except Exception as e:
+            messages.add_message(response, messages.ERROR, e)
+            return redirect('user_detail', id=end_user_id)
 
 
 def delete(response, id):
@@ -113,6 +135,7 @@ def delete(response, id):
             messages.add_message(response, messages.SUCCESS,
                                  'Berhasil menghapus pengguna')
             return redirect('user_index')
+
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
             return redirect('user_index')

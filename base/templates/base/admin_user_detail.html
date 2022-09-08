@@ -144,48 +144,30 @@
 				</tr>
 			</thead>
 			<tbody>
-				{% for x in '12345'|make_list %}
+				{% for rencana_diet in rrr_diets %}
 
-				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
 					<th
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'user_detail_menu' %}"> Apr 23 ,2021 </a>
+						<a href="{% url 'user_detail_riwayat' rencana_diet.id %}"> {{ rencana_diet.created_at|date:"M d, Y" }} </a>
 					</th>
-					<td class="py-4 px-6 flex gap-x-2">
-						<button
-							type="button"
-							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-							onclick="return confirm('Ingin menghapus pengguna ini?');"
-						>
-							<span
-								class="iconify mr-2 -ml-1 w-4 h-4"
-								data-icon="material-symbols:delete-outline-sharp"
-							></span>
-							Delete
-						</button>
-					</td>
-				</tr>
-				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
-					<th
-						scope="row"
-						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-					>
-						<a href="{% url 'user_detail_menu' %}"> Apr 24 ,2021 </a>
-					</th>
-					<td class="py-4 px-6 flex gap-x-2">
-						<button
-							type="button"
-							class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-							onclick="return confirm('Ingin menghapus pengguna ini?');"
-						>
-							<span
-								class="iconify mr-2 -ml-1 w-4 h-4"
-								data-icon="material-symbols:delete-outline-sharp"
-							></span>
-							Delete
-						</button>
+					<td>
+						<form action="{% url 'user_detail_riwayat' rencana_diet.id %}" method="POST">	
+							{% csrf_token %}						
+							<button
+								type="submit"
+								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+								onclick="return confirm('Ingin menghapus riwayat ini?');"
+							>
+								<span
+									class="iconify mr-2 -ml-1 w-4 h-4"
+									data-icon="material-symbols:delete-outline-sharp"
+								></span>
+								Delete
+							</button>
+						</form>
 					</td>
 				</tr>
 
