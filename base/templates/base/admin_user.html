@@ -3,7 +3,7 @@
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 w-full mb-4">
 	{% comment %} Form cari & Tombol tambah pengguna {% endcomment %}
 	<div class="flex gap-x-2 w-full justify-start mb-4">
-		<form action="{% url 'user_index' %}" method="GET" class="flex gap-x-2">
+		<form action="{% url 'user-index' %}" method="GET" class="flex gap-x-2">
 			<div class="relative">
 				<div
 					class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
@@ -31,7 +31,7 @@
 		</form>
 
 		<a
-			href="{% url 'user_add' %}"
+			href="{% url 'user-add' %}"
 			class="ml-auto text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2"
 		>
 			<span
@@ -62,7 +62,7 @@
 				</thead>
 				<tbody>
 					{% for end_user in page_obj %}
-					<form method="POST" id="form_in_table_{{ end_user.id }}" action="{% url 'user_index' %}">
+					<form method="POST" id="form_in_table_{{ end_user.id }}" action="{% url 'user-index' %}">
 						<input type="hidden" value="{{ end_user.id }}" name="id">
 						{% csrf_token %}
 					</form>
@@ -74,7 +74,7 @@
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 						>
-							<a href="{% url 'user_detail' end_user.id %}"> {{ end_user.username }} </a>
+							<a href="{% url 'user-detail' end_user.id %}"> {{ end_user.username }} </a>
 						</th>
 						<td class="py-4 px-6">
 							<input
@@ -102,7 +102,7 @@
 						</td>
 						
 						<td class="py-4 px-6 flex gap-x-2">
-							<form action={% url 'user_delete' end_user.id %} method="POST">	
+							<form action={% url 'user-delete' end_user.id %} method="POST">	
 								{% csrf_token %}						
 								<button
 									type="submit"

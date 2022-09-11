@@ -117,7 +117,7 @@ class BahanMakanan(models.Model):
 class MakananFoto(models.Model):
     
     makanan = models.ForeignKey(Makanan, related_name="makanan_foto",on_delete=models.CASCADE)
-    path = models.CharField(max_length=100)
+    foto = models.FileField(upload_to='images/', default="none")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

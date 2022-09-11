@@ -19,7 +19,7 @@
 	<h2 class="text-xl font-bold dark:text-white mb-2">Profil Pengguna</h2>
 	{% include 'base/components/messages.html' %}
 	
-	<form action="{% url 'user_detail' end_user.id %}" method="POST">
+	<form action="{% url 'user-edit' end_user.id %}" method="POST">
 		{% csrf_token %}
 		<div class="overflow-x-auto relative sm:rounded-lg mb-2">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -151,10 +151,10 @@
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'user_detail_riwayat' rencana_diet.id %}"> {{ rencana_diet.created_at|date:"M d, Y" }} </a>
+						<a href="{% url 'user-detail-riwayat' id=end_user.id riwayat_id=rencana_diet.id %}"> {{ rencana_diet.created_at|date:"M d, Y" }} </a>
 					</th>
 					<td>
-						<form action="{% url 'user_detail_riwayat' rencana_diet.id %}" method="POST">	
+						<form action="{% url 'user-detail-riwayat' id=end_user.id riwayat_id=rencana_diet.id %}" method="POST">	
 							{% csrf_token %}						
 							<button
 								type="submit"

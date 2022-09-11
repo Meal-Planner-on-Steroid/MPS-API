@@ -41,14 +41,14 @@ def index(response):
 
             messages.add_message(response, messages.SUCCESS,
                                  'Berhasil update data pengguna')
-            return redirect('user_index')
+            return redirect('user-index')
 
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
-            return redirect('user_index')
+            return redirect('user-index')
 
 
-def add(response):
+def create(response):
     if response.method == "GET":
         return render(response, "base/admin_user_add.html")
 
@@ -69,14 +69,14 @@ def add(response):
 
             messages.add_message(
                 response, messages.SUCCESS, 'Berhasil menambah pengguna %s' % body['username'])
-            return redirect('user_index')
+            return redirect('user-index')
 
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
-            return redirect('user_add')
+            return redirect('user-add')
 
 
-def detail(response, id):
+def show(response, id):
     if response.method == 'GET':
         end_user = User.objects.filter(id=id).get()
         rrr_diets = RiwayatRekomendasiRencanaDiet.objects.filter(
@@ -84,6 +84,8 @@ def detail(response, id):
 
         return render(response, "base/admin_user_detail.html", {'end_user': end_user, "rrr_diets": rrr_diets})
 
+
+def update(response, id):
     if response.method == 'POST':
         body = response.POST
         try:
@@ -99,46 +101,46 @@ def detail(response, id):
 
             messages.add_message(response, messages.SUCCESS,
                                  'Berhasil update data pengguna')
-            return redirect('user_detail', id=id)
+            return redirect('user-detail', id=id)
 
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
-            return redirect('user_detail', id=id)
+            return redirect('user-detail', id=id)
 
 
-def detailRiwayat(response, id):
-    if response.method == 'GET':
-        rrr_diet = RiwayatRekomendasiRencanaDiet.objects.filter(id=id).get()
-        end_user = User.objects.filter(id=rrr_diet.user_id).get()
-
-        return render(response, "base/admin_user_detail_riwayat_menu.html", {"rrr_diet": rrr_diet, 'end_user': end_user})
-
-    if response.method == 'POST':
-        try:
-            rrr_diet = RiwayatRekomendasiRencanaDiet.objects.filter(id=id)
-            end_user_id = rrr_diet.get().user_id
-            rrr_diet.delete()
-
-            messages.add_message(response, messages.SUCCESS,
-                                 'Berhasil menghapus riwayat')
-            return redirect('user_detail', id=end_user_id)
-
-        except Exception as e:
-            messages.add_message(response, messages.ERROR, e)
-            return redirect('user_detail', id=end_user_id)
-
-
-def delete(response, id):
+def destroy(response, id):
     if response.method == "POST":
         try:
             User.objects.filter(id=id).delete()
             messages.add_message(response, messages.SUCCESS,
                                  'Berhasil menghapus pengguna')
-            return redirect('user_index')
+            return redirect('user-index')
 
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
-            return redirect('user_index')
+            return redirect('user-index')
 
     else:
         return HttpResponseNotFound("Route does not exist")
+
+
+def showRiwayat(response, id, riwayat_id):
+    if response.method == 'GET':
+        end_user = User.objects.filter(id=id).get()
+        rrr_diet = RiwayatRekomendasiRencanaDiet.objects.filter(id=riwayat_id).get()
+
+        return render(response, "base/admin_user_detail_riwayat_menu.html", {"rrr_diet": rrr_diet, 'end_user': end_user})
+
+    if response.method == 'POST':
+        try:
+            rrr_diet = RiwayatRekomendasiRencanaDiet.objects.filter(id=riwayat_id, user_id=id)
+            end_user_id = rrr_diet.get().user_id
+            rrr_diet.delete()
+
+            messages.add_message(response, messages.SUCCESS,
+                                 'Berhasil menghapus riwayat')
+            return redirect('user-detail', id=end_user_id)
+
+        except Exception as e:
+            messages.add_message(response, messages.ERROR, e)
+            return redirect('user-detail', id=end_user_id)

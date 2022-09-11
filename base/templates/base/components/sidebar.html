@@ -17,7 +17,7 @@
 			</li>
 			<li>
 				<a
-					href="{% url 'user_index' %}"
+					href="{% url 'user-index' %}"
 					class="flex items-center p-2 text-base font-normal text-gray-900 rounded-full hover:text-purple-800 hover:bg-gray-100 group {% if 'user' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 				>
 					<span
@@ -51,7 +51,7 @@
 				<ul id="dropdown-example" class="hidden py-2 space-y-2">
 					<li>
 						<a
-							href="{% url 'bahan_makanan_index' %}"
+							href="{% url 'bahan-makanan-index' %}"
 							class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-full transition duration-75 group hover:bg-gray-100 {% if 'bahan-makanan' in request.path %} text-purple-800 bg-gray-100 {% endif %}"
 							>Bahan Makanan</a
 						>
