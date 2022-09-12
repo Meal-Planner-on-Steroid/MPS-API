@@ -10,7 +10,13 @@ def create(response, id):
         makanan = Makanan.objects.get(id=id)
         
         makanans = Makanan.objects.all().order_by(
-            'id').exclude(jenis=makanan.jenis).values('id', 'nama')
+            'id').values('id', 'nama')
+        
+        if makanan.jenis == 'BA':
+            makanans = makanans.exclude(jenis=makanan.jenis)
+        else:
+            makanans = makanans.filter(jenis='BA')
+        
         satuan_berats = Satuan.objects.all().order_by('nama')
 
         return_var['makanan_id'] = makanan.id
