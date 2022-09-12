@@ -72,6 +72,6 @@ urlpatterns = [
     path(
         "tingkat-aktivitas/",
         tingkat_aktivitas_view.index,
-        name="tingkat_aktivitas_index",
+        name="tingkat-aktivitas-index",
     ),
 ]

@@ -34,7 +34,7 @@ class TingkatAktivitas(models.Model):
 
     nama = models.CharField(max_length=100)
     gender = models.CharField(max_length=2, choices=Gender.choices, default=Gender.PEREMPUAN)
-    nilai = models.IntegerField()
+    nilai = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
