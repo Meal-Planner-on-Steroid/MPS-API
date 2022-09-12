@@ -46,10 +46,12 @@ urlpatterns = [
     path("bahan-makanan/<int:id>/delete/<int:foto_id>/foto", bahan_makanan_view.destroyFoto, name="bahan-makanan-delete-foto"),
 
     # Menu makananan
-    path("menu-makanan/", menu_makanan_view.index, name="menu_makanan_index"),
-    path("menu-makanan/add/", menu_makanan_view.add, name="menu_makanan_add"),
-    path("menu-makanan/detail/", menu_makanan_view.detail,
-         name="menu_makanan_detail"),
+    path("menu-makanan/", menu_makanan_view.index, name="menu-makanan-index"),
+    path("menu-makanan/new/", menu_makanan_view.create, name="menu-makanan-add"),
+    path("menu-makanan/<int:id>", menu_makanan_view.show, name="menu-makanan-detail"),
+    path("menu-makanan/<int:id>/edit/", menu_makanan_view.update, name="menu-makanan-edit"),
+    path("menu-makanan/<int:id>/delete/", menu_makanan_view.destroy, name="menu-makanan-delete"),
+    path("menu-makanan/<int:id>/delete/<int:foto_id>/foto", menu_makanan_view.destroyFoto, name="menu-makanan-delete-foto"),
 
     # Camilan
     path("camilan/", camilan_view.index, name="camilan_index"),
