@@ -65,14 +65,14 @@ def create(response, id):
 def destroy(response, id, makanan_terkait_id):
     if response.method == "POST":
         try:
-            BahanMakanan.objects.filter(id=makanan_terkait_id, menu_makanan_id=id).delete()
+            BahanMakanan.objects.filter(id=makanan_terkait_id).delete()
             messages.add_message(response, messages.SUCCESS,
                                  'Berhasil menghapus makanan terkait')
-            return redirect('bahan-makanan-detail', id=id)
+            return redirect(response.POST['next'], id=id)
 
         except Exception as e:
             messages.add_message(response, messages.ERROR, e)
-            return redirect('bahan-makanan-detail', id=id)
+            return redirect(response.POST['next'], id=id)
 
     else:
         return HttpResponseNotFound("Route does not exist")

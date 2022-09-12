@@ -4,7 +4,7 @@
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 w-full mb-4">
 	{% comment %} Form cari & Tombol tambah makanan {% endcomment %}
 	<div class="flex gap-x-2 w-full justify-start mb-4">
-		<form action="#" method="GET" class="flex gap-x-2">
+		<form action="{% url 'camilan-index' %}" method="GET" class="flex gap-x-2">
 			<div class="relative">
 				<div
 					class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
@@ -19,11 +19,12 @@
 					id="cari"
 					name="cari"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block pl-10 p-2.5"
-					placeholder="Cari makanan..."
+					placeholder="Cari camilan..."
+					value="{% if cari %}{{cari}}{% endif %}"
 				/>
 			</div>
 			<button
-				type="button"
+				type="submit"
 				class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2"
 			>
 				🔎
@@ -31,25 +32,25 @@
 		</form>
 
 		<a
-			href="{% url 'camilan_add' %}"
+			href="{% url 'camilan-add' %}"
 			class="ml-auto text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2"
 		>
 			<span
 				class="iconify mr-2 -ml-1 w-4 h-4"
 				data-icon="material-symbols:add"
 			></span>
-			Tambah camilan
+			Tambah Camilan
 		</a>
 	</div>
 
 	{% comment %} Tabel view data makanan {% endcomment %}
 	<div class="">
 		<h2 class="text-xl font-bold dark:text-white mb-2">Camilan</h2>
-
+		{% include 'base/components/messages.html' %}
 		<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
 			<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 				<thead
-					class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+					class="text-xs text-gray-700 uppercase w-20 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
 				>
 					<tr>
 						<th scope="col" class="py-3 px-6">Nama</th>
@@ -57,29 +58,36 @@
 						<th scope="col" class="py-3 px-6">Protein</th>
 						<th scope="col" class="py-3 px-6">Lemak</th>
 						<th scope="col" class="py-3 px-6">Karbohidrat</th>
+						<th scope="col" class="py-3 px-6">Berat</th>
 						<th scope="col" class="py-3 px-6">Porsi</th>
 						<th scope="col" class="py-3 px-6">Menu</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for x in '12345'|make_list %}
-
-					<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+					{% for camilan in page_obj %}
+					<form method="POST" id="form_in_table_{{ camilan.id }}" action="{% url 'camilan-index' %}">
+						<input type="hidden" value="{{ camilan.id }}" name="id">
+						{% csrf_token %}
+					</form>
+					<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
 						<th
 							scope="row"
 							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 						>
-							<a href="{% url 'camilan_detail' %}"> Camilan </a>
+							<a href="{% url 'camilan-detail' camilan.id %}"> {{ camilan.nama }} </a>
 						</th>
 						<td class="py-4 px-6">
 							<div class="flex">
 								<input
-									type="text"
+									form="form_in_table_{{ camilan.id }}"
+									type="number"
+									step="0.01"
 									id="energi"
 									name="energi"
 									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 									placeholder="1000"
 									required=""
+									value="{{ camilan.energi }}"
 								/>
 								<span
 									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
@@ -91,12 +99,15 @@
 						<td class="py-4 px-6">
 							<div class="flex">
 								<input
-									type="text"
+									form="form_in_table_{{ camilan.id }}"
+									type="number"
+									step="0.01"
 									id="protein"
 									name="protein"
 									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 									placeholder="100"
 									required=""
+									value="{{ camilan.protein }}"
 								/>
 								<span
 									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
@@ -108,12 +119,15 @@
 						<td class="py-4 px-6">
 							<div class="flex">
 								<input
-									type="text"
+									form="form_in_table_{{ camilan.id }}"
+									type="number"
+									step="0.01"
 									id="lemak"
 									name="lemak"
 									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 									placeholder="100"
 									required=""
+									value="{{ camilan.lemak }}"
 								/>
 								<span
 									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
@@ -125,12 +139,15 @@
 						<td class="py-4 px-6">
 							<div class="flex">
 								<input
-									type="text"
-									id="karbohidrat"
-									name="karbohidrat"
+									form="form_in_table_{{ camilan.id }}"
+									type="number"
+									step="0.01"
+									id="karbo"
+									name="karbo"
 									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 									placeholder="100"
 									required=""
+									value="{{ camilan.karbo }}"
 								/>
 								<span
 									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
@@ -139,123 +156,26 @@
 								</span>
 							</div>
 						</td>
-						<td class="py-4 px-6">porsi</td>
+						<td class="py-4 px-6">{{ camilan.berat_porsi }} gram</td>
+						<td class="py-4 px-6">{{ camilan.porsi }} {{ camilan.besar_porsi.nama }}</td>
 						<td class="py-4 px-6 flex gap-x-2">
-							<button
-								type="button"
-								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-								onclick="return confirm('Ingin menghapus camilan ini?');"
-							>
-								<span
-									class="iconify mr-2 -ml-1 w-4 h-4"
-									data-icon="material-symbols:delete-outline-sharp"
-								></span>
-								Delete
-							</button>
-							<button
-								type="button"
-								class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
-								onclick="return confirm('Ingin memperbarui data camilan ini?');"
-							>
-								<span
-									class="iconify mr-2 -ml-1 w-4 h-4"
-									data-icon="material-symbols:edit"
-								></span>
-								Update
-							</button>
-						</td>
-					</tr>
-					<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
-						<th
-							scope="row"
-							class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-						>
-							<a href="{% url 'camilan_detail' %}"> Camilan </a>
-						</th>
-						<td class="py-4 px-6">
-							<div class="flex">
-								<input
-									type="text"
-									id="energi"
-									name="energi"
-									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-									placeholder="1000"
-									required=""
-								/>
-								<span
-									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
+							<form action="{% url 'camilan-delete' camilan.id %}" method="POST">	
+								{% csrf_token %}						
+								<button
+									type="submit"
+									class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
+									onclick="return confirm('Ingin menghapus camilan ini?');"
 								>
-									kcal
-								</span>
-							</div>
-						</td>
-						<td class="py-4 px-6">
-							<div class="flex">
-								<input
-									type="text"
-									id="protein"
-									name="protein"
-									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-									placeholder="100"
-									required=""
-								/>
-								<span
-									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
-								>
-									gram
-								</span>
-							</div>
-						</td>
-						<td class="py-4 px-6">
-							<div class="flex">
-								<input
-									type="text"
-									id="lemak"
-									name="lemak"
-									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-									placeholder="100"
-									required=""
-								/>
-								<span
-									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
-								>
-									gram
-								</span>
-							</div>
-						</td>
-						<td class="py-4 px-6">
-							<div class="flex">
-								<input
-									type="text"
-									id="karbohidrat"
-									name="karbohidrat"
-									class="w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-									placeholder="100"
-									required=""
-								/>
-								<span
-									class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 rounded-r-md border border-r-0 border-gray-300"
-								>
-									gram
-								</span>
-							</div>
-						</td>
-						<td class="py-4 px-6">porsi</td>
-
-						<td class="py-4 px-6 flex gap-x-2">
+									<span
+										class="iconify mr-2 -ml-1 w-4 h-4"
+										data-icon="material-symbols:delete-outline-sharp"
+									></span>
+									Delete
+								</button>
+							</form>
 							<button
-								type="button"
-								class="py-2 px-3 text-sm font-medium text-center text-white bg-red-700 rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 inline-flex items-center"
-								onclick="return confirm('Ingin menghapus camilan ini?');"
-							>
-								<span
-									class="iconify mr-2 -ml-1 w-4 h-4"
-									data-icon="material-symbols:delete-outline-sharp"
-								></span>
-								Delete
-							</button>
-							<button
-								type="button"
+								form="form_in_table_{{ camilan.id }}"
+								type="submit"
 								class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
 								onclick="return confirm('Ingin memperbarui data camilan ini?');"
 							>
@@ -275,59 +195,33 @@
 
 		{% comment %} Pagination {% endcomment %}
 		<div class="mt-4 w-full flex">
-			<nav aria-label="Page navigation example" class="ml-auto">
-				<ul class="inline-flex -space-x-px">
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>Previous</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>1</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>2</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							aria-current="page"
-							class="py-2 px-3 text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
-							>3</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>4</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>5</a
-						>
-					</li>
-					<li>
-						<a
-							href="#"
-							class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-							>Next</a
-						>
-					</li>
-				</ul>
+			<nav aria-label="Page navigation example" class="mx-auto flex-row">
+				<div class="text-sm text-gray-700 dark:text-gray-400 mb-2 w-full text-center">
+					Page <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.number }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ page_obj.paginator.num_pages }}</span>
+				</div>
+				<div class="flex gap-x-2">			
+					{% if page_obj.has_previous %}
+						<a href="?page=1" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							<span class="iconify mr-2 w-5 h-5" data-icon="fa6-solid:angles-left"></span>
+							First
+						</a>
+						<a href="?page={{ page_obj.previous_page_number }}" class="inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							<span class="iconify mr-2 w-5 h-5" data-icon="fa6-solid:arrow-left-long"></span>
+							Previous
+						</a>
+					{% endif %}
+
+					{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							Next
+							<span class="iconify ml-2 w-5 h-5" data-icon="fa6-solid:arrow-right-long"></span>
+						</a>
+						<a href="?page={{ page_obj.paginator.num_pages }}" class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+							Last
+							<span class="iconify ml-2 w-5 h-5" data-icon="fa6-solid:angles-right"></span>
+						</a>
+					{% endif %}
+				</div>
 			</nav>
 		</div>
 	</div>

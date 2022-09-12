@@ -54,9 +54,12 @@ urlpatterns = [
     path("menu-makanan/<int:id>/delete/<int:foto_id>/foto", menu_makanan_view.destroyFoto, name="menu-makanan-delete-foto"),
 
     # Camilan
-    path("camilan/", camilan_view.index, name="camilan_index"),
-    path("camilan/add/", camilan_view.add, name="camilan_add"),
-    path("camilan/detail/", camilan_view.detail, name="camilan_detail"),
+    path("camilan/", camilan_view.index, name="camilan-index"),
+    path("camilan/new/", camilan_view.create, name="camilan-add"),
+    path("camilan/<int:id>", camilan_view.show, name="camilan-detail"),
+    path("camilan/<int:id>/edit/", camilan_view.update, name="camilan-edit"),
+    path("camilan/<int:id>/delete/", camilan_view.destroy, name="camilan-delete"),
+    path("camilan/<int:id>/delete/<int:foto_id>/foto", camilan_view.destroyFoto, name="camilan-delete-foto"),
 
     # Generate menu
     path(
