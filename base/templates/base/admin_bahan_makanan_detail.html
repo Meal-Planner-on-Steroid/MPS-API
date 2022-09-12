@@ -51,7 +51,6 @@
 			<div class="flex gap-x-2">
 				<input
 					type="number"
-					step="0.01"
 					id="porsi"
 					name="porsi"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
@@ -79,7 +78,7 @@
 			>
 			<div class="flex">
 				<input
-					type="umber"
+					type="number"
 					id="berat_porsi"
 					name="berat_porsi"
 					class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
@@ -303,12 +302,13 @@
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'menu_makanan_detail' %}"> {{ makanan_terkait.bahan_makanan.nama }} </a>
+						{% comment %} TODO: Responsive link {% endcomment %}
+						<a href="#"> {{ makanan_terkait.menu_makanan.nama }} </a>
 					</th>
-					<td class="py-4 px-6">{{ makanan_terkait.bahan_makanan.energi }} kcal</td>
-					<td class="py-4 px-6">{{ makanan_terkait.bahan_makanan.protein }} g</td>
-					<td class="py-4 px-6">{{ makanan_terkait.bahan_makanan.lemak }} g</td>
-					<td class="py-4 px-6">{{ makanan_terkait.bahan_makanan.karbo }} g</td>
+					<td class="py-4 px-6">{{ makanan_terkait.menu_makanan.energi }} kcal</td>
+					<td class="py-4 px-6">{{ makanan_terkait.menu_makanan.protein }} g</td>
+					<td class="py-4 px-6">{{ makanan_terkait.menu_makanan.lemak }} g</td>
+					<td class="py-4 px-6">{{ makanan_terkait.menu_makanan.karbo }} g</td>
 					<td class="py-4 px-6"> {{ makanan_terkait.berat }} {{ makanan_terkait.satuan.nama }}</td>
 					<td class="py-4 px-6 flex gap-x-2">
 						<form action="{% url 'makanan-terkait-delete' id=makanan.id makanan_terkait_id=makanan_terkait.id %}" method="POST">	

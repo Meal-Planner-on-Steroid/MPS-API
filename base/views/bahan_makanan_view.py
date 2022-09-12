@@ -105,7 +105,7 @@ def show(response, id):
         satuan_porsis = Satuan.objects.all().order_by('nama')
         makanan_fotos = MakananFoto.objects.all().order_by(
             'id').filter(makanan_id=makanan.id)        
-        makanan_terkaits = BahanMakanan.objects.all().filter(menu_makanan_id=id).select_related('bahan_makanan', 'satuan')
+        makanan_terkaits = BahanMakanan.objects.all().filter(bahan_makanan_id=id).select_related('menu_makanan', 'satuan')
 
         return_var = {}
 

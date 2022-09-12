@@ -36,6 +36,12 @@ def create(response, id):
                 bahan_makanan=bahan_makanan,
             )
             
+            if menu_makanan.jenis == 'BA':
+                makanan_terkait = BahanMakanan(
+                    menu_makanan=bahan_makanan,
+                    bahan_makanan=menu_makanan,
+                )
+            
             if body['berat'] != '' or body['satuan'] != '':
                 satuan = Satuan.objects.filter(id=body['satuan']).get()
                 
