@@ -65,12 +65,12 @@ urlpatterns = [
     path(
         "generate-menu/",
         generate_rekomendasi_menu_view.index,
-        name="generate_menu_index",
+        name="generate-menu-index",
     ),
     path(
         "generate-menu-hasil/",
         generate_rekomendasi_menu_view.hasil,
-        name="generate_menu_index",
+        name="generate-menu-hasil",
     ),
 
     # Tingkat aktivitas
