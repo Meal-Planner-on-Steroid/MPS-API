@@ -1,4 +1,3 @@
-from operator import ge
 from base.models import Gender
 
 
@@ -129,5 +128,38 @@ class KebutuhanGizi():
                     'Pilihan gizi antara protein, lemak, atau karbo')
 
             return hasil
+        except BaseException as e:
+            raise
+
+    def hitung(self, berat_badan: float, tinggi_badan: float, usia: int, gender: str, nilai_tingkat_aktivitas: float) -> dict:
+        try:
+            amb = self.hitungAMB(
+                berat_badan=berat_badan,
+                tinggi_badan=tinggi_badan,
+                usia=usia,
+                gender=gender
+            )
+            
+            total_energi = self.hitungTotalEnergi(amb, nilai_tingkat_aktivitas)
+            
+            imt = self.hitungIMT(berat_badan, tinggi_badan)
+            
+            energi_sesuai = self.sesuaikanEnergi(total_energi, imt)
+            
+            kebutuhan_protein = self.hitungGizi(energi_sesuai, 'protein')
+            kebutuhan_lemak = self.hitungGizi(energi_sesuai, 'lemak')
+            kebutuhan_karbo = self.hitungGizi(energi_sesuai, 'karbo')
+            
+            result =  {
+                'amb': amb,
+                'total_energi': total_energi,
+                'imt': imt,
+                'kebutuhan_protein': kebutuhan_protein,
+                'kebutuhan_lemak': kebutuhan_lemak,
+                'kebutuhan_karbo': kebutuhan_karbo,
+            }
+            
+            return result
+        
         except BaseException as e:
             raise
