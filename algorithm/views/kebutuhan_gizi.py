@@ -45,6 +45,17 @@ class KebutuhanGizi():
             raise
 
     def hitungAMB(self, berat_badan: int, tinggi_badan: int, usia: int, gender: str) -> float:
+        """Hitung Angka Metabolisme Basal
+
+        Args:
+            berat_badan (int): Berat badan (kg)
+            tinggi_badan (int): Tinggi badan (cm)
+            usia (int): Usia (tahun)
+            gender (str): Gender ('PE', 'LA')
+
+        Returns:
+            float: Jumlah angka metabolisme basal (kcal)
+        """
         try:
 
             # Process
@@ -62,6 +73,15 @@ class KebutuhanGizi():
             raise
 
     def hitungTotalEnergi(self, amb: float, nilai_tingkat_aktivitas: float) -> float:
+        """Hitung total energi untuk beraktivitas
+
+        Args:
+            amb (float): Angka metabolisme basal (kcal)
+            nilai_tingkat_aktivitas (float): Nilai index tingkat aktivitas
+
+        Returns:
+            float: Total energi yang dibutuhkan untuk beraktivitas (kcal)
+        """
         try:
             hasil = nilai_tingkat_aktivitas * amb
 
@@ -71,6 +91,15 @@ class KebutuhanGizi():
             raise
 
     def hitungIMT(self, berat_badan: float, tinggi_badan: float) -> float:
+        """Hitung Indeks Masa Tubuh
+
+        Args:
+            berat_badan (float): Berat badan (kg)
+            tinggi_badan (float): Tinggi badan (cm)
+
+        Returns:
+            float: IMT
+        """
         try:
             hasil = berat_badan / pow((tinggi_badan / 100), 2)
 
@@ -79,6 +108,18 @@ class KebutuhanGizi():
             raise
 
     def sesuaikanEnergi(self, total_energi: float, imt: float) -> float:
+        """Sesuaikan energi untuk menurunkan, menjaga, atau menaikkan berat badan
+
+        Args:
+            total_energi (float): Total energi untuk beraktivitas (kcal)
+            imt (float): IMT
+
+        Raises:
+            Exception: IMT out of range
+
+        Returns:
+            float: Total energi yang harus dikonsumsi (kcal)
+        """
         try:
             hasil = 0
 
@@ -97,7 +138,22 @@ class KebutuhanGizi():
         except BaseException as e:
             raise
 
-    def hitungGizi(self, energi_sesuai: float, gizi: str) -> float:
+    def hitungGizi(self, energi_sesuai: float, gizi: str) -> dict:
+        """Hitung kebutuhan gizi
+
+        Args:
+            energi_sesuai (float): Total energi yang harus dikonsumsi (kcal)
+            gizi (str): Gizi yang akan dihitung ('protein', 'lemak', 'karbo')
+
+        Raises:
+            Exception: Pilihan gizi tidak sesuai
+
+        Returns:
+            dict: {
+                'kebutuhan gizi min': xx g
+                'kebutuhan gizi max': xx g
+            }
+        """
         try:
             hasil = 0
             gizi = gizi.lower()
@@ -132,25 +188,17 @@ class KebutuhanGizi():
             raise
 
     def hitung(self, berat_badan: float, tinggi_badan: float, usia: int, gender: str, nilai_tingkat_aktivitas: float) -> dict:
-        try:
-            amb = self.hitungAMB(
-                berat_badan=berat_badan,
-                tinggi_badan=tinggi_badan,
-                usia=usia,
-                gender=gender
-            )
-            
-            total_energi = self.hitungTotalEnergi(amb, nilai_tingkat_aktivitas)
-            
-            imt = self.hitungIMT(berat_badan, tinggi_badan)
-            
-            energi_sesuai = self.sesuaikanEnergi(total_energi, imt)
-            
-            kebutuhan_protein = self.hitungGizi(energi_sesuai, 'protein')
-            kebutuhan_lemak = self.hitungGizi(energi_sesuai, 'lemak')
-            kebutuhan_karbo = self.hitungGizi(energi_sesuai, 'karbo')
-            
-            result =  {
+        """Hitung kebutuhan gizi
+
+        Args:
+            berat_badan (float): Berat badan (kg)
+            tinggi_badan (float): Tinggi badan (cm)
+            usia (int): Usia (tahun)
+            gender (str): Gender ('PE', 'LA')
+            nilai_tingkat_aktivitas (float): Indeks nilai tingkat aktivitas
+
+        Returns:
+            dict: {
                 'amb': amb,
                 'total_energi': total_energi,
                 'imt': imt,
@@ -158,8 +206,35 @@ class KebutuhanGizi():
                 'kebutuhan_lemak': kebutuhan_lemak,
                 'kebutuhan_karbo': kebutuhan_karbo,
             }
-            
+        """
+        try:
+            amb = self.hitungAMB(
+                berat_badan=berat_badan,
+                tinggi_badan=tinggi_badan,
+                usia=usia,
+                gender=gender
+            )
+
+            total_energi = self.hitungTotalEnergi(amb, nilai_tingkat_aktivitas)
+
+            imt = self.hitungIMT(berat_badan, tinggi_badan)
+
+            energi_sesuai = self.sesuaikanEnergi(total_energi, imt)
+
+            kebutuhan_protein = self.hitungGizi(energi_sesuai, 'protein')
+            kebutuhan_lemak = self.hitungGizi(energi_sesuai, 'lemak')
+            kebutuhan_karbo = self.hitungGizi(energi_sesuai, 'karbo')
+
+            result = {
+                'amb': amb,
+                'total_energi': total_energi,
+                'imt': imt,
+                'kebutuhan_protein': kebutuhan_protein,
+                'kebutuhan_lemak': kebutuhan_lemak,
+                'kebutuhan_karbo': kebutuhan_karbo,
+            }
+
             return result
-        
+
         except BaseException as e:
             raise
