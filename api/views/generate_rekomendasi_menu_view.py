@@ -11,7 +11,7 @@ def generateRekomendasiController(request):
         try:
 
             body = request.data
-                
+
             # Kebutuhan gizi
             kg = KebutuhanGizi(
                 berat_badan=body['berat_badan'],
@@ -20,7 +20,7 @@ def generateRekomendasiController(request):
                 gender=body['gender'],
                 nilai_tingkat_aktivitas=body['nilai_tingkat_aktivitas']
             )
-            
+
             kebutuhan_gizi = kg.hitung(
                 body['berat_badan'],
                 body['tinggi_badan'],
@@ -29,16 +29,27 @@ def generateRekomendasiController(request):
                 body['nilai_tingkat_aktivitas'],
             )
 
+            # Algoritma Genetika
+
             ag = AlgoritmaGenetika(kebutuhan_gizi)
             
+            generasi = ag.generateGenerasi()
             
+            rekomendasi = generasi
+            
+            nilai_fitness = ag.hitungNilaiFitness(generasi, kebutuhan_gizi)
+            
+            # TODO: For loop proses algoritma genetika
+            for generasi in range(0,20):
+                print(generasi)
+
             return Response(
                 {
                     "message": "Berhasil membuat rekomendasi",
                     "data": {
-                            'kebutuhan_gizi': kebutuhan_gizi,
-                            'rekomendasi': 'helo',
-                        },
+                        'kebutuhan_gizi': kebutuhan_gizi,
+                        'rekomendasi': rekomendasi,
+                    },
                 },
                 status=200,
             )

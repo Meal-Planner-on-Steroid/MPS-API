@@ -1,0 +1,138 @@
+{
+	"message": "Berhasil membuat rekomendasi",
+	"data": {
+		"kebutuhan_gizi": {
+			"amb": 1547.0,
+			"total_energi": 2475.2000000000003,
+			"imt": 23.73323840037973,
+			"kebutuhan_protein": {
+				"protein_10": 61.88000000000001,
+				"protein_15": 92.82000000000001
+			},
+			"kebutuhan_lemak": {
+				"lemak_10": 27.502222222222226,
+				"lemak_25": 68.75555555555556
+			},
+			"kebutuhan_karbo": {
+				"karbo_60": 371.28000000000003,
+				"karbo_75": 464.1
+			}
+		},
+		"rekomendasi": {
+			"set_nilai_gizi": [
+				{
+					"protein": 50.81,
+					"lemak": 51.79,
+					"karbo": 66.04,
+					"index": 0
+				},
+				{
+					"protein": 102.08,
+					"lemak": 60.54,
+					"karbo": 88.25,
+					"index": 1
+				},
+				{
+					"protein": 136.87,
+					"lemak": 266.32000000000005,
+					"karbo": 600.5,
+					"index": 2
+				},
+				{
+					"protein": 157.07,
+					"lemak": 141.62,
+					"karbo": 270.51000000000005,
+					"index": 3
+				},
+				{
+					"protein": 126.39,
+					"lemak": 272.92,
+					"karbo": 912.1500000000001,
+					"index": 4
+				},
+				{
+					"protein": 28.06,
+					"lemak": 59.67999999999999,
+					"karbo": 151.48,
+					"index": 5
+				},
+				{
+					"protein": 230.15,
+					"lemak": 182.87,
+					"karbo": 373.59,
+					"index": 6
+				},
+				{
+					"protein": 168.45999999999998,
+					"lemak": 248.19,
+					"karbo": 804.26,
+					"index": 7
+				},
+				{
+					"protein": 311.0,
+					"lemak": 128.99,
+					"karbo": 271.42,
+					"index": 8
+				},
+				{
+					"protein": 197.85000000000002,
+					"lemak": 141.98,
+					"karbo": 656.4599999999999,
+					"index": 9
+				}
+			],
+			"set_nilai_fitness": [
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": -0.17749407455289773,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": -0.6017022193492778,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": 0,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": 0,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": 0,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": -0.5600086188321476,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": 0,
+					"nilai_fitness_karbo": 0.9502262443438926
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": 0,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": 0,
+					"nilai_fitness_karbo": 0
+				},
+				{
+					"nilai_fitness_protein": 0,
+					"nilai_fitness_lemak": 0,
+					"nilai_fitness_karbo": 0
+				}
+			]
+		}
+	}
+}
