@@ -1,11 +1,13 @@
+import imp
 import logging
 from base.models import Makanan
 from api.serializers.MakananSerializer import MakananSerializer
 from django.db.models.aggregates import Count
 from random import randint
+from .seleksi import Seleksi
 
 
-class AlgoritmaGenetika():
+class AlgoritmaGenetika(Seleksi):
 
     def __init__(self, kebutuhan_gizi: dict) -> None:
         pass
@@ -86,11 +88,37 @@ class AlgoritmaGenetika():
         except BaseException as e:
             raise
 
+    def selectCross(self, set_nilai_fitness: list, generasi: list) -> list:
+        try:
+            hasil = []
+            kumpulan_probabilitas = []
+            final_probabilitas = []
+
+            probailitas = Seleksi().generateProbabilitas(set_nilai_fitness)
+
+            # TODO: Crossover
+            # for row in range(0, len(generasi)):
+            #     parents = Seleksi().selectParent(final_probabilitas, generasi)
+            #     childs = self.crossover(parents)
+            #     hasil.append(childs)
+
+            return probailitas
+
+        except BaseException as e:
+            raise
+
+    def crossover(self, parents):
+        try:
+            pass
+
+        except BaseException as e:
+            raise
+
     # Util
     def hitungNilaiAnggota(self, a: float, c: float, x: float) -> float:
         """Hitung nilai anggota kurva segitiga
         * Utility hitungNilaiFitness
-        
+
         Args:
             a (float): Nilai bawah
             c (float): Nilai atas
@@ -108,9 +136,9 @@ class AlgoritmaGenetika():
 
             if x < a or x > c:
                 return hasil
-            elif x >= a or x <= b:
+            elif x >= a and x <= b:
                 hasil = (b-x)/(b-a)
-            elif x >= b or x <= c:
+            elif x >= b and x <= c:
                 hasil = (c-x)/(c-b)
             else:
                 raise Exception("Value out of bound")

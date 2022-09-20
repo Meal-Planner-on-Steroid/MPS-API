@@ -40,15 +40,20 @@ def generateRekomendasiController(request):
             nilai_fitness = ag.hitungNilaiFitness(generasi, kebutuhan_gizi)
             
             # TODO: For loop proses algoritma genetika
-            for generasi in range(0,20):
-                print(generasi)
+            # for generasi in range(0,20):
+            #     crossover = ag.selectCross
+            #     break
+            
+            crossover = ag.selectCross(nilai_fitness['set_nilai_fitness'], generasi)
 
             return Response(
                 {
                     "message": "Berhasil membuat rekomendasi",
                     "data": {
-                        'kebutuhan_gizi': kebutuhan_gizi,
-                        'rekomendasi': rekomendasi,
+                        # 'kebutuhan_gizi': kebutuhan_gizi,
+                        # 'rekomendasi': rekomendasi,
+                        # 'nilai_fitness': nilai_fitness,
+                        'crossover': crossover,
                     },
                 },
                 status=200,
