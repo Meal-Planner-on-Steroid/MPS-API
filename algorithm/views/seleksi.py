@@ -1,5 +1,3 @@
-import itertools
-
 class Seleksi():
     
     def __init__(self) -> None:
@@ -48,16 +46,20 @@ class Seleksi():
             hasil['final_probabilitas'] = self.sortingListDict(hasil['final_probabilitas'], 'probabilitas_total', 'asc')
                 
             # Hitung probabilitas kumulatif
-            kumulatif = 0
-            for index, row in enumerate(hasil['final_probabilitas']):
-                kumulatif += row['probabilitas_total']
+            # kumulatif = 0
+            # for index, row in enumerate(hasil['final_probabilitas']):
+            #     kumulatif += row['probabilitas_total']
                 
-                nilai_kumulatif = {
-                    'index': row['index'],
-                    'probabilitas_total': kumulatif,
-                }
+            #     nilai_kumulatif = {
+            #         'index': row['index'],
+            #         'probabilitas_total': kumulatif,
+            #     }
                 
-                hasil['probabilitas_kumulatif'].append(nilai_kumulatif)
+            #     hasil['probabilitas_kumulatif'].append(nilai_kumulatif)
+            
+            # Ranking final probabilitas
+            for rank, row in enumerate(hasil['final_probabilitas']):
+                row['rank'] = rank+1
                 
             return hasil
         
