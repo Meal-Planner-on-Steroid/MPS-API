@@ -1,3 +1,6 @@
+from this import d
+
+
 class Seleksi():
     
     def __init__(self) -> None:
@@ -58,9 +61,34 @@ class Seleksi():
             #     hasil['probabilitas_kumulatif'].append(nilai_kumulatif)
             
             # Ranking final probabilitas
-            for rank, row in enumerate(hasil['final_probabilitas']):
-                row['rank'] = rank+1
+            # for rank, row in enumerate(hasil['final_probabilitas']):
+            #     row['rank'] = rank+1
+            
+            # Fitness scalling
+            # # Persiapan
+            final_probabilitas_len = len(hasil['final_probabilitas'])
+            max = hasil['final_probabilitas'][final_probabilitas_len-1]['probabilitas_total']
+            min = hasil['final_probabilitas'][0]['probabilitas_total']
+            new_scale = [10, 1]
+            
+            [a, b] = self.linearEqua22([max, min], [1,1], new_scale)
+            
+            # # Proses fitness scalling
+            for row in hasil['final_probabilitas']:
+                row['scaled'] = a * row['probabilitas_total'] + b
                 
+            # Hitung probabilitas kumulatif
+            kumulatif = 0
+            for index, row in enumerate(hasil['final_probabilitas']):
+                kumulatif += row['scaled']
+                
+                nilai_kumulatif = {
+                    'index': row['index'],
+                    'scaled_kumulatif': kumulatif,
+                }
+                
+                hasil['probabilitas_kumulatif'].append(nilai_kumulatif)
+            
             return hasil
         
         except BaseException as e:
@@ -132,3 +160,28 @@ class Seleksi():
             # Note that you want equal ^^^^^ not pivot
             else:  # You need to handle the part at the end of the recursion - when you only have one element in your arrray, just return the arrray.
                 return array
+
+    def linearEqua22(self, a: list, b: list, c: list) -> list:
+        try:
+            hasil = []
+            
+            a1 = a[0]
+            a2 = a[1]
+            b1 = b[0]
+            b2 = b[1]
+            c1 = c[0]
+            c2 = c[1]
+            
+            d = (a1*b2) - (b1*a2)
+            dx = (c1*b2) - (b1*c2)
+            dy = (a1*c2) - (c1*a2)
+            
+            a = dx / d
+            b = dy / d
+            
+            hasil = [a, b]
+            
+            return hasil
+        
+        except BaseException as e:
+            raise
