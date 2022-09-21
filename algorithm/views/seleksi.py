@@ -1,3 +1,4 @@
+import logging
 import random
 
 class Seleksi():
@@ -95,7 +96,8 @@ class Seleksi():
         except BaseException as e:
             raise
     
-    # TODO: Select parent
+    # TODO: Flowchart select parent
+    # Select parent
     def selectParent(self, probabilitas_kumulatif: list, generasi: list) -> list:
         try:
             parents = []
@@ -108,6 +110,7 @@ class Seleksi():
                 for probabilitas in probabilitas_kumulatif:
                     if random_number < probabilitas[key_for_selection]:
                         parents.append(generasi[probabilitas['index']])
+                        print(random_number)
                         x += 1
                         break
             

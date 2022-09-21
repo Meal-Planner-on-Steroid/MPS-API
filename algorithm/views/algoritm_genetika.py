@@ -1,10 +1,10 @@
-import imp
 import logging
 from base.models import Makanan
 from api.serializers.MakananSerializer import MakananSerializer
 from django.db.models.aggregates import Count
 from random import randint
 from .seleksi import Seleksi
+import random
 
 
 class AlgoritmaGenetika(Seleksi):
@@ -96,27 +96,43 @@ class AlgoritmaGenetika(Seleksi):
 
             probailitas = Seleksi().generateProbabilitas(set_nilai_fitness)
 
-            # TODO: Crossover
+            # TODO: Forloop crossover
             # for row in range(0, len(generasi)):
             #     parents = Seleksi().selectParent(final_probabilitas, generasi)
             #     childs = self.crossover(parents)
             #     hasil.append(childs)
             
             parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], generasi)
+            childs = self.crossover(parents)
 
             return {
                 "kumulatif":probailitas['probabilitas_kumulatif'], 
                 "generasi": generasi, 
-                "parents":parents
+                "parents":parents,
+                "childs": childs
             }
 
         except BaseException as e:
             raise
-
+    
+    # TODO: Flowchart crossover
     def crossover(self, parents):
         try:
-            pass
-
+            childs = parents
+            
+            random_nomor_1 = random.randrange(0,2)
+            random_nomor_2 = random.randrange(3,4)
+            
+            # temp = parents[0]
+            
+            childs[0][random_nomor_1] = parents[1][random_nomor_1]
+            childs[0][random_nomor_2] = parents[1][random_nomor_2]
+            
+            childs[1][random_nomor_1] = parents[0][random_nomor_1]
+            childs[1][random_nomor_2] = parents[0][random_nomor_2]
+            
+            return childs
+            
         except BaseException as e:
             raise
 
