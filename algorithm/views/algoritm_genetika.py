@@ -101,8 +101,14 @@ class AlgoritmaGenetika(Seleksi):
             #     parents = Seleksi().selectParent(final_probabilitas, generasi)
             #     childs = self.crossover(parents)
             #     hasil.append(childs)
+            
+            parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], generasi)
 
-            return probailitas
+            return {
+                "kumulatif":probailitas['probabilitas_kumulatif'], 
+                "generasi": generasi, 
+                "parents":parents
+            }
 
         except BaseException as e:
             raise

@@ -1,5 +1,4 @@
-from this import d
-
+import random
 
 class Seleksi():
     
@@ -60,10 +59,12 @@ class Seleksi():
                 
             #     hasil['probabilitas_kumulatif'].append(nilai_kumulatif)
             
+            # TODO: Flowchart Rank based selection
             # Ranking final probabilitas
             # for rank, row in enumerate(hasil['final_probabilitas']):
             #     row['rank'] = rank+1
             
+            # TODO: Flowchart fitness scalling selection
             # Fitness scalling
             # # Persiapan
             final_probabilitas_len = len(hasil['final_probabilitas'])
@@ -95,10 +96,23 @@ class Seleksi():
             raise
     
     # TODO: Select parent
-    def selectParent(self, final_probabilitas, generasi: list) -> list:
+    def selectParent(self, probabilitas_kumulatif: list, generasi: list) -> list:
         try:
-            pass
-        
+            parents = []
+            key_for_selection = 'scaled_kumulatif'
+            
+            x = 0
+            while x < 2:
+                random_number = random.uniform(1,10)
+                
+                for probabilitas in probabilitas_kumulatif:
+                    if random_number < probabilitas[key_for_selection]:
+                        parents.append(generasi[probabilitas['index']])
+                        x += 1
+                        break
+            
+            return parents
+                    
         except BaseException as e:
             raise
         
