@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from algorithm.views.algoritm_genetika import AlgoritmaGenetika
 from algorithm.views.kebutuhan_gizi import KebutuhanGizi
 import logging
+import copy
 
 
 @api_view(["POST"])
@@ -44,15 +45,15 @@ def generateRekomendasiController(request):
             #     crossover = ag.selectCross
             #     break
             
-            crossover = ag.selectCross(nilai_fitness['set_nilai_fitness'], generasi)
+            crossover = ag.selectCross(nilai_fitness['set_nilai_fitness'], copy.deepcopy(generasi))
 
             return Response(
                 {
                     "message": "Berhasil membuat rekomendasi",
                     "data": {
-                        # 'kebutuhan_gizi': kebutuhan_gizi,
-                        # 'rekomendasi': rekomendasi,
-                        # 'nilai_fitness': nilai_fitness,
+                        'kebutuhan_gizi': kebutuhan_gizi,
+                        'rekomendasi': rekomendasi,
+                        'nilai_fitness': nilai_fitness,
                         'crossover': crossover,
                     },
                 },

@@ -5,6 +5,7 @@ from django.db.models.aggregates import Count
 from random import randint
 from .seleksi import Seleksi
 import random
+import copy
 
 
 class AlgoritmaGenetika(Seleksi):
@@ -90,9 +91,6 @@ class AlgoritmaGenetika(Seleksi):
 
     def selectCross(self, set_nilai_fitness: list, generasi: list) -> list:
         try:
-            hasil = []
-            kumpulan_probabilitas = []
-            final_probabilitas = []
 
             probailitas = Seleksi().generateProbabilitas(set_nilai_fitness)
 
@@ -102,8 +100,8 @@ class AlgoritmaGenetika(Seleksi):
             #     childs = self.crossover(parents)
             #     hasil.append(childs)
             
-            parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], generasi)
-            childs = self.crossover(parents)
+            parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], copy.deepcopy(generasi))
+            childs = self.crossover(copy.deepcopy(parents))
 
             return {
                 "kumulatif":probailitas['probabilitas_kumulatif'], 
@@ -118,14 +116,19 @@ class AlgoritmaGenetika(Seleksi):
     # TODO: Flowchart crossover
     def crossover(self, parents):
         try:
-            childs = parents
+            childs = copy.deepcopy(parents)
             
             random_nomor_1 = random.randrange(0,2)
             random_nomor_2 = random.randrange(3,4)
             
-            # temp = parents[0]
+            print('crossover')
+            print(random_nomor_1)
+            print(random_nomor_2)
             
+            # temp = parents[0]
+            print(childs[0][random_nomor_1])
             childs[0][random_nomor_1] = parents[1][random_nomor_1]
+            print(childs[0][random_nomor_1])
             childs[0][random_nomor_2] = parents[1][random_nomor_2]
             
             childs[1][random_nomor_1] = parents[0][random_nomor_1]
@@ -192,7 +195,6 @@ class AlgoritmaGenetika(Seleksi):
                 hasil['protein'] += row['protein']
                 hasil['lemak'] += row['lemak']
                 hasil['karbo'] += row['karbo']
-                print(hasil)
 
             return hasil
 
