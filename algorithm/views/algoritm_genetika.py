@@ -91,24 +91,27 @@ class AlgoritmaGenetika(Seleksi):
 
     def selectCross(self, set_nilai_fitness: list, generasi: list) -> list:
         try:
+            
+            hasil = {
+                "parents": [],
+                "childs": [],
+            }
 
             probailitas = Seleksi().generateProbabilitas(set_nilai_fitness)
 
-            # TODO: Forloop crossover
-            # for row in range(0, len(generasi)):
-            #     parents = Seleksi().selectParent(final_probabilitas, generasi)
-            #     childs = self.crossover(parents)
-            #     hasil.append(childs)
-            
-            parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], copy.deepcopy(generasi))
-            childs = self.crossover(copy.deepcopy(parents))
+            # Forloop crossover
+            for row in range(0, int(len(generasi)/2)):
+                print('selectcross ' + str(row) + " ======")
+                
+                parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], copy.deepcopy(generasi))
+                for parent in parents:
+                    hasil['parents'].append(parent)
+                    
+                childs = self.crossover(copy.deepcopy(parents))
+                for child in childs:
+                    hasil['childs'].append(child)
 
-            return {
-                "kumulatif":probailitas['probabilitas_kumulatif'], 
-                "generasi": generasi, 
-                "parents":parents,
-                "childs": childs
-            }
+            return hasil
 
         except BaseException as e:
             raise
