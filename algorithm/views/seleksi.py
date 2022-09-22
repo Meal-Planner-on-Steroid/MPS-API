@@ -102,15 +102,17 @@ class Seleksi():
         try:
             parents = []
             key_for_selection = 'scaled_kumulatif'
+            min_number = probabilitas_kumulatif[0]['scaled_kumulatif']
+            max_number = probabilitas_kumulatif[len(probabilitas_kumulatif)-1]['scaled_kumulatif']
             
             x = 0
             while x < 2:
-                random_number = random.uniform(1,10)
+                random_number = random.uniform(min_number, max_number)
                 
                 for probabilitas in probabilitas_kumulatif:
                     if random_number < probabilitas[key_for_selection]:
                         parents.append(generasi[probabilitas['index']])
-                        print(random_number)
+                        print(probabilitas['index'])
                         x += 1
                         break
             
