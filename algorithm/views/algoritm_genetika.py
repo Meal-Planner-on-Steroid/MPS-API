@@ -103,13 +103,11 @@ class AlgoritmaGenetika(Seleksi):
             for row in range(0, int(len(generasi)/2)):
                 print('selectcross ' + str(row) + " ======")
                 
-                parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], copy.deepcopy(generasi))
-                for parent in parents:
-                    hasil['parents'].append(parent)
+                parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], copy.deepcopy(generasi))                    
+                hasil['parents'].extend(parents)
                     
                 childs = self.crossover(copy.deepcopy(parents))
-                for child in childs:
-                    hasil['childs'].append(child)
+                hasil['childs'].extend(childs)
 
             return hasil
 
