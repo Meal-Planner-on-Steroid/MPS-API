@@ -7,10 +7,16 @@ class Seleksi():
         pass
     
     def generateProbabilitas(self, set_nilai_fitness: list) -> dict:
-        # ! Problem: Terjadi situasi dimana probabilitas terpilihnya kromosom adalah 0
-        # * Pilihannya adalah mengubah metode pemilihan roulette wheel selection atau
-        # * Mencari cara untuk tidak membiarkan kromosom memiliki probabilitas 0
-        # Referensi: https://stackoverflow.com/questions/23010525/genetic-algorithms-roulette-wheel-selection
+        """Membuat probabilitas terpilihnya kromosom pada select parent
+
+        Args:
+            set_nilai_fitness (list): Nilai fitness setiap kromosom pada generasi
+
+        Returns:
+            hasil['kumpulan_probabilitas']: Probabilitas terpilihnya kromosom pada setiap nilai gizi
+            hasil['final_probabilitas']: Probabilitas terpilihnya kromosom
+            hasil['probabilitas_kumulatif']: Probabilitas kumulatif untuk proses select parent
+        """
         try:
             hasil = {
                 'kumpulan_probabilitas': [],
@@ -47,26 +53,10 @@ class Seleksi():
                 
             # Sorting probabilitas total
             hasil['final_probabilitas'] = self.sortingListDict(hasil['final_probabilitas'], 'probabilitas_total', 'asc')
-                
-            # Hitung probabilitas kumulatif
-            # kumulatif = 0
-            # for index, row in enumerate(hasil['final_probabilitas']):
-            #     kumulatif += row['probabilitas_total']
-                
-            #     nilai_kumulatif = {
-            #         'index': row['index'],
-            #         'probabilitas_total': kumulatif,
-            #     }
-                
-            #     hasil['probabilitas_kumulatif'].append(nilai_kumulatif)
-            
-            # TODO: Flowchart Rank based selection
-            # Ranking final probabilitas
-            # for rank, row in enumerate(hasil['final_probabilitas']):
-            #     row['rank'] = rank+1
             
             # TODO: Flowchart fitness scalling selection
             # Fitness scalling
+            # Referensi -> https://github.com/Meal-Planner-on-Steroid/MPS-API/issues/1
             # # Persiapan
             final_probabilitas_len = len(hasil['final_probabilitas'])
             max = hasil['final_probabilitas'][final_probabilitas_len-1]['probabilitas_total']
@@ -99,6 +89,16 @@ class Seleksi():
     # TODO: Flowchart select parent
     # Select parent
     def selectParent(self, probabilitas_kumulatif: list, generasi: list) -> list:
+        """Mengambil parent secara random berdasarkan paramter tertentu
+        # Parameter yang digunakan scaled_kumulatif
+
+        Args:
+            probabilitas_kumulatif (list): Probabilitas kumulatif terpilihnya kromosom
+            generasi (list): Generasi yang akan dipilih sebagai parent
+
+        Returns:
+            parents: _description_
+        """
         try:
             parents = []
             key_for_selection = 'scaled_kumulatif'
@@ -112,7 +112,6 @@ class Seleksi():
                 for probabilitas in probabilitas_kumulatif:
                     if random_number < probabilitas[key_for_selection]:
                         parents.append(generasi[probabilitas['index']])
-                        print(probabilitas['index'])
                         x += 1
                         break
             
@@ -124,8 +123,15 @@ class Seleksi():
     # Util
     
     def sumPerNilaiGizi(self, set_nilai_fitness: list) -> dict:
+        """Mendapatkan nilai sum per nilai gizi
+
+        Args:
+            set_nilai_fitness (list): Nilai sum per nilai gizi
+
+        Returns:
+            dict: _description_
+        """
         try:
-            
             hasil = {
                 'protein': 0,
                 'lemak': 0,
@@ -181,6 +187,18 @@ class Seleksi():
                 return array
 
     def linearEqua22(self, a: list, b: list, c: list) -> list:
+        """Memecahkan persamaan linear 2 variable
+        # Pemecahan menggunakan Cramer's rule
+        # Referensi -> https://github.com/Meal-Planner-on-Steroid/MPS-API/issues/1
+
+        Args:
+            a (list): Variable tidak diketahui pertama
+            b (list): Variable tidak diketahui kedua
+            c (list): Hasil persamaan
+
+        Returns:
+            list: Nilai a dan b
+        """
         try:
             hasil = []
             

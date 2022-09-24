@@ -90,6 +90,16 @@ class AlgoritmaGenetika(Seleksi):
             raise
 
     def selectCross(self, set_nilai_fitness: list, generasi: list) -> list:
+        """Container untuk melakukan proses selection dan crossover secara bersamaan
+
+        Args:
+            set_nilai_fitness (list): Nilai fitness dari generasi
+            generasi (list): Generasi yang akan mengalami crossover
+
+        Returns:
+            hasil['parents']: Set kromosom yang terpilih sebagai orang tua
+            hasil['childs']: Set kromosom yang dihasilkan oleh parents (pada proses crossover)
+        """
         try:
             
             hasil = {
@@ -113,6 +123,14 @@ class AlgoritmaGenetika(Seleksi):
             raise
     
     def mutasi(self, generasi: list) -> list:
+        """Mengubah gen pada kromosom pada tempat yang acak
+
+        Args:
+            generasi (list): Generasi yang akan mengalami mutasi
+
+        Returns:
+            list: Generasi yang telah mengalami mutasi
+        """
         try:
             random_number = random.randrange(0, 2)
             print(random_number)
@@ -126,6 +144,15 @@ class AlgoritmaGenetika(Seleksi):
             raise
     
     def elitism(self, generasi: list, set_nilai_fitness: list) -> list:
+        """Mengambil kromosom terbaik dari generasi
+
+        Args:
+            generasi (list): Generasi yang akan diambil nilai terbaiknya
+            set_nilai_fitness (list): Nilai fitness dari generasi
+
+        Returns:
+            list: Dua generasi terbaik
+        """
         try:
             hasil = []
             
@@ -146,6 +173,15 @@ class AlgoritmaGenetika(Seleksi):
             raise
     
     def bentukPopulasiBaru(self, generasi_mutasi: list, generasi_elit: list) -> list:
+        """Menggabungkan generasi mutasi dan generasi elit
+
+        Args:
+            generasi_mutasi (list): Generasi yang telah mengalami mutasi
+            generasi_elit (list): Generasi dengan nilai fitness atau probabilitas terpilih yang terbaik
+
+        Returns:
+            list: Gabungan antara generasi mutasi dan generasi elit (jumlahnya 10)
+        """
         try:
             hasil = generasi_elit
             
@@ -160,7 +196,15 @@ class AlgoritmaGenetika(Seleksi):
             raise
         
     # TODO: Flowchart crossover
-    def crossover(self, parents):
+    def crossover(self, parents:list) -> list:
+        """Melakukan persilangan kromosom antar parent
+
+        Args:
+            parents (list): Kromosom yang telah dipilih sebagai parent
+
+        Returns:
+            list: Childs dari parent
+        """
         try:
             childs = copy.deepcopy(parents)
             
