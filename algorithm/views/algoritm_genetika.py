@@ -101,8 +101,6 @@ class AlgoritmaGenetika(Seleksi):
 
             # Forloop crossover
             for row in range(0, int(len(generasi)/2)):
-                print('selectcross ' + str(row) + " ======")
-                
                 parents = Seleksi().selectParent(probailitas['probabilitas_kumulatif'], copy.deepcopy(generasi))                    
                 hasil['parents'].extend(parents)
                     
@@ -114,6 +112,53 @@ class AlgoritmaGenetika(Seleksi):
         except BaseException as e:
             raise
     
+    def mutasi(self, generasi: list) -> list:
+        try:
+            random_number = random.randrange(0, 2)
+            print(random_number)
+            
+            for row in generasi:
+                random_makanan = self.ambilRandomMakanan('ME', 1)[0]
+                row[random_number] = random_makanan
+            
+            return generasi
+        except BaseException as e:
+            raise
+    
+    def elitism(self, generasi: list, set_nilai_fitness: list) -> list:
+        try:
+            hasil = []
+            
+            # Hitung probabilitas (lagi) untuk mengurutkan kromosom terjelek ke terbaik
+            probabilitas = Seleksi().generateProbabilitas(set_nilai_fitness)
+            
+            # Simpan index, agar tidak terlalu panjang codingannya
+            kromosom1_index = probabilitas['final_probabilitas'][-1]['index']
+            kromosom2_index = probabilitas['final_probabilitas'][-2]['index']
+            
+            # Simpan generasi dengan hasil terbaik
+            hasil.append(generasi[kromosom1_index])
+            hasil.append(generasi[kromosom2_index])
+            
+            return hasil
+        
+        except BaseException as e:
+            raise
+    
+    def bentukPopulasiBaru(self, generasi_mutasi: list, generasi_elit: list) -> list:
+        try:
+            hasil = generasi_elit
+            
+            generasi_mutasi.pop(-1)
+            generasi_mutasi.pop(-2)
+            
+            hasil.extend(generasi_mutasi)
+            
+            return hasil
+        
+        except BaseException as e:
+            raise
+        
     # TODO: Flowchart crossover
     def crossover(self, parents):
         try:
@@ -122,14 +167,7 @@ class AlgoritmaGenetika(Seleksi):
             random_nomor_1 = random.randrange(0,2)
             random_nomor_2 = random.randrange(3,4)
             
-            print('crossover')
-            print(random_nomor_1)
-            print(random_nomor_2)
-            
-            # temp = parents[0]
-            print(childs[0][random_nomor_1])
             childs[0][random_nomor_1] = parents[1][random_nomor_1]
-            print(childs[0][random_nomor_1])
             childs[0][random_nomor_2] = parents[1][random_nomor_2]
             
             childs[1][random_nomor_1] = parents[0][random_nomor_1]
