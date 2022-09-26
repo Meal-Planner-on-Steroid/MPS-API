@@ -1,3 +1,4 @@
+from urllib import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from algorithm.views.algoritm_genetika import AlgoritmaGenetika
@@ -12,6 +13,9 @@ def generateRekomendasiController(request):
         try:
 
             body = request.data
+            with_detail = body['with_detail'] if "with_detail" in body else 0
+            
+            print('with_detail' in body) 
 
             # Kebutuhan gizi
             kg = KebutuhanGizi(
@@ -34,34 +38,40 @@ def generateRekomendasiController(request):
 
             ag = AlgoritmaGenetika(kebutuhan_gizi)
             
+            detail_gen = []
             generasi = ag.generateGenerasi()
-            
             rekomendasi = generasi
             
-            # TODO: For loop proses algoritma genetika
-            # for generasi in range(0,20):
-            #     crossover = ag.selectCross
-            #     mutasi
-            #     elitism
-            #     break
+            for row in range(0,20):
+                nilai_fitness = ag.hitungNilaiFitness(generasi, kebutuhan_gizi)
+                crossover = ag.selectCross(nilai_fitness['set_nilai_fitness'], copy.deepcopy(generasi))
+                generasi_mutasi = ag.mutasi(copy.deepcopy(crossover['childs']))
+                generasi_elit = ag.elitism(copy.deepcopy(generasi), nilai_fitness['set_nilai_fitness'])
+                populasi_baru = ag.bentukPopulasiBaru(generasi_mutasi, generasi_elit)
+                
+                if with_detail:
+                    detail_gen.append({
+                        'generasi': rekomendasi,
+                        'nilai_fitness': nilai_fitness,
+                        'crossover': crossover,
+                        'generasi_mutasi': generasi_mutasi,
+                        'generasi_elit': generasi_elit,
+                    })
+                
+                rekomendasi = populasi_baru
             
-            nilai_fitness = ag.hitungNilaiFitness(generasi, kebutuhan_gizi)
-            crossover = ag.selectCross(nilai_fitness['set_nilai_fitness'], copy.deepcopy(generasi))
-            generasi_mutasi = ag.mutasi(copy.deepcopy(crossover['childs']))
-            generasi_elit = ag.elitism(copy.deepcopy(generasi), nilai_fitness['set_nilai_fitness'])
-            populasi_baru = ag.bentukPopulasiBaru(generasi_mutasi, generasi_elit)
+            result = {
+                'kebutuhan_gizi': kebutuhan_gizi,
+                'rekomendasi': rekomendasi,
+            }
             
-            # Populasi baru
+            if with_detail:
+                result['detail_proses'] = detail_gen
 
             return Response(
                 {
                     "message": "Berhasil membuat rekomendasi",
-                    "data": {
-                        'kebutuhan_gizi': kebutuhan_gizi,
-                        'populasi_baru': populasi_baru,
-                        # 'mutasi': generasi_mutasi,
-                        # 'nilai_fitness': nilai_fitness,
-                    },
+                    "data": result,
                 },
                 status=200,
             )

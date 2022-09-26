@@ -54,7 +54,6 @@ class Seleksi():
             # Sorting probabilitas total
             hasil['final_probabilitas'] = self.sortingListDict(hasil['final_probabilitas'], 'probabilitas_total', 'asc')
             
-            # TODO: Flowchart fitness scalling selection
             # Fitness scalling
             # Referensi -> https://github.com/Meal-Planner-on-Steroid/MPS-API/issues/1
             # # Persiapan
@@ -86,7 +85,6 @@ class Seleksi():
         except BaseException as e:
             raise
     
-    # TODO: Flowchart select parent
     # Select parent
     def selectParent(self, probabilitas_kumulatif: list, generasi: list) -> list:
         """Mengambil parent secara random berdasarkan paramter tertentu

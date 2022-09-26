@@ -133,7 +133,6 @@ class AlgoritmaGenetika(Seleksi):
         """
         try:
             random_number = random.randrange(0, 2)
-            print(random_number)
             
             for row in generasi:
                 random_makanan = self.ambilRandomMakanan('ME', 1)[0]
@@ -195,7 +194,6 @@ class AlgoritmaGenetika(Seleksi):
         except BaseException as e:
             raise
         
-    # TODO: Flowchart crossover
     def crossover(self, parents:list) -> list:
         """Melakukan persilangan kromosom antar parent
 
