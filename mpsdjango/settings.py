@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'django_cleanup.apps.CleanupConfig',
+    'django_filters',
     
     'rest_framework',
     'base.apps.BaseConfig',
@@ -145,3 +146,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/admin-panel'
 LOGOUT_REDIRECT_URL = '/admin-panel/login'
+
+# Django filter backend
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
