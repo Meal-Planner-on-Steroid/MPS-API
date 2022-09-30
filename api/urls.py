@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import (
-    user_view, 
+    user_view,
+    user_profile_view,
     aktivitas_view, 
     kebutuhan_gizi_view, 
     generate_rekomendasi_menu_view, 
@@ -14,7 +15,13 @@ urlpatterns = [
     # Database end-points
     # # Anthing about user
     # # # User
-    path('user', user_view.userController),
+    path("users/<int:id>", user_view.show, name="user-detail"),
+    path("users/<int:id>/edit/", user_view.update, name="user-edit"),
+    path("users/<int:id>/delete/", user_view.destroy, name="user-delete"),
+    # # # Profile
+    path("users/<int:id>/profile", user_profile_view.show, name="user-detail"),
+    path("users/<int:id>/profile/edit/", user_profile_view.update, name="user-detail"),
+    
     # # # Tingkat aktivitas
     path('aktivitas', aktivitas_view.index),
     path('aktivitas/<int:id>', aktivitas_view.show),
