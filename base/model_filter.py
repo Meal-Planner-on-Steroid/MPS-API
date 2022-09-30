@@ -1,7 +1,11 @@
 # from django_filters import rest_framework as filters
 from dataclasses import field
 import django_filters
-from .models import TingkatAktivitas, Makanan
+from .models import (
+    Satuan, 
+    TingkatAktivitas, 
+    Makanan
+)
 
 
 class TingkatAktivitasFilter(django_filters.FilterSet):
@@ -51,3 +55,12 @@ class MakananFilter(django_filters.FilterSet):
         model = Makanan
         fields = ['nama', 'porsi', 'lemak', 'protein', 'karbo',
                   'energi', 'jenis', 'berat_porsi', 'besar_porsi']
+
+class SatuanFilter(django_filters.FilterSet):
+    nama = django_filters.CharFilter(field_name='nama', lookup_expr='iexact')
+    nama__icontains = django_filters.CharFilter(
+        field_name='nama', lookup_expr='icontains')
+
+    class Meta:
+        model = Satuan
+        fields = ['nama']
