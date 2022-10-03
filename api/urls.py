@@ -8,23 +8,43 @@ from .views import (
     makanan_view, 
     makanan_terkait_view,
     satuan_view,
+    preferensi_makanan_view,
 )
 
 
 urlpatterns = [
     # Database end-points
+    
     # # Anthing about user
     # # # User
-    path("users/<int:id>", user_view.show, name="user-detail"),
-    path("users/<int:id>/edit/", user_view.update, name="user-edit"),
-    path("users/<int:id>/delete/", user_view.destroy, name="user-delete"),
-    # # # Profile
-    path("users/<int:id>/profile", user_profile_view.show, name="user-detail"),
-    path("users/<int:id>/profile/edit/", user_profile_view.update, name="user-detail"),
+    path("users/<int:id>", user_view.show),
+    path("users/<int:id>/edit/", user_view.update),
+    path("users/<int:id>/delete/", user_view.destroy),
     
-    # # # Tingkat aktivitas
+    # # # Profile
+    path("users/<int:id>/profile", user_profile_view.show),
+    path("users/<int:id>/profile/edit/", user_profile_view.update),
+    
+    # # # Preferensi makanan
+    path("users/<int:id>/preferensi-makanan", preferensi_makanan_view.index),
+    path("users/<int:id>/preferensi-makanan/new/", preferensi_makanan_view.create),
+    path("users/<int:id>/preferensi-makanan/<int:preferensi_id>", preferensi_makanan_view.show),
+    path("users/<int:id>/preferensi-makanan/<int:preferensi_id>/update", preferensi_makanan_view.update),
+    path("users/<int:id>/preferensi-makanan/<int:preferensi_id>/delete", preferensi_makanan_view.destroy),
+    
+    # # # Riwayat rekomendasi makanan
+    # TODO: GET, DELETE
+
+    # # # # Riwayat rekomendasi makanan - pilih hari
+    # TODO: GET
+    
+    # # # # # Riwayat rekomendasi makanan - pilih makanan
+    # TODO: GET
+    
+    # # Tingkat aktivitas
     path('aktivitas', aktivitas_view.index),
     path('aktivitas/<int:id>', aktivitas_view.show),
+    
     # # Makanan
     path('makanan', makanan_view.index),
     path('makanan/new/', makanan_view.create),

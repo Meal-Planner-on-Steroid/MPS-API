@@ -2,6 +2,7 @@
 from dataclasses import field
 import django_filters
 from .models import (
+    PreferensiMakanan,
     Satuan, 
     TingkatAktivitas, 
     Makanan
@@ -64,3 +65,12 @@ class SatuanFilter(django_filters.FilterSet):
     class Meta:
         model = Satuan
         fields = ['nama']
+        
+class PreferensiMakananFilter(django_filters.FilterSet):
+    jenis = django_filters.CharFilter(field_name='jenis', lookup_expr='iexact')
+    jenis__icontains = django_filters.CharFilter(
+        field_name='jenis', lookup_expr='icontains')
+
+    class Meta:
+        model = PreferensiMakanan
+        fields = ['jenis']
