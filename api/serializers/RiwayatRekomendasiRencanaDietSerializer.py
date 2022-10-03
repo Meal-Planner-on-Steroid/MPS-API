@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from base.models import RiwayatRekomendasiRencanaDiet
+from base.models import RiwayatRekomendasiRencanaDiet, RekomendasiRencanaDiet
 
 class RiwayatRekomendasiRencanaDietSerializer(serializers.ModelSerializer):
     
@@ -17,4 +17,13 @@ class RiwayatRekomendasiRencanaDietSerializer(serializers.ModelSerializer):
             'butuh_karbo',
             'butuh_lemak',
             'user_id'
+        ]
+
+class RiwayatRekomendasiRencanaDietHariSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = RekomendasiRencanaDiet
+        fields = [
+            'id',
+            'riwayat_rekomendasi_id',
         ]

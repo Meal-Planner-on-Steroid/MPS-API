@@ -67,6 +67,9 @@ def create(request, id):
             if serializer.is_valid():
                 serializer.save(user=user)
                 
+            # TODO: For loop insert rekomendasi rencana diet perhari
+            # TODO: For loop insert makanan rekomendasii rencana diet
+                
             return Response({
                 "message": "Berhasil tambah riwayat rekomendasi rencana diet",
                 "statusCode": 200,

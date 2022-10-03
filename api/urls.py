@@ -1,6 +1,5 @@
 from django.urls import path
 from .views import (
-    riwayat_rekomendasi_rencana_diet_view,
     user_view,
     user_profile_view,
     aktivitas_view, 
@@ -10,6 +9,8 @@ from .views import (
     makanan_terkait_view,
     satuan_view,
     preferensi_makanan_view,
+    riwayat_rekomendasi_rencana_diet_view,
+    riwayat_rekomendasi_rencana_diet_hari_view,
 )
 
 
@@ -34,14 +35,15 @@ urlpatterns = [
     path("users/<int:id>/preferensi-makanan/<int:preferensi_id>/delete", preferensi_makanan_view.destroy),
     
     # # # Riwayat rekomendasi makanan
-    # TODO: GET, POST, DELETE
+    # TODO: POST hari dan makanan
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet", riwayat_rekomendasi_rencana_diet_view.index),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/new", riwayat_rekomendasi_rencana_diet_view.create),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>", riwayat_rekomendasi_rencana_diet_view.show),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/delete", riwayat_rekomendasi_rencana_diet_view.destroy),
 
     # # # # Riwayat rekomendasi makanan - pilih hari
-    # TODO: GET
+    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari", riwayat_rekomendasi_rencana_diet_hari_view.index),
+    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>", riwayat_rekomendasi_rencana_diet_hari_view.show),
     
     # # # # # Riwayat rekomendasi makanan - pilih hari - pilih makanan
     # TODO: GET
