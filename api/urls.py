@@ -11,6 +11,7 @@ from .views import (
     preferensi_makanan_view,
     riwayat_rekomendasi_rencana_diet_view,
     riwayat_rekomendasi_rencana_diet_hari_view,
+    riwayat_rekomendasi_rencana_diet_makanan_view,
 )
 
 
@@ -46,7 +47,8 @@ urlpatterns = [
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>", riwayat_rekomendasi_rencana_diet_hari_view.show),
     
     # # # # # Riwayat rekomendasi makanan - pilih hari - pilih makanan
-    # TODO: GET
+    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>/makanan", riwayat_rekomendasi_rencana_diet_makanan_view.index),
+    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>/makanan/<int:makanan_id>", riwayat_rekomendasi_rencana_diet_makanan_view.show),
     
     # # Tingkat aktivitas
     path('aktivitas', aktivitas_view.index),

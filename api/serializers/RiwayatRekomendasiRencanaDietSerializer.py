@@ -1,8 +1,35 @@
+from api.serializers.MakananSerializer import MakananSerializer
 from rest_framework import serializers
-from base.models import RiwayatRekomendasiRencanaDiet, RekomendasiRencanaDiet
+from base.models import RekomendasiMakananDiet, RiwayatRekomendasiRencanaDiet, RekomendasiRencanaDiet
+
+
+class RiwayatRekomendasiRencanaDietMakananSerializer(serializers.ModelSerializer):
+    makanan = MakananSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = RekomendasiMakananDiet
+        fields = [
+            'id',
+            'makanan',
+            'waktu_makan',
+            'rekomendasi_rencana_diet_id',
+        ]
+
+
+class RiwayatRekomendasiRencanaDietHariSerializer(serializers.ModelSerializer):
+    rekomendasi_rencana_diet = RiwayatRekomendasiRencanaDietMakananSerializer(many=True, read_only=True)
+    
+    class Meta:
+        model = RekomendasiRencanaDiet
+        fields = [
+            'id',
+            'riwayat_rekomendasi_id',
+            'rekomendasi_rencana_diet',
+        ]
+
 
 class RiwayatRekomendasiRencanaDietSerializer(serializers.ModelSerializer):
-    
+    riwayat_rekomendasi_rencana_diet = RiwayatRekomendasiRencanaDietHariSerializer(many=True, read_only=True)
     class Meta:
         model = RiwayatRekomendasiRencanaDiet
         fields = [
@@ -16,14 +43,6 @@ class RiwayatRekomendasiRencanaDietSerializer(serializers.ModelSerializer):
             'butuh_protein',
             'butuh_karbo',
             'butuh_lemak',
-            'user_id'
-        ]
-
-class RiwayatRekomendasiRencanaDietHariSerializer(serializers.ModelSerializer):
-    
-    class Meta:
-        model = RekomendasiRencanaDiet
-        fields = [
-            'id',
-            'riwayat_rekomendasi_id',
+            'user_id',
+            'riwayat_rekomendasi_rencana_diet',
         ]
