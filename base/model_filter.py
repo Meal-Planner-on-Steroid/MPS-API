@@ -5,7 +5,8 @@ from .models import (
     PreferensiMakanan,
     Satuan, 
     TingkatAktivitas, 
-    Makanan
+    Makanan,
+    RiwayatRekomendasiRencanaDiet,
 )
 
 
@@ -74,3 +75,70 @@ class PreferensiMakananFilter(django_filters.FilterSet):
     class Meta:
         model = PreferensiMakanan
         fields = ['jenis']
+        
+class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
+    berat_badan = django_filters.NumberFilter()
+    berat_badan__gt = django_filters.NumberFilter(
+        field_name='berat_badan', lookup_expr='gt')
+    berat_badan__lt = django_filters.NumberFilter(
+        field_name='berat_badan', lookup_expr='lt')
+    
+    tinggi_badan = django_filters.NumberFilter()
+    tinggi_badan__gt = django_filters.NumberFilter(
+        field_name='tinggi_badan', lookup_expr='gt')
+    tinggi_badan__lt = django_filters.NumberFilter(
+        field_name='tinggi_badan', lookup_expr='lt')
+    
+    usia = django_filters.NumberFilter()
+    usia__gt = django_filters.NumberFilter(
+        field_name='usia', lookup_expr='gt')
+    usia__lt = django_filters.NumberFilter(
+        field_name='usia', lookup_expr='lt')
+    
+    gender = django_filters.CharFilter(field_name='gender', lookup_expr='iexact')
+    gender__icontains = django_filters.CharFilter(
+        field_name='gender', lookup_expr='icontains')
+    
+    imt = django_filters.NumberFilter()
+    imt__gt = django_filters.NumberFilter(
+        field_name='imt', lookup_expr='gt')
+    imt__lt = django_filters.NumberFilter(
+        field_name='imt', lookup_expr='lt')
+    
+    keseluruhan_energi = django_filters.NumberFilter()
+    keseluruhan_energi__gt = django_filters.NumberFilter(
+        field_name='keseluruhan_energi', lookup_expr='gt')
+    keseluruhan_energi__lt = django_filters.NumberFilter(
+        field_name='keseluruhan_energi', lookup_expr='lt')
+    
+    butuh_protein = django_filters.NumberFilter()
+    butuh_protein__gt = django_filters.NumberFilter(
+        field_name='butuh_protein', lookup_expr='gt')
+    butuh_protein__lt = django_filters.NumberFilter(
+        field_name='butuh_protein', lookup_expr='lt')
+    
+    butuh_karbo = django_filters.NumberFilter()
+    butuh_karbo__gt = django_filters.NumberFilter(
+        field_name='butuh_karbo', lookup_expr='gt')
+    butuh_karbo__lt = django_filters.NumberFilter(
+        field_name='butuh_karbo', lookup_expr='lt')
+    
+    butuh_lemak = django_filters.NumberFilter()
+    butuh_lemak__gt = django_filters.NumberFilter(
+        field_name='butuh_lemak', lookup_expr='gt')
+    butuh_lemak__lt = django_filters.NumberFilter(
+        field_name='butuh_lemak', lookup_expr='lt')
+
+    class Meta:
+        model = RiwayatRekomendasiRencanaDiet
+        fields = [
+            'berat_badan',
+            'tinggi_badan',
+            'usia',
+            'gender',
+            'imt',
+            'keseluruhan_energi',
+            'butuh_protein',
+            'butuh_karbo',
+            'butuh_lemak',
+        ]
