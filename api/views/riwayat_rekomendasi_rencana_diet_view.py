@@ -1,9 +1,15 @@
-from urllib import response
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
-from base.models import RiwayatRekomendasiRencanaDiet, User
+from base.models import (
+    User, 
+    RiwayatRekomendasiRencanaDiet, 
+    RekomendasiRencanaDiet,
+    RekomendasiMakananDiet,
+    WaktuMakan,
+    Makanan,
+)
 from base.model_filter import RiwayatRekomendasiRencanaDietFilter
 from api.serializers.RiwayatRekomendasiRencanaDietSerializer import RiwayatRekomendasiRencanaDietSerializer
 
@@ -61,19 +67,48 @@ def create(request, id):
     if request.method == 'POST':
         body = request.data
         try:
-            serializer = RiwayatRekomendasiRencanaDietSerializer(data = body)
+            # Insert riwayat kebutuhan gizi
+            riwayat = body['kebutuhan_gizi']
+            riwayat_serializer = RiwayatRekomendasiRencanaDietSerializer(data = riwayat)    
             user = User.objects.get(id = id)
+            if riwayat_serializer.is_valid():
+                riwayat_serializer.save(user=user)
             
-            if serializer.is_valid():
-                serializer.save(user=user)
+            # Persiapan For loop insert rekomendasi rencana diet perhari
+            rekomendasi = body['rekomendasi']
+            riwayat_rekomendasi = RiwayatRekomendasiRencanaDiet.objects.get(id=riwayat_serializer.data['id'])
+            
+            urutan_waktu_makan = [
+                WaktuMakan.PAGI,
+                WaktuMakan.SIANG,
+                WaktuMakan.MALAM,
+                WaktuMakan.CAMILAN,
+                WaktuMakan.CAMILAN,
+            ]
+            
+            # For loop insert rekomendasi rencana diet perhari
+            for index in rekomendasi:             
+                rekomendasi_rencana = RekomendasiRencanaDiet(
+                    riwayat_rekomendasi=riwayat_rekomendasi,
+                )
+                rekomendasi_rencana.save()
                 
-            # TODO: For loop insert rekomendasi rencana diet perhari
-            # TODO: For loop insert makanan rekomendasii rencana diet
+                # For loop insert makanan rekomendasii rencana diet
+                for i, makanan in enumerate(index):
+                    rekomendasi_makanan = RekomendasiMakananDiet(
+                        makanan = Makanan.objects.get(id = makanan['id']),
+                        waktu_makan = urutan_waktu_makan[i],
+                        rekomendasi_rencana_diet = RekomendasiRencanaDiet.objects.get(id=rekomendasi_rencana.id),
+                    )
+                    rekomendasi_makanan.save()
                 
             return Response({
                 "message": "Berhasil tambah riwayat rekomendasi rencana diet",
                 "statusCode": 200,
-                "data": serializer.data
+                "data": {                    
+                    "riwayat": riwayat_serializer.data,
+                    "rekomendasi": rekomendasi,
+                }                    
             }, status=status.HTTP_200_OK)
 
         except Exception as e:

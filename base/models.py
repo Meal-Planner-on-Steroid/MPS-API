@@ -54,9 +54,9 @@ class UserProfile(models.Model):
     gender = models.CharField(max_length=2, choices=Gender.choices, default=Gender.PEREMPUAN)
     imt = models.FloatField(null=True);
     keseluruhan_energi = models.FloatField(null=True);
-    butuh_protein = models.FloatField(null=True);
-    butuh_karbo = models.FloatField(null=True);
-    butuh_lemak = models.FloatField(null=True);
+    butuh_protein = models.JSONField(null=True);
+    butuh_karbo = models.JSONField(null=True);
+    butuh_lemak = models.JSONField(null=True);
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -145,9 +145,9 @@ class RiwayatRekomendasiRencanaDiet(models.Model):
     gender = models.CharField(max_length=2, choices=Gender.choices, default=Gender.PEREMPUAN)
     imt = models.FloatField(null=True);
     keseluruhan_energi = models.FloatField(null=True);
-    butuh_protein = models.FloatField(null=True);
-    butuh_karbo = models.FloatField(null=True);
-    butuh_lemak = models.FloatField(null=True);
+    butuh_protein = models.JSONField(null=True);
+    butuh_karbo = models.JSONField(null=True);
+    butuh_lemak = models.JSONField(null=True);
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

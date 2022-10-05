@@ -30,6 +30,10 @@ class RiwayatRekomendasiRencanaDietHariSerializer(serializers.ModelSerializer):
 
 class RiwayatRekomendasiRencanaDietSerializer(serializers.ModelSerializer):
     riwayat_rekomendasi_rencana_diet = RiwayatRekomendasiRencanaDietHariSerializer(many=True, read_only=True)
+    butuh_protein = serializers.JSONField()
+    butuh_karbo = serializers.JSONField()
+    butuh_lemak = serializers.JSONField()
+    
     class Meta:
         model = RiwayatRekomendasiRencanaDiet
         fields = [
