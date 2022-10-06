@@ -69,7 +69,7 @@ class RencanaDiet(models.Model):
     
 class Olahraga(models.Model):
     
-    rencana_diet = models.ForeignKey(RencanaDiet, related_name="rencana_diet_olahraga",on_delete=models.CASCADE)
+    rencana_diet = models.OneToOneField(RencanaDiet, on_delete=models.CASCADE)
     nama = models.CharField(max_length=50,null=True);
     status = models.IntegerField(choices=Status.choices, default=Status.INCOMPLETE)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -77,7 +77,7 @@ class Olahraga(models.Model):
     
 class Minum(models.Model):
     
-    rencana_diet = models.ForeignKey(RencanaDiet, related_name="rencana_diet_minum",on_delete=models.CASCADE)
+    rencana_diet = models.OneToOneField(RencanaDiet, on_delete=models.CASCADE)
     jumlah_minum = models.IntegerField();
     banyak_minum = models.IntegerField();
     progress = models.IntegerField();

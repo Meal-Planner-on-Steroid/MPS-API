@@ -12,6 +12,10 @@ from .views import (
     riwayat_rekomendasi_rencana_diet_view,
     riwayat_rekomendasi_rencana_diet_hari_view,
     riwayat_rekomendasi_rencana_diet_makanan_view,
+    rencana_diet_view,
+    rencana_diet_minum_view,
+    rencana_diet_olahraga_view,
+    rencana_diet_makanan_view,
 )
 
 
@@ -36,7 +40,6 @@ urlpatterns = [
     path("users/<int:id>/preferensi-makanan/<int:preferensi_id>/delete", preferensi_makanan_view.destroy),
     
     # # # Riwayat rekomendasi makanan
-    # TODO: POST hari dan makanan
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet", riwayat_rekomendasi_rencana_diet_view.index),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/new", riwayat_rekomendasi_rencana_diet_view.create),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>", riwayat_rekomendasi_rencana_diet_view.show),
@@ -49,6 +52,27 @@ urlpatterns = [
     # # # # # Riwayat rekomendasi makanan - pilih hari - pilih makanan
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>/makanan", riwayat_rekomendasi_rencana_diet_makanan_view.index),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>/makanan/<int:makanan_id>", riwayat_rekomendasi_rencana_diet_makanan_view.show),
+    
+    # # # Rencana diet
+    path("users/<int:id>/rencana-diet", rencana_diet_view.index),
+    path("users/<int:id>/rencana-diet/new", rencana_diet_view.create),
+    path("users/<int:id>/rencana-diet/<int:rencana_id>", rencana_diet_view.show),
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/delete", rencana_diet_view.destroy),
+    
+    # # # # Rencana diet - Minum
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/minum", rencana_diet_minum_view.index),
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/minum/new", rencana_diet_minum_view.create), # Just in case
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/minum/update", rencana_diet_minum_view.update),
+    
+    # # # # Rencana diet - Olahraga
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/olahraga", rencana_diet_olahraga_view.index),
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/olahraga/new", rencana_diet_olahraga_view.create), # Just in case
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/olahraga/update", rencana_diet_olahraga_view.update),
+    
+    # # # # Rencana diet - Makanan
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan", rencana_diet_makanan_view.index),
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/new", rencana_diet_makanan_view.create),
+    path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/<int:makanan_id>/update", rencana_diet_makanan_view.update),
     
     # # Tingkat aktivitas
     path('aktivitas', aktivitas_view.index),

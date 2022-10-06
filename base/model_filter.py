@@ -7,6 +7,7 @@ from .models import (
     TingkatAktivitas, 
     Makanan,
     RiwayatRekomendasiRencanaDiet,
+    RencanaDiet,
 )
 
 
@@ -142,3 +143,14 @@ class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
             'butuh_karbo',
             'butuh_lemak',
         ]
+        
+class RencanaDietFilter(django_filters.FilterSet):
+    tanggal = django_filters.NumberFilter()
+    tanggal__gt = django_filters.NumberFilter(
+        field_name='tanggal', lookup_expr='gt')
+    tanggal__lt = django_filters.NumberFilter(
+        field_name='tanggal', lookup_expr='lt')
+
+    class Meta:
+        model = RencanaDiet
+        fields = ['tanggal']
