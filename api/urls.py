@@ -16,11 +16,20 @@ from .views import (
     rencana_diet_minum_view,
     rencana_diet_olahraga_view,
     rencana_diet_makanan_view,
+    auth_view,
 )
-
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+)
 
 urlpatterns = [
     # Database end-points
+    # # Auth
+    path("auth/register", auth_view.register),
+    path('auth/login', auth_view.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('auth/login/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    # path("auth/lupa-password", user_view.show),
+    # path("auth/reset-password", user_view.show),
     
     # # Anthing about user
     # # # User
