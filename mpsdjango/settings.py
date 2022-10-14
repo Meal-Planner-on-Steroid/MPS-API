@@ -151,3 +151,13 @@ LOGOUT_REDIRECT_URL = '/admin-panel/login'
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
+
+# # SMPT Configuration
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_POSRT = 587
+# EMAIL_USE_TLS = True
+# # TODO bikin akun gmail
+# EMAIL_HOST_USER = ''
+# EMAIL_HOST_PASSWORD = ''

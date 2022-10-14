@@ -18,6 +18,7 @@ urlpatterns = [
     path("", overview_view.index, name="admin_index"),
     
     # Auth
+    # TODO: Taruh juga di di API
     path('', include("django.contrib.auth.urls")),
     # path("register/", va.register, name="register"),
     # path("login/", va.login, name="login"),
