@@ -1,21 +1,21 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from rest_framework import status
+from rest_framework.views import APIView
 from base.models import TingkatAktivitas
 from base.model_filter import TingkatAktivitasFilter
 from api.serializers.TingkatAktivitasSerializer import TingkatAktivitasSerializer
 
 
-@api_view(['GET'])
-def index(request):
-    if request.method == 'GET':
+class AktivitasList(APIView):
+
+    def get(self, request, format=None):
         try:
             queryset = TingkatAktivitas.objects.all()
             filterset = TingkatAktivitasFilter(request.GET, queryset=queryset)
-            
+
             if filterset.is_valid():
                 queryset = filterset.qs
-                
+
             serializer = TingkatAktivitasSerializer(queryset, many=True)
 
             return Response({
@@ -28,13 +28,13 @@ def index(request):
             return Response({
                 "message": "Terjadi masalah",
                 "statusCode": 400,
-                "error": e.args[0]
+                "error": e.args
             }, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
-def show(request, id):
-    if request.method == 'GET':
+class AktivitasDetail(APIView):
+
+    def get(self, request, id, format=None):
         try:
             aktivitas = TingkatAktivitas.objects.get(id=id)
             serializer = TingkatAktivitasSerializer(aktivitas, many=False)
@@ -49,5 +49,5 @@ def show(request, id):
             return Response({
                 "message": "Terjadi masalah",
                 "statusCode": 400,
-                "error": e.args[0]
+                "error": e.args
             }, status=status.HTTP_400_BAD_REQUEST)

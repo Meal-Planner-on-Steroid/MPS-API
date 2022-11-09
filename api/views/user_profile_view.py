@@ -9,14 +9,14 @@ from django.http import Http404
 class UserProfileList(APIView):
     def get(self, request, format=None):
         try:
-            profile_queryset = UserProfile.objects.all()
-            profile_serializer = UserProfileSerializer(
-                profile_queryset, many=True)
+            queryset = UserProfile.objects.all()
+            serializer = UserProfileSerializer(
+                queryset, many=True)
 
             return Response({
                 "message": "Berhasil mengambil profile User",
                 "statusCode": 200,
-                "data": profile_serializer.data
+                "data": serializer.data
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
