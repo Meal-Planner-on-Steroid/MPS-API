@@ -1,4 +1,4 @@
-from base.models import User, TingkatAktivitas
+from base.models import User, TingkatAktivitas, UserProfile
 from api.serializers.UserSerializer import UserProfileSerializer
 
 class UserProfileService():
@@ -22,7 +22,7 @@ class UserProfileService():
     def put(self, request, id):
         body = request.data
         try:
-            queryset = self.get_object(id)
+            queryset = UserProfile.objects.get(id=id)
             serializer = UserProfileSerializer(queryset, data=body)
 
             if serializer.is_valid():

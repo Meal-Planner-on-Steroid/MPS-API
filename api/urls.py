@@ -24,6 +24,7 @@ from .views import (
 
 from .views.user_profile_view import UserProfileList, UserProfileDetail
 from .views.aktivitas_view import AktivitasList, AktivitasDetail
+from .views.preferensi_makanan_view import PreferensiMakananList, PreferensiMakananDetail
 
 urlpatterns = [
     # =========/ Auth endpoints
@@ -47,13 +48,9 @@ urlpatterns = [
     path("aktivitas/", AktivitasList.as_view()),
     path("aktivitas/<int:id>/", AktivitasDetail.as_view()),
     
-    # TODO: Rapikan
     # Preferensi makanan
-    path("users/<int:id>/preferensi-makanan", preferensi_makanan_view.index),
-    path("users/<int:id>/preferensi-makanan/new/", preferensi_makanan_view.create),
-    path("users/<int:id>/preferensi-makanan/<int:preferensi_id>", preferensi_makanan_view.show),
-    path("users/<int:id>/preferensi-makanan/<int:preferensi_id>/update", preferensi_makanan_view.update),
-    path("users/<int:id>/preferensi-makanan/<int:preferensi_id>/delete", preferensi_makanan_view.destroy),
+    path("preferensi-makanan/", PreferensiMakananList.as_view()),
+    path("preferensi-makanan/<int:id>/", PreferensiMakananDetail.as_view()),
     
     # TODO: Rapikan
     # Riwayat rekomendasi makanan
