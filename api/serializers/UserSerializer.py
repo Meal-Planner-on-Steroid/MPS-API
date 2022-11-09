@@ -4,13 +4,14 @@ from base.models import User, UserProfile
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    tingkat_aktivitas = TingkatAktivitasSerializer(many=False, read_only=True)
-    
+        
     class Meta:
         model = UserProfile
         fields = [
+            'id',
+            'user_id',
             'avatar',
-            'tingkat_aktivitas',
+            'tingkat_aktivitas_id',
             'berat_badan',
             'tinggi_badan',
             'usia',
