@@ -12,12 +12,13 @@ class MakananDetailSerializer(serializers.ModelSerializer):
                   'energi', 'jenis', 'berat_porsi', 'besar_porsi', 'sumber', 'kelompok']
 
 class BahanMakananSerializer(serializers.ModelSerializer):
-    satuan = SatuanSerializer(many=False, read_only=True)
-    bahan_makanan = MakananDetailSerializer(many=False, read_only=True)
+    # satuan = SatuanSerializer(many=False, read_only=True)
+    # bahan_makanan = MakananDetailSerializer(many=False, read_only=True)
 
     class Meta:
         model = BahanMakanan
-        fields = ['bahan_makanan', 'berat', 'satuan']
+        # fields = ['bahan_makanan', 'berat', 'satuan']
+        fields = ['id', 'berat', 'satuan_id', 'bahan_makanan_id', 'menu_makanan_id']
 
 class MenuMakananSerializer(serializers.ModelSerializer):
     satuan = SatuanSerializer(many=False, read_only=True)

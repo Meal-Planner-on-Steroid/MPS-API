@@ -6,6 +6,7 @@ from .models import (
     Satuan, 
     TingkatAktivitas, 
     Makanan,
+    BahanMakanan,
     RiwayatRekomendasiRencanaDiet,
     RencanaDiet,
 )
@@ -58,6 +59,22 @@ class MakananFilter(django_filters.FilterSet):
         model = Makanan
         fields = ['nama', 'porsi', 'lemak', 'protein', 'karbo',
                   'energi', 'jenis', 'berat_porsi', 'besar_porsi']
+        
+class BahanMakananFilter(django_filters.FilterSet):
+    
+    berat = django_filters.NumberFilter()
+    berat__gt = django_filters.NumberFilter(
+        field_name='berat', lookup_expr='gt')
+    berat__lt = django_filters.NumberFilter(
+        field_name='berat', lookup_expr='lt')
+    
+    satuan_id = django_filters.NumberFilter()
+    bahan_makanan_id = django_filters.NumberFilter()
+    menu_makanan_id = django_filters.NumberFilter()
+    
+    class Meta:
+        model = BahanMakanan
+        fields = ['berat', 'satuan_id', 'bahan_makanan_id', 'menu_makanan_id']
 
 class SatuanFilter(django_filters.FilterSet):
     nama = django_filters.CharFilter(field_name='nama', lookup_expr='iexact')
