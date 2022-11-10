@@ -39,12 +39,12 @@ class PreferensiMakananList(APIView):
 
     def post(self, request, format=None):
         try:
-            response = PreferensiMakananService.post(self, request)
+            result = PreferensiMakananService.post(self, request)
 
             return Response({
                 "message": "Berhasil tambah preferensi makanan",
                 "statusCode": 200,
-                "data": response
+                "data": result.data
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -61,8 +61,8 @@ class PreferensiMakananDetail(APIView):
     def get_object(self, id):
         try:
             return PreferensiMakanan.objects.get(id=id)
-        except Exception as e:
-            raise Http404
+        except PreferensiMakanan.DoesNotExist:
+            raise Http404("Tidak ada data yang cocok")
 
     def get(self, request, id, format=None):
         try:
@@ -84,12 +84,12 @@ class PreferensiMakananDetail(APIView):
 
     def put(self, request, id, format=None):
         try:
-            response = PreferensiMakananService.put(self, request, id)
+            result = PreferensiMakananService.put(self, request, id)
 
             return Response({
                 "message": "Berhasil update makanan",
                 "statusCode": 200,
-                "data": response
+                "data": result.data
             }, status=status.HTTP_200_OK)
 
         except Exception as e:

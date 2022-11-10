@@ -44,57 +44,59 @@ urlpatterns = [
     path("users-profile/", UserProfileList.as_view()),
     path("users-profile/<int:id>/", UserProfileDetail.as_view()),
     
+    # TODO: Filter
     # Tingkat aktivitas
     path("aktivitas/", AktivitasList.as_view()),
     path("aktivitas/<int:id>/", AktivitasDetail.as_view()),
     
+    # TODO: Filter
     # Preferensi makanan
     path("preferensi-makanan/", PreferensiMakananList.as_view()),
     path("preferensi-makanan/<int:id>/", PreferensiMakananDetail.as_view()),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Riwayat rekomendasi makanan
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet", riwayat_rekomendasi_rencana_diet_view.index),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/new", riwayat_rekomendasi_rencana_diet_view.create),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>", riwayat_rekomendasi_rencana_diet_view.show),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/delete", riwayat_rekomendasi_rencana_diet_view.destroy),
 
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Riwayat rekomendasi makanan-pilih hari
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari", riwayat_rekomendasi_rencana_diet_hari_view.index),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>", riwayat_rekomendasi_rencana_diet_hari_view.show),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Riwayat rekomendasi makanan - pilih hari - pilih makanan
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>/makanan", riwayat_rekomendasi_rencana_diet_makanan_view.index),
     path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>/makanan/<int:makanan_id>", riwayat_rekomendasi_rencana_diet_makanan_view.show),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Rencana diet
     path("users/<int:id>/rencana-diet", rencana_diet_view.index),
     path("users/<int:id>/rencana-diet/new", rencana_diet_view.create),
     path("users/<int:id>/rencana-diet/<int:rencana_id>", rencana_diet_view.show),
     path("users/<int:id>/rencana-diet/<int:rencana_id>/delete", rencana_diet_view.destroy),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Rencana diet - Minum
     path("users/<int:id>/rencana-diet/<int:rencana_id>/minum", rencana_diet_minum_view.index),
     path("users/<int:id>/rencana-diet/<int:rencana_id>/minum/new", rencana_diet_minum_view.create), # Just in case
     path("users/<int:id>/rencana-diet/<int:rencana_id>/minum/update", rencana_diet_minum_view.update),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Rencana diet - Olahraga
     path("users/<int:id>/rencana-diet/<int:rencana_id>/olahraga", rencana_diet_olahraga_view.index),
     path("users/<int:id>/rencana-diet/<int:rencana_id>/olahraga/new", rencana_diet_olahraga_view.create), # Just in case
     path("users/<int:id>/rencana-diet/<int:rencana_id>/olahraga/update", rencana_diet_olahraga_view.update),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Rencana diet - Makanan
     path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan", rencana_diet_makanan_view.index),
     path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/new", rencana_diet_makanan_view.create),
     path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/<int:makanan_id>/update", rencana_diet_makanan_view.update),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Makanan
     path('makanan', makanan_view.index),
     path('makanan/new/', makanan_view.create),
@@ -102,11 +104,11 @@ urlpatterns = [
     path('makanan/<int:id>/update', makanan_view.update),
     path('makanan/<int:id>/delete', makanan_view.destroy),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Makan terkait (Bahan makanan / Menu makanan)
     path('makanan/<int:id>/makanan-terkait', makanan_terkait_view.index),
     
-    # TODO: Rapikan
+    # TODO: Rapikan, filter
     # Satuan makanan -> Satuan makanan didapat dari data set
     path('satuan', satuan_view.index),
     path('satuan/<int:id>', satuan_view.show),
