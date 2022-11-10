@@ -24,6 +24,7 @@ from .views.preferensi_makanan_view import PreferensiMakananList, PreferensiMaka
 
 from .views.makanan_view import MakananList, MakananDetail
 from .views.makanan_terkait_view import MakananTerkaitList, MakananTerkaitDetail
+from .views.makanan_foto_view import MakananFotoList, MakananFotoDetail
 from .views.satuan_view import SatuanList, SatuanDetail
 
 urlpatterns = [
@@ -94,19 +95,13 @@ urlpatterns = [
     path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/new", rencana_diet_makanan_view.create),
     path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/<int:makanan_id>/update", rencana_diet_makanan_view.update),
     
-    # TODO: Rapikan, filter
     # Makanan
-    # path('makanan', makanan_view.index),
-    # path('makanan/new/', makanan_view.create),
-    # path('makanan/<int:id>', makanan_view.show),
-    # path('makanan/<int:id>/update', makanan_view.update),
-    # path('makanan/<int:id>/delete', makanan_view.destroy),
-    
     path('makanan/', MakananList.as_view()),
     path('makanan/<int:id>/', MakananDetail.as_view()),
     
     # Makanan foto
-    # path('makanan-foto'),
+    path('makanan-foto/', MakananFotoList.as_view()),
+    path('makanan-foto/<int:id>/', MakananFotoDetail.as_view()),
     
     # TODO: buat post, put, delete
     # Bahan Makanan (Bahan makanan / Menu makanan)    
