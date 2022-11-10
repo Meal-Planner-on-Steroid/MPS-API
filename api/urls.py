@@ -8,9 +8,7 @@ from .views import (
     user_view,
     kebutuhan_gizi_view, 
     generate_rekomendasi_menu_view, 
-    makanan_view, 
     makanan_terkait_view,
-    satuan_view,
     riwayat_rekomendasi_rencana_diet_view,
     riwayat_rekomendasi_rencana_diet_hari_view,
     riwayat_rekomendasi_rencana_diet_makanan_view,
@@ -25,6 +23,7 @@ from .views.user_profile_view import UserProfileList, UserProfileDetail
 from .views.aktivitas_view import AktivitasList, AktivitasDetail
 from .views.preferensi_makanan_view import PreferensiMakananList, PreferensiMakananDetail
 
+from .views.makanan_view import MakananList, MakananDetail
 from .views.satuan_view import SatuanList, SatuanDetail
 
 urlpatterns = [
@@ -97,15 +96,21 @@ urlpatterns = [
     
     # TODO: Rapikan, filter
     # Makanan
-    path('makanan', makanan_view.index),
-    path('makanan/new/', makanan_view.create),
-    path('makanan/<int:id>', makanan_view.show),
-    path('makanan/<int:id>/update', makanan_view.update),
-    path('makanan/<int:id>/delete', makanan_view.destroy),
+    # path('makanan', makanan_view.index),
+    # path('makanan/new/', makanan_view.create),
+    # path('makanan/<int:id>', makanan_view.show),
+    # path('makanan/<int:id>/update', makanan_view.update),
+    # path('makanan/<int:id>/delete', makanan_view.destroy),
+    
+    path('makanan/', MakananList.as_view()),
+    path('makanan/<int:id>/', MakananDetail.as_view()),
+    
+    # Makanan foto
+    # path('makanan-foto'),
     
     # TODO: Rapikan, filter
-    # Makan terkait (Bahan makanan / Menu makanan)
-    path('makanan/<int:id>/makanan-terkait', makanan_terkait_view.index),
+    # Bahan Makanan (Bahan makanan / Menu makanan)
+    path('makanan-bahan/<int:id>/makanan-terkait', makanan_terkait_view.index),
     
     # Satuan makanan -> Satuan makanan didapat dari data set
     path('satuan/', SatuanList.as_view()),
