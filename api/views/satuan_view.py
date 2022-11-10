@@ -1,26 +1,26 @@
-from urllib import response
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from django.http import Http404
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from base.models import Satuan
 from base.model_filter import SatuanFilter
 from api.serializers.SatuanSerializer import SatuanSerializer
+from api.services.satuan_service import SatuanService
 
 
-@api_view(['GET'])
-def index(request):
-    if request.method == 'GET':
+class SatuanList(APIView):
+
+    def get(self, request, format=None):
         try:
             queryset = Satuan.objects.all()
             paginator = PageNumberPagination()
             paginator.page_size = 10
             filterset = SatuanFilter(request.GET, queryset=queryset)
-            
-            
+
             if filterset.is_valid():
                 queryset = filterset.qs
-                
+
             paginate = paginator.paginate_queryset(queryset, request)
             serializer = SatuanSerializer(paginate, many=True)
 
@@ -37,12 +37,35 @@ def index(request):
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
 
-
-@api_view(['GET'])
-def show(request, id):
-    if request.method == 'GET':
+    def post(self, request, format=None):
         try:
-            queryset = Satuan.objects.get(id=id)
+            result = SatuanService.post(self, request)
+
+            return Response({
+                "message": "Berhasil menambahkan satuan",
+                "statusCode": 200,
+                "data": result.data
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({
+                "message": "Terjadi masalah",
+                "statusCode": 400,
+                "error": e.args[0]
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SatuanDetail(APIView):
+
+    def get_object(self, id, format=None):
+        try:
+            return Satuan.objects.get(id=id)
+        except Satuan.DoesNotExist:
+            raise Http404('Tidak ada data yang cocok')
+
+    def get(self, request, id, format=None):
+        try:
+            queryset = self.get_object(id)
             serializer = SatuanSerializer(queryset, many=False)
 
             return Response({
@@ -58,33 +81,16 @@ def show(request, id):
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def create(request):
-    if request.method == 'POST':
+    def put(self, request, id, format=None):
         try:
-            # TODO: Comming soon
+            result = SatuanService.put(self, request, id)
+            # queryset = self.get_object(id)
+            # serializer = SatuanSerializer(queryset, many=False)
 
             return Response({
-                "message": "Comming soon feature",
+                "message": "Berhasil update satuan",
                 "statusCode": 200,
-            }, status=status.HTTP_200_OK)
-
-        except Exception as e:
-            return Response({
-                "message": "Terjadi masalah",
-                "statusCode": 400,
-                "error": e.args[0]
-            }, status=status.HTTP_400_BAD_REQUEST)
-            
-@api_view(['PUT'])
-def update(request, id):
-    if request.method == 'PUT':
-        try:
-            # TODO: Comming soon
-
-            return Response({
-                "message": "Comming soon feature",
-                "statusCode": 200,
+                "data": result.data
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -94,14 +100,13 @@ def update(request, id):
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['DELETE'])
-def destroy(request, id):
-    if request.method == 'DELETE':
+    def delete(self, request, id, format=None):
         try:
-            # TODO: Comming soon
+            queryset = self.get_object(id)
+            queryset.delete()
 
             return Response({
-                "message": "Comming soon feature",
+                "message": "Berhasil hapus satuan",
                 "statusCode": 200,
             }, status=status.HTTP_200_OK)
 

@@ -11,7 +11,6 @@ from .views import (
     makanan_view, 
     makanan_terkait_view,
     satuan_view,
-    preferensi_makanan_view,
     riwayat_rekomendasi_rencana_diet_view,
     riwayat_rekomendasi_rencana_diet_hari_view,
     riwayat_rekomendasi_rencana_diet_makanan_view,
@@ -25,6 +24,8 @@ from .views import (
 from .views.user_profile_view import UserProfileList, UserProfileDetail
 from .views.aktivitas_view import AktivitasList, AktivitasDetail
 from .views.preferensi_makanan_view import PreferensiMakananList, PreferensiMakananDetail
+
+from .views.satuan_view import SatuanList, SatuanDetail
 
 urlpatterns = [
     # =========/ Auth endpoints
@@ -44,12 +45,10 @@ urlpatterns = [
     path("users-profile/", UserProfileList.as_view()),
     path("users-profile/<int:id>/", UserProfileDetail.as_view()),
     
-    # TODO: Filter
     # Tingkat aktivitas
     path("aktivitas/", AktivitasList.as_view()),
     path("aktivitas/<int:id>/", AktivitasDetail.as_view()),
     
-    # TODO: Filter
     # Preferensi makanan
     path("preferensi-makanan/", PreferensiMakananList.as_view()),
     path("preferensi-makanan/<int:id>/", PreferensiMakananDetail.as_view()),
@@ -108,10 +107,9 @@ urlpatterns = [
     # Makan terkait (Bahan makanan / Menu makanan)
     path('makanan/<int:id>/makanan-terkait', makanan_terkait_view.index),
     
-    # TODO: Rapikan, filter
     # Satuan makanan -> Satuan makanan didapat dari data set
-    path('satuan', satuan_view.index),
-    path('satuan/<int:id>', satuan_view.show),
+    path('satuan/', SatuanList.as_view()),
+    path('satuan/<int:id>/', SatuanDetail.as_view()),
 
     # =========/ Algorithm end-points
     path('kebutuhan-gizi', kebutuhan_gizi_view.kebutuhanGiziController),

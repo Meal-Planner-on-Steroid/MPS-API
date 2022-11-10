@@ -1,10 +1,9 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.pagination import PageNumberPagination
 from django.http import Http404
-from base.models import Makanan, PreferensiMakanan, User
+from base.models import PreferensiMakanan
 from base.model_filter import PreferensiMakananFilter
 from api.serializers.PreferensiMakananSerializer import PreferensiMakananSerializer
 from api.services.preferensi_makanan_service import PreferensiMakananService
