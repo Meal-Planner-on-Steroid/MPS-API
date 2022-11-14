@@ -1,17 +1,24 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from django.http import Http404
 from rest_framework import status
-from base.models import RencanaDiet, MakananDiet, Makanan, Status
+from base.models import MakananDiet
 from api.serializers.RencanaDietSerializer import MakananDietSerializer
+from base.model_filter import RencanaDietMakananFilter
+from api.services.rencana_diet_makanan_service import RencanaDietMakananService
 
-@api_view(['GET'])
-def index(request, id, rencana_id):
-    if request.method == 'GET':
+class RencanaDietMakananList(APIView):
+
+    def get(self, request, format=None):
         try:
-            rencana_diet = RencanaDiet.objects.filter(user_id = id, id = rencana_id).get()
-            queryset = MakananDiet.objects.filter(rencana_diet_id = rencana_diet.id).all()
-            serializer = MakananDietSerializer(queryset, many=True)
+            queryset = MakananDiet.objects.all()
+            filterset = RencanaDietMakananFilter(request.GET, queryset=queryset)
             
+            if filterset.is_valid():
+                queryset = filterset.qs
+                
+            serializer = MakananDietSerializer(queryset, many=True)
+
             return Response({
                 "message": "Berhasil mengambil rencana diet makanan",
                 "statusCode": 200,
@@ -25,30 +32,15 @@ def index(request, id, rencana_id):
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def create(request, id, rencana_id):
-    if request.method == 'POST':
-        body = request.data
+    def post(self, request, format=None):
         try:
-            makanan_diet = MakananDiet.objects.filter(rencana_diet_id = rencana_id).all()
-            if len(makanan_diet) >= 5:
-                raise Exception('Hanya ada 5 makanan dalam satu rencana diet')
             
-            makanan_diet = MakananDiet(
-                waktu_makan = body['waktu_makan'],
-                rencana_diet = RencanaDiet.objects.filter(user_id = id, id = rencana_id).get(),
-                makanan = Makanan.objects.get(id = body['makanan']['id'])
-            )
-            
-            makanan_diet.save()
-            
-            queryset = MakananDiet.objects.get(id = makanan_diet.id)
-            serializer = MakananDietSerializer(queryset)
-            
+            result = RencanaDietMakananService.post(self, request)
+
             return Response({
                 "message": "Berhasil tambah rencana diet makanan",
                 "statusCode": 200,
-                "data": serializer.data
+                "data": result.data
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -59,27 +51,42 @@ def create(request, id, rencana_id):
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT'])
-def update(request, id, rencana_id, makanan_id):
-    body = request.data
-    if request.method == 'PUT':
+
+class RencanaDietMakananDetail(APIView):
+    
+    def get_object(self, id):
         try:
-            rencana_diet = RencanaDiet.objects.filter(user_id = id, id = rencana_id).get()
-            makanan_diet = MakananDiet.objects.filter(rencana_diet_id = rencana_diet.id, id = makanan_id).get()
+            return MakananDiet.objects.get(id=id)
+        except MakananDiet.DoesNotExist:
+            raise Http404("Tidak ada data yang cocok")
+        
+    def get(self, request, id, format=None):
+        try:
+            queryset = self.get_object(id)
+            serializer = MakananDietSerializer(queryset, many=False)
+
+            return Response({
+                "message": "Berhasil mengambil rencana diet minum",
+                "statusCode": 200,
+                "data": serializer.data
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({
+                "message": "Terjadi masalah",
+                "statusCode": 400,
+                "error": e.args[0]
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, id, format=None):
+        try:
             
-            serializer = MakananDietSerializer(makanan_diet, data = {
-                'waktu_makan': body['waktu_makan'],
-                'status': body['status'],
-                'makanan': Makanan.objects.get(id = body['makanan']['id'])
-            })
-            
-            if serializer.is_valid():
-                serializer.save()
-            
+            result = RencanaDietMakananService.put(self, request, id)
+
             return Response({
                 "message": "Berhasil hapus rencana diet makanan",
                 "statusCode": 200,
-                "data": serializer.data
+                "data": result.data
             }, status=status.HTTP_200_OK)
 
         except Exception as e:

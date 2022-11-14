@@ -302,3 +302,27 @@ class RencanaOlahragaDietFilter(django_filters.FilterSet):
     class Meta:
         model = Olahraga
         fields = ['nama', 'status', 'rencana_diet_id']
+
+class RencanaMakananaDietFilter(django_filters.FilterSet):
+    nama = django_filters.CharFilter(field_name='nama', lookup_expr='iexact')
+    nama__icontains = django_filters.CharFilter(
+        field_name='nama', lookup_expr='icontains')
+    
+    status = django_filters.NumberFilter()
+    rencana_diet_id = django_filters.NumberFilter()
+    
+    class Meta:
+        model = MakananDiet
+        fields = ['nama', 'status', 'rencana_diet_id']
+        
+class RencanaDietMakananFilter(django_filters.FilterSet):
+    waktu_makan = django_filters.CharFilter(field_name='waktu_makan', lookup_expr='iexact')
+    waktu_makan__icontains = django_filters.CharFilter(
+        field_name='waktu_makan', lookup_expr='icontains')
+    
+    status = django_filters.NumberFilter()
+    makanan_id = django_filters.NumberFilter()
+    rencana_diet_id = django_filters.NumberFilter()
+    class Meta:
+        model = MakananDiet
+        fields = ['waktu_makan', 'status', 'makanan_id', 'rencana_diet_id']

@@ -8,7 +8,6 @@ from .views import (
     user_view,
     kebutuhan_gizi_view, 
     generate_rekomendasi_menu_view, 
-    rencana_diet_makanan_view,
     auth_view,
 )
 
@@ -22,6 +21,7 @@ from .views.riwayat_rekomendasi_rencana_diet_makanan_view import RekomendasiMaka
 from .views.rencana_diet_view import RencanaDietList, RencanaDietDetail
 from .views.rencana_diet_minum_view import RencanaDietMinumList, RencanaDietMinumDetail
 from .views.rencana_diet_olahraga_view import RencanaDietOlahragaList, RencanaDietOlahragaDetail
+from .views.rencana_diet_makanan_view import RencanaDietMakananList, RencanaDietMakananDetail
 
 from .views.makanan_view import MakananList, MakananDetail
 from .views.makanan_terkait_view import MakananTerkaitList, MakananTerkaitDetail
@@ -78,11 +78,10 @@ urlpatterns = [
     path("rencana-diet-olahraga/", RencanaDietOlahragaList.as_view()),
     path("rencana-diet-olahraga/<int:id>/", RencanaDietOlahragaDetail.as_view()),
     
-    # TODO: Rapikan, filter
+    # TODO: Perbaiki response POST & PUT
     # Rencana diet - Makanan
-    path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan", rencana_diet_makanan_view.index),
-    path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/new", rencana_diet_makanan_view.create),
-    path("users/<int:id>/rencana-diet/<int:rencana_id>/makanan/<int:makanan_id>/update", rencana_diet_makanan_view.update),
+    path("rencana-diet-makanan/", RencanaDietMakananList.as_view()),
+    path("rencana-diet-makanan/<int:id>/", RencanaDietMakananDetail.as_view()),
     
     # Makanan
     path('makanan/', MakananList.as_view()),
