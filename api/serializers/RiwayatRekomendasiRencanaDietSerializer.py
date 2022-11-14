@@ -4,13 +4,13 @@ from base.models import RekomendasiMakananDiet, RiwayatRekomendasiRencanaDiet, R
 
 
 class RiwayatRekomendasiRencanaDietMakananSerializer(serializers.ModelSerializer):
-    makanan = MakananSerializer(many=False, read_only=True)
+    # makanan = MakananSerializer(many=False, read_only=True)
 
     class Meta:
         model = RekomendasiMakananDiet
         fields = [
             'id',
-            'makanan',
+            # 'makanan',
             'waktu_makan',
             'rekomendasi_rencana_diet_id',
         ]

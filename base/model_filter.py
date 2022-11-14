@@ -11,6 +11,7 @@ from .models import (
     MakananFoto,
     RiwayatRekomendasiRencanaDiet,
     RekomendasiRencanaDiet,
+    RekomendasiMakananDiet,
     RencanaDiet,
 )
 
@@ -227,6 +228,23 @@ class RekomendasiRencanaDietFilter(django_filters.FilterSet):
     class Meta:
         model = RekomendasiRencanaDiet
         fields = [
+            'riwayat_rekomendasi_id',
+        ]
+
+class RekomendasiMakananDietFilter(django_filters.FilterSet):
+    
+    waktu_makan = django_filters.CharFilter(field_name='waktu_makan', lookup_expr='iexact')
+    waktu_makan__icontains = django_filters.CharFilter(
+        field_name='waktu_makan', lookup_expr='icontains')
+    
+    makanan_id = django_filters.NumberFilter()
+    riwayat_rekomendasi_id = django_filters.NumberFilter()
+    
+    class Meta:
+        model = RekomendasiMakananDiet
+        fields = [
+            'waktu_makan',
+            'makanan_id',
             'riwayat_rekomendasi_id',
         ]
 
