@@ -6,7 +6,7 @@ class MinumSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Minum
-        fields = ['id', 'jumlah_minum', 'banyak_minum', 'progress']
+        fields = ['id', 'jumlah_minum', 'banyak_minum', 'progress', 'rencana_diet_id']
 
 class OlahragaSerializer(serializers.ModelSerializer):
     

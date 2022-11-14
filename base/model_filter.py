@@ -13,6 +13,9 @@ from .models import (
     RekomendasiRencanaDiet,
     RekomendasiMakananDiet,
     RencanaDiet,
+    Minum,
+    Olahraga,
+    MakananDiet,
 )
 
 
@@ -260,3 +263,30 @@ class RencanaDietFilter(django_filters.FilterSet):
     class Meta:
         model = RencanaDiet
         fields = ['tanggal', 'user_id']
+
+
+class RencanaMinumDietFilter(django_filters.FilterSet):
+    
+    jumlah_minum = django_filters.NumberFilter()
+    jumlah_minum__gt = django_filters.NumberFilter(
+        field_name='jumlah_minum', lookup_expr='gt')
+    jumlah_minum__lt = django_filters.NumberFilter(
+        field_name='jumlah_minum', lookup_expr='lt')
+    
+    banyak_minum = django_filters.NumberFilter()
+    banyak_minum__gt = django_filters.NumberFilter(
+        field_name='banyak_minum', lookup_expr='gt')
+    banyak_minum__lt = django_filters.NumberFilter(
+        field_name='banyak_minum', lookup_expr='lt')
+    
+    progress = django_filters.NumberFilter()
+    progress__gt = django_filters.NumberFilter(
+        field_name='progress', lookup_expr='gt')
+    progress__lt = django_filters.NumberFilter(
+        field_name='progress', lookup_expr='lt')
+    
+    rencana_diet_id = django_filters.NumberFilter()
+    
+    class Meta:
+        model = Minum
+        fields = ['jumlah_minum', 'banyak_minum', 'progress', 'rencana_diet_id']
