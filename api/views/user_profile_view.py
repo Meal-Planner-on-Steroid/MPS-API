@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from base.models import UserProfile
 from api.services.user_profile_service import UserProfileService
+from base.model_filter import UserProfileFilter
 from api.serializers.UserSerializer import UserProfileSerializer
 from django.http import Http404
 
@@ -11,6 +12,11 @@ class UserProfileList(APIView):
     def get(self, request, format=None):
         try:
             queryset = UserProfile.objects.all()
+            filterset = UserProfileFilter(request.GET, queryset=queryset)
+            
+            if filterset.is_valid():
+                queryset = filterset.qs
+            
             serializer = UserProfileSerializer(
                 queryset, many=True)
 
