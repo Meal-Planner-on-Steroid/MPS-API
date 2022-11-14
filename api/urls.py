@@ -22,6 +22,7 @@ from .views.user_profile_view import UserProfileList, UserProfileDetail
 from .views.aktivitas_view import AktivitasList, AktivitasDetail
 from .views.preferensi_makanan_view import PreferensiMakananList, PreferensiMakananDetail
 from .views.riwayat_rekomendasi_rencana_diet_view import RiwayatRekomendasiRencanaDietList, RiwayatRekomendasiRencanaDietDetail
+from .views.riwayat_rekomendasi_rencana_diet_hari_view import RekomendasiRencanaDietList, RekomendasiRencanaDietDetail
 
 from .views.makanan_view import MakananList, MakananDetail
 from .views.makanan_terkait_view import MakananTerkaitList, MakananTerkaitDetail
@@ -58,10 +59,9 @@ urlpatterns = [
     path("riwayat-rekomendasi-rencana-diet/", RiwayatRekomendasiRencanaDietList.as_view()),
     path("riwayat-rekomendasi-rencana-diet/<int:id>/", RiwayatRekomendasiRencanaDietDetail.as_view()),
 
-    # TODO: Rapikan, filter
     # Riwayat rekomendasi makanan-pilih hari
-    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari", riwayat_rekomendasi_rencana_diet_hari_view.index),
-    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/hari/<int:hari_id>", riwayat_rekomendasi_rencana_diet_hari_view.show),
+    path("rekomendasi-rencana-diet/", RekomendasiRencanaDietList.as_view()),
+    path("rekomendasi-rencana-diet/<int:id>/", RekomendasiRencanaDietDetail.as_view()),
     
     # TODO: Rapikan, filter
     # Riwayat rekomendasi makanan - pilih hari - pilih makanan

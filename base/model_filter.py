@@ -10,6 +10,7 @@ from .models import (
     BahanMakanan,
     MakananFoto,
     RiwayatRekomendasiRencanaDiet,
+    RekomendasiRencanaDiet,
     RencanaDiet,
 )
 
@@ -218,6 +219,16 @@ class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
             'user_id',
         ]
 
+
+class RekomendasiRencanaDietFilter(django_filters.FilterSet):
+    
+    riwayat_rekomendasi_id = django_filters.NumberFilter()
+    
+    class Meta:
+        model = RekomendasiRencanaDiet
+        fields = [
+            'riwayat_rekomendasi_id',
+        ]
 
 class RencanaDietFilter(django_filters.FilterSet):
     tanggal = django_filters.NumberFilter()

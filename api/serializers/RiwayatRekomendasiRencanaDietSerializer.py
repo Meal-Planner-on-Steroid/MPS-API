@@ -17,14 +17,14 @@ class RiwayatRekomendasiRencanaDietMakananSerializer(serializers.ModelSerializer
 
 
 class RiwayatRekomendasiRencanaDietHariSerializer(serializers.ModelSerializer):
-    rekomendasi_rencana_diet = RiwayatRekomendasiRencanaDietMakananSerializer(many=True, read_only=True)
+    # rekomendasi_rencana_diet = RiwayatRekomendasiRencanaDietMakananSerializer(many=True, read_only=True)
     
     class Meta:
         model = RekomendasiRencanaDiet
         fields = [
             'id',
             'riwayat_rekomendasi_id',
-            'rekomendasi_rencana_diet',
+            # 'rekomendasi_rencana_diet',
         ]
 
 
