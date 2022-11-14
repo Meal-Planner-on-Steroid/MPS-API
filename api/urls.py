@@ -22,6 +22,8 @@ from .views.riwayat_rekomendasi_rencana_diet_view import RiwayatRekomendasiRenca
 from .views.riwayat_rekomendasi_rencana_diet_hari_view import RekomendasiRencanaDietList, RekomendasiRencanaDietDetail
 from .views.riwayat_rekomendasi_rencana_diet_makanan_view import RekomendasiMakananDietList, RekomendasiMakananDietDetail
 
+from .views.rencana_diet_view import RencanaDietList, RencanaDietDetail
+
 from .views.makanan_view import MakananList, MakananDetail
 from .views.makanan_terkait_view import MakananTerkaitList, MakananTerkaitDetail
 from .views.makanan_foto_view import MakananFotoList, MakananFotoDetail
@@ -65,12 +67,9 @@ urlpatterns = [
     path("rekomendasi-makanan-diet/", RekomendasiMakananDietList.as_view()),
     path("rekomendasi-makanan-diet/<int:id>/", RekomendasiMakananDietDetail.as_view()),
     
-    # TODO: Rapikan, filter
     # Rencana diet
-    path("users/<int:id>/rencana-diet", rencana_diet_view.index),
-    path("users/<int:id>/rencana-diet/new", rencana_diet_view.create),
-    path("users/<int:id>/rencana-diet/<int:rencana_id>", rencana_diet_view.show),
-    path("users/<int:id>/rencana-diet/<int:rencana_id>/delete", rencana_diet_view.destroy),
+    path("rencana-diet/", RencanaDietList.as_view()),
+    path("rencana-diet/<int:id>/", RencanaDietDetail.as_view()),
     
     # TODO: Rapikan, filter
     # Rencana diet - Minum

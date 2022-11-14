@@ -22,11 +22,11 @@ class MakananDietSerializer(serializers.ModelSerializer):
         fields = ['id', 'waktu_makan', 'waktu_makan', 'status', 'makanan']
 
 class RencanaDietSerializer(serializers.ModelSerializer):
-    rencana_diet_makanan = MakananDietSerializer(many=True, read_only=True)
-    olahraga = OlahragaSerializer(many=False, read_only=True)
-    minum = MinumSerializer(many=False, read_only=True)
+    # rencana_diet_makanan = MakananDietSerializer(many=True, read_only=True)
+    # olahraga = OlahragaSerializer(many=False, read_only=True)
+    # minum = MinumSerializer(many=False, read_only=True)
     
     class Meta:
         model = RencanaDiet
-        fields = ['id', 'tanggal', 'rencana_diet_makanan', 'olahraga', 'minum']
+        fields = ['id', 'tanggal', 'user_id']
         

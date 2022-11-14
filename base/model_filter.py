@@ -254,7 +254,9 @@ class RencanaDietFilter(django_filters.FilterSet):
         field_name='tanggal', lookup_expr='gt')
     tanggal__lt = django_filters.NumberFilter(
         field_name='tanggal', lookup_expr='lt')
+    
+    user_id = django_filters.NumberFilter()
 
     class Meta:
         model = RencanaDiet
-        fields = ['tanggal']
+        fields = ['tanggal', 'user_id']
