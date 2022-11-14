@@ -1,17 +1,25 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.views import APIView
+from django.http import Http404
 from rest_framework import status
-from base.models import Olahraga, RencanaDiet
+from base.models import Olahraga
 from api.serializers.RencanaDietSerializer import OlahragaSerializer
+from base.model_filter import RencanaOlahragaDietFilter
+from api.services.rencana_diet_olahraga_service import RencanaDietOlahragaService
 
-@api_view(['GET'])
-def index(request, id, rencana_id):
-    if request.method == 'GET':
+
+class RencanaDietOlahragaList(APIView):
+    def get(self, request, format=None):
         try:
-            rencana_diet = RencanaDiet.objects.filter(user_id = id, id = rencana_id).get()
-            queryset = Olahraga.objects.get(rencana_diet_id = rencana_diet.id)
-            serializer = OlahragaSerializer(queryset, many=False)
-            
+            queryset = Olahraga.objects.all()
+            filterset = RencanaOlahragaDietFilter(
+                request.GET, queryset=queryset)
+
+            if filterset.is_valid():
+                queryset = filterset.qs
+
+            serializer = OlahragaSerializer(queryset, many=True)
+
             return Response({
                 "message": "Berhasil mengambil rencana diet olahraga",
                 "statusCode": 200,
@@ -25,21 +33,15 @@ def index(request, id, rencana_id):
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
-def create(request, id, rencana_id):
-    if request.method == 'POST':
-        body = request.data
+    # Just in case
+    def post(self, request, format=None):
         try:
-            serializer = OlahragaSerializer(data = body)
-            rencana_diet = RencanaDiet.objects.filter(user_id = id, id = rencana_id).get()
-            
-            if serializer.is_valid():
-                serializer.save(rencana_diet = rencana_diet)
-            
+            result = RencanaDietOlahragaService.post(self, request)
+
             return Response({
-                "message": "Berhasil tambah rencana diet olahraga",
+                "message": "Berhasil tambah rencana diet minum",
                 "statusCode": 200,
-                "data": serializer.data
+                "data": result.data
             }, status=status.HTTP_200_OK)
 
         except Exception as e:
@@ -50,20 +52,22 @@ def create(request, id, rencana_id):
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['PUT'])
-def update(request, id, rencana_id):
-    body = request.data
-    if request.method == 'PUT':
+
+class RencanaDietOlahragaDetail(APIView):
+    
+    def get_object(self, id):
         try:
-            rencana_diet = RencanaDiet.objects.filter(user_id = id, id = rencana_id).get()
-            minum = Olahraga.objects.get(rencana_diet_id = rencana_diet.id)
-            serializer = OlahragaSerializer(minum, data = body)
-            
-            if serializer.is_valid():
-                serializer.save()
-            
+            return Olahraga.objects.get(id=id)
+        except Olahraga.DoesNotExist:
+            raise Http404("Tidak ada data yang cocok")
+
+    def get(self, request, id, format=None):
+        try:
+            queryset = self.get_object(id)
+            serializer = OlahragaSerializer(queryset, many=False)
+
             return Response({
-                "message": "Berhasil hapus rencana diet olahraga",
+                "message": "Berhasil mengambil rencana diet minum",
                 "statusCode": 200,
                 "data": serializer.data
             }, status=status.HTTP_200_OK)
@@ -74,3 +78,23 @@ def update(request, id, rencana_id):
                 "statusCode": 400,
                 "error": e.args[0]
             }, status=status.HTTP_400_BAD_REQUEST)
+
+    def put(self, request, id, format=None):
+        try:
+
+            result = RencanaDietOlahragaService.put(self, request, id)
+
+            return Response({
+                "message": "Berhasil hapus rencana diet olahraga",
+                "statusCode": 200,
+                "data": result.data
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({
+                "message": "Terjadi masalah",
+                "statusCode": 400,
+                "error": e.args[0]
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    # ! Tidak ada delete

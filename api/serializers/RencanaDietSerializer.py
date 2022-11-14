@@ -12,7 +12,7 @@ class OlahragaSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Olahraga
-        fields = ['id', 'nama', 'status']
+        fields = ['id', 'nama', 'status', 'rencana_diet_id']
 
 class MakananDietSerializer(serializers.ModelSerializer):
     makanan = MakananDetailSerializer(many=False, read_only=True)

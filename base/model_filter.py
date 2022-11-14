@@ -290,3 +290,15 @@ class RencanaMinumDietFilter(django_filters.FilterSet):
     class Meta:
         model = Minum
         fields = ['jumlah_minum', 'banyak_minum', 'progress', 'rencana_diet_id']
+
+class RencanaOlahragaDietFilter(django_filters.FilterSet):
+    nama = django_filters.CharFilter(field_name='nama', lookup_expr='iexact')
+    nama__icontains = django_filters.CharFilter(
+        field_name='nama', lookup_expr='icontains')
+    
+    status = django_filters.NumberFilter()
+    rencana_diet_id = django_filters.NumberFilter()
+    
+    class Meta:
+        model = Olahraga
+        fields = ['nama', 'status', 'rencana_diet_id']
