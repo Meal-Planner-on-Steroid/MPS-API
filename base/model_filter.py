@@ -200,6 +200,8 @@ class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
         field_name='butuh_lemak', lookup_expr='gt')
     butuh_lemak__lt = django_filters.NumberFilter(
         field_name='butuh_lemak', lookup_expr='lt')
+    
+    user_id = django_filters.NumberFilter()
 
     class Meta:
         model = RiwayatRekomendasiRencanaDiet
@@ -213,6 +215,7 @@ class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
             'butuh_protein',
             'butuh_karbo',
             'butuh_lemak',
+            'user_id',
         ]
 
 

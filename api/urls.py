@@ -21,6 +21,7 @@ from .views import (
 from .views.user_profile_view import UserProfileList, UserProfileDetail
 from .views.aktivitas_view import AktivitasList, AktivitasDetail
 from .views.preferensi_makanan_view import PreferensiMakananList, PreferensiMakananDetail
+from .views.riwayat_rekomendasi_rencana_diet_view import RiwayatRekomendasiRencanaDietList, RiwayatRekomendasiRencanaDietDetail
 
 from .views.makanan_view import MakananList, MakananDetail
 from .views.makanan_terkait_view import MakananTerkaitList, MakananTerkaitDetail
@@ -53,12 +54,9 @@ urlpatterns = [
     path("preferensi-makanan/", PreferensiMakananList.as_view()),
     path("preferensi-makanan/<int:id>/", PreferensiMakananDetail.as_view()),
     
-    # TODO: Rapikan, filter
     # Riwayat rekomendasi makanan
-    path("users/<int:id>/riwayat-rekomendasi-rencana-diet", riwayat_rekomendasi_rencana_diet_view.index),
-    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/new", riwayat_rekomendasi_rencana_diet_view.create),
-    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>", riwayat_rekomendasi_rencana_diet_view.show),
-    path("users/<int:id>/riwayat-rekomendasi-rencana-diet/<int:riwayat_id>/delete", riwayat_rekomendasi_rencana_diet_view.destroy),
+    path("riwayat-rekomendasi-rencana-diet/", RiwayatRekomendasiRencanaDietList.as_view()),
+    path("riwayat-rekomendasi-rencana-diet/<int:id>/", RiwayatRekomendasiRencanaDietDetail.as_view()),
 
     # TODO: Rapikan, filter
     # Riwayat rekomendasi makanan-pilih hari
