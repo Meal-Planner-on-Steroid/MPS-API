@@ -70,7 +70,7 @@ def generateRekomendasiController(request):
 
             return Response(
                 {
-                    "message": "Berhasil membuat rekomendasi",
+                    "message": "Berhasil membuat rekomendasi makanan",
                     "data": result,
                 },
                 status=200,

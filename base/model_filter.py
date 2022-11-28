@@ -62,6 +62,12 @@ class TingkatAktivitasFilter(django_filters.FilterSet):
     nama = django_filters.CharFilter(field_name='nama', lookup_expr='iexact')
     nama__icontains = django_filters.CharFilter(
         field_name='nama', lookup_expr='icontains')
+    
+    gender = django_filters.CharFilter(field_name='gender', lookup_expr='iexact')
+    gender__icontains = django_filters.CharFilter(
+        field_name='gender', lookup_expr='icontains')
+
+    id = django_filters.NumberFilter()
 
     nilai = django_filters.NumberFilter()
     nilai__gt = django_filters.NumberFilter(
@@ -71,11 +77,25 @@ class TingkatAktivitasFilter(django_filters.FilterSet):
 
     class Meta:
         model = TingkatAktivitas
-        fields = ['nama', 'nilai', 'gender']
+        fields = ['id', 'nama', 'nilai', 'gender']
+
+class NumberInFilter(django_filters.BaseInFilter, django_filters.NumberFilter):
+    pass
 
 
 class MakananFilter(django_filters.FilterSet):
-
+    id = django_filters.NumberFilter()    
+    id__in = NumberInFilter(field_name='id', lookup_expr='in')
+    id__nin = NumberInFilter(field_name='id', lookup_expr='in', exclude=True)
+    
+    nama = django_filters.CharFilter(field_name='nama', lookup_expr='iexact')
+    nama__icontains = django_filters.CharFilter(
+        field_name='nama', lookup_expr='icontains')
+    
+    porsi = django_filters.CharFilter(field_name='porsi', lookup_expr='iexact')
+    porsi__icontains = django_filters.CharFilter(
+        field_name='porsi', lookup_expr='icontains')
+    
     lemak = django_filters.NumberFilter()
     lemak__gt = django_filters.NumberFilter(
         field_name='lemak', lookup_expr='gt')
@@ -100,10 +120,13 @@ class MakananFilter(django_filters.FilterSet):
     energi__lt = django_filters.NumberFilter(
         field_name='energi', lookup_expr='lt')
 
+    jenis = django_filters.CharFilter(field_name='jenis', lookup_expr='iexact')
+    jenis__icontains = django_filters.CharFilter(
+        field_name='jenis', lookup_expr='icontains')
     class Meta:
         model = Makanan
-        fields = ['nama', 'porsi', 'lemak', 'protein', 'karbo',
-                  'energi', 'jenis', 'berat_porsi', 'besar_porsi']
+        fields = ['id', 'nama', 'porsi', 'lemak', 'protein', 'karbo',
+                  'energi', 'jenis']
 
 
 class BahanMakananFilter(django_filters.FilterSet):
@@ -149,7 +172,7 @@ class PreferensiMakananFilter(django_filters.FilterSet):
 
     class Meta:
         model = PreferensiMakanan
-        fields = ['jenis']
+        fields = ['id', 'jenis', 'user_id', 'makanan_id', 'jenis']
 
 
 class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
