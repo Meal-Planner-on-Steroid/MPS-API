@@ -13,7 +13,7 @@ class AlgoritmaGenetika(Seleksi):
     def __init__(self, kebutuhan_gizi: dict) -> None:
         pass
 
-    def generateGenerasi(self) -> list:
+    def generateGenerasi(self, blok_makanan: list = []) -> list:
         """Membuat 10 set rekomendasi menu yang terdiri dari 3 makanan dan 2 camilan
 
         Returns:
@@ -23,8 +23,8 @@ class AlgoritmaGenetika(Seleksi):
             hasil = []
 
             for row in range(0, 10):
-                set_makanan = self.ambilRandomMakanan('ME', 3)
-                set_camilan = self.ambilRandomMakanan('CA', 2)
+                set_makanan = self.ambilRandomMakanan('ME', 3, blok_makanan)
+                set_camilan = self.ambilRandomMakanan('CA', 2, blok_makanan)
 
                 hasil.append(set_makanan + set_camilan)
 
@@ -122,7 +122,7 @@ class AlgoritmaGenetika(Seleksi):
         except BaseException as e:
             raise
     
-    def mutasi(self, generasi: list) -> list:
+    def mutasi(self, generasi: list, blok_makanan: list = []) -> list:
         """Mengubah gen pada kromosom pada tempat yang acak
 
         Args:
@@ -135,7 +135,7 @@ class AlgoritmaGenetika(Seleksi):
             random_number = random.randrange(0, 2)
             
             for row in generasi:
-                random_makanan = self.ambilRandomMakanan('ME', 1)[0]
+                random_makanan = self.ambilRandomMakanan('ME', 1, blok_makanan)[0]
                 row[random_number] = random_makanan
             
             return generasi
@@ -282,7 +282,7 @@ class AlgoritmaGenetika(Seleksi):
         except BaseException as e:
             raise
 
-    def ambilRandomMakanan(self, jenis: str, jumlah: int) -> list:
+    def ambilRandomMakanan(self, jenis: str, jumlah: int, blok_makanan: list = []) -> list:
         """Mengambil makanan random dari dataset makanan
 
         ! Ubah fungsi ini sesuah dengan jenis dataset
@@ -328,7 +328,7 @@ class AlgoritmaGenetika(Seleksi):
 
             hasil = []
 
-            makanan = Makanan.objects.filter(jenis=jenis)
+            makanan = Makanan.objects.filter(jenis=jenis).exclude(id__in=blok_makanan)
             count = makanan.aggregate(count=Count('id'))['count']
 
             for x in range(0, jumlah):

@@ -14,6 +14,7 @@ def generateRekomendasiController(request):
 
             body = request.data
             with_detail = body['with_detail'] if "with_detail" in body else 0
+            list_blok_makanan = body['blok_makanan'] if "blok_makanan" in body else []
             
             print('with_detail' in body) 
 
@@ -39,13 +40,13 @@ def generateRekomendasiController(request):
             ag = AlgoritmaGenetika(kebutuhan_gizi)
             
             detail_gen = []
-            generasi = ag.generateGenerasi()
+            generasi = ag.generateGenerasi(blok_makanan=list_blok_makanan)
             rekomendasi = generasi
             
             for row in range(0,20):
                 nilai_fitness = ag.hitungNilaiFitness(generasi, kebutuhan_gizi)
                 crossover = ag.selectCross(nilai_fitness['set_nilai_fitness'], copy.deepcopy(generasi))
-                generasi_mutasi = ag.mutasi(copy.deepcopy(crossover['childs']))
+                generasi_mutasi = ag.mutasi(copy.deepcopy(crossover['childs']), list_blok_makanan)
                 generasi_elit = ag.elitism(copy.deepcopy(generasi), nilai_fitness['set_nilai_fitness'])
                 populasi_baru = ag.bentukPopulasiBaru(generasi_mutasi, generasi_elit)
                 
