@@ -63,7 +63,7 @@ def generateRekomendasiController(request):
             
             result = {
                 'kebutuhan_gizi': kebutuhan_gizi,
-                'rekomendasi': rekomendasi,
+                'rekomendasi': rekomendasi[:7],
             }
             
             if with_detail:

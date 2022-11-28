@@ -10,7 +10,7 @@ class RiwayatRekomendasiRencanaDietMakananSerializer(serializers.ModelSerializer
         model = RekomendasiMakananDiet
         fields = [
             'id',
-            # 'makanan',
+            'makanan_id',
             'waktu_makan',
             'rekomendasi_rencana_diet_id',
         ]

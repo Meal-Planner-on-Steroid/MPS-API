@@ -1,4 +1,5 @@
 from curses.ascii import US
+from datetime import datetime
 from email.policy import default
 from pyexpat import model
 from random import choices
@@ -58,7 +59,7 @@ class UserProfile(models.Model):
 class RencanaDiet(models.Model):
     
     user = models.ForeignKey(User, related_name="user",on_delete=models.CASCADE)
-    tanggal = created_at = models.DateTimeField(auto_now_add=True)
+    tanggal = created_at = models.DateTimeField(default=datetime.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
