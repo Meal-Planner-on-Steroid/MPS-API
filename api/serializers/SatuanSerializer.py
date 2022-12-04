@@ -6,4 +6,4 @@ class SatuanSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Satuan
-        fields = ['id', 'nama']
+        fields = ['id', 'nama', 'created_at', 'updated_at']

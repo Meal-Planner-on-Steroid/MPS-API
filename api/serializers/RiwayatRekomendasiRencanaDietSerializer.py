@@ -13,6 +13,8 @@ class RiwayatRekomendasiRencanaDietMakananSerializer(serializers.ModelSerializer
             'makanan_id',
             'waktu_makan',
             'rekomendasi_rencana_diet_id',
+            'created_at', 
+            'updated_at'
         ]
 
 
@@ -24,7 +26,8 @@ class RiwayatRekomendasiRencanaDietHariSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'riwayat_rekomendasi_id',
-            # 'rekomendasi_rencana_diet',
+            'created_at', 
+            'updated_at'
         ]
 
 
@@ -48,5 +51,6 @@ class RiwayatRekomendasiRencanaDietSerializer(serializers.ModelSerializer):
             'butuh_karbo',
             'butuh_lemak',
             'user_id',
-            # 'riwayat_rekomendasi_rencana_diet',
+            'created_at', 
+            'updated_at'
         ]

@@ -5,4 +5,4 @@ class MakananFotoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MakananFoto
-        fields = ['id', 'makanan_id', 'foto']
+        fields = ['id', 'makanan_id', 'foto', 'created_at', 'updated_at']

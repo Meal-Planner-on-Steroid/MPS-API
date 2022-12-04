@@ -131,6 +131,8 @@ class MakananFilter(django_filters.FilterSet):
 
 class BahanMakananFilter(django_filters.FilterSet):
 
+    id = django_filters.NumberFilter()
+    
     berat = django_filters.NumberFilter()
     berat__gt = django_filters.NumberFilter(
         field_name='berat', lookup_expr='gt')
@@ -140,10 +142,10 @@ class BahanMakananFilter(django_filters.FilterSet):
     satuan_id = django_filters.NumberFilter()
     bahan_makanan_id = django_filters.NumberFilter()
     menu_makanan_id = django_filters.NumberFilter()
-
+    
     class Meta:
         model = BahanMakanan
-        fields = ['berat', 'satuan_id', 'bahan_makanan_id', 'menu_makanan_id']
+        fields = ['id', 'berat', 'satuan_id', 'bahan_makanan_id', 'menu_makanan_id']
 
 
 class MakananFotoFilter(django_filters.FilterSet):
@@ -230,6 +232,14 @@ class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
         field_name='butuh_lemak', lookup_expr='lt')
     
     user_id = django_filters.NumberFilter()
+    
+    order_by = django_filters.OrderingFilter(
+        # tuple-mapping retains order
+        fields=(
+            ('id', 'id'),
+            ('created_at', 'created_at'),
+        ),
+    )
 
     class Meta:
         model = RiwayatRekomendasiRencanaDiet
@@ -249,7 +259,16 @@ class RiwayatRekomendasiRencanaDietFilter(django_filters.FilterSet):
 
 class RekomendasiRencanaDietFilter(django_filters.FilterSet):
     
+    id = django_filters.NumberFilter()
+
     riwayat_rekomendasi_id = django_filters.NumberFilter()
+    order_by = django_filters.OrderingFilter(
+        # tuple-mapping retains order
+        fields=(
+            ('id', 'id'),
+            ('created_at', 'created_at'),
+        ),
+    )
     
     class Meta:
         model = RekomendasiRencanaDiet
@@ -259,29 +278,49 @@ class RekomendasiRencanaDietFilter(django_filters.FilterSet):
 
 class RekomendasiMakananDietFilter(django_filters.FilterSet):
     
+    id = django_filters.NumberFilter()
+    
     waktu_makan = django_filters.CharFilter(field_name='waktu_makan', lookup_expr='iexact')
     waktu_makan__icontains = django_filters.CharFilter(
         field_name='waktu_makan', lookup_expr='icontains')
     
     makanan_id = django_filters.NumberFilter()
-    riwayat_rekomendasi_id = django_filters.NumberFilter()
+    rekomendasi_rencana_diet_id = django_filters.NumberFilter()
+    rekomendasi_rencana_diet_id__in = NumberInFilter(field_name='rekomendasi_rencana_diet_id', lookup_expr='in')
+    
+    order_by = django_filters.OrderingFilter(
+        # tuple-mapping retains order
+        fields=(
+            ('id', 'id'),
+            ('created_at', 'created_at'),
+        ),
+    )
     
     class Meta:
         model = RekomendasiMakananDiet
         fields = [
             'waktu_makan',
             'makanan_id',
-            'riwayat_rekomendasi_id',
+            'rekomendasi_rencana_diet_id',
         ]
 
 class RencanaDietFilter(django_filters.FilterSet):
-    tanggal = django_filters.NumberFilter()
-    tanggal__gt = django_filters.NumberFilter(
+    tanggal = django_filters.DateFilter()
+    tanggal__gt = django_filters.DateFilter(
         field_name='tanggal', lookup_expr='gt')
-    tanggal__lt = django_filters.NumberFilter(
+    tanggal__lt = django_filters.DateFilter(
         field_name='tanggal', lookup_expr='lt')
     
     user_id = django_filters.NumberFilter()
+    
+    order_by = django_filters.OrderingFilter(
+        # tuple-mapping retains order
+        fields=(
+            ('id', 'id'),
+            ('tanggal', 'tanggal'),
+            ('created_at', 'created_at'),
+        ),
+    )
 
     class Meta:
         model = RencanaDiet
@@ -291,10 +330,8 @@ class RencanaDietFilter(django_filters.FilterSet):
 class RencanaMinumDietFilter(django_filters.FilterSet):
     
     jumlah_minum = django_filters.NumberFilter()
-    jumlah_minum__gt = django_filters.NumberFilter(
-        field_name='jumlah_minum', lookup_expr='gt')
-    jumlah_minum__lt = django_filters.NumberFilter(
-        field_name='jumlah_minum', lookup_expr='lt')
+    jumlah_minum__gt = django_filters.NumberFilter(field_name='jumlah_minum', lookup_expr='gt')
+    jumlah_minum__lt = django_filters.NumberFilter(field_name='jumlah_minum', lookup_expr='lt')
     
     banyak_minum = django_filters.NumberFilter()
     banyak_minum__gt = django_filters.NumberFilter(
@@ -309,6 +346,14 @@ class RencanaMinumDietFilter(django_filters.FilterSet):
         field_name='progress', lookup_expr='lt')
     
     rencana_diet_id = django_filters.NumberFilter()
+    
+    order_by = django_filters.OrderingFilter(
+        # tuple-mapping retains order
+        fields=(
+            ('id', 'id'),
+            ('created_at', 'created_at'),
+        ),
+    )
     
     class Meta:
         model = Minum
@@ -327,16 +372,18 @@ class RencanaOlahragaDietFilter(django_filters.FilterSet):
         fields = ['nama', 'status', 'rencana_diet_id']
 
 class RencanaMakananaDietFilter(django_filters.FilterSet):
-    nama = django_filters.CharFilter(field_name='nama', lookup_expr='iexact')
-    nama__icontains = django_filters.CharFilter(
-        field_name='nama', lookup_expr='icontains')
+    
+    waktu_makan = django_filters.CharFilter(field_name='waktu_makan', lookup_expr='iexact')
+    waktu_makan__icontains = django_filters.CharFilter(
+        field_name='waktu_makan', lookup_expr='icontains')
     
     status = django_filters.NumberFilter()
-    rencana_diet_id = django_filters.NumberFilter()
+    makanan_id = django_filters.NumberFilter(field_name='makanan_id')
+    rencana_diet_id = django_filters.NumberFilter(field_name='rencana_diet_id')
     
     class Meta:
         model = MakananDiet
-        fields = ['nama', 'status', 'rencana_diet_id']
+        fields = ['waktu_makan', 'status', 'makanan_id', 'rencana_diet_id']
         
 class RencanaDietMakananFilter(django_filters.FilterSet):
     waktu_makan = django_filters.CharFilter(field_name='waktu_makan', lookup_expr='iexact')

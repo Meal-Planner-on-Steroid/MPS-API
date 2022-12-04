@@ -7,4 +7,4 @@ class PreferensiMakananSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PreferensiMakanan
-        fields = ['id', 'user_id', 'makanan_id', 'jenis']
+        fields = ['id', 'user_id', 'makanan_id', 'jenis', 'created_at', 'updated_at']

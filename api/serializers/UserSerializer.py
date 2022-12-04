@@ -20,11 +20,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'keseluruhan_energi',
             'butuh_protein',
             'butuh_karbo',
-            'butuh_lemak'
+            'butuh_lemak', 
+            'created_at', 
+            'updated_at'
         ]
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'username', 'email']
+        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'created_at', 'updated_at']
 

@@ -17,6 +17,10 @@ class MakananList(APIView):
             queryset = Makanan.objects.all()
             paginator = PageNumberPagination()
             paginator.page_size = 10
+
+            if request.GET.get('limit'):
+                paginator.page_size = request.GET['limit'];
+                
             filterset = MakananFilter(request.GET, queryset=queryset)
 
             if filterset.is_valid():

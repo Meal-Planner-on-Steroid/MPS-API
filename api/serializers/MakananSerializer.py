@@ -16,4 +16,4 @@ class MakananSerializer(serializers.ModelSerializer):
         # fields = ['id', 'nama', 'makanan_foto', 'porsi', 'lemak', 'protein', 'karbo',
         #           'energi', 'jenis', 'berat_porsi', 'besar_porsi', 'sumber', 'kelompok', 'bahan_makanan', 'menu_makanan']
         fields = ['id', 'nama', 'porsi', 'lemak', 'protein', 'karbo', 'energi',
-                  'jenis', 'berat_porsi', 'besar_porsi_id', 'sumber', 'kelompok']
+                  'jenis', 'berat_porsi', 'besar_porsi_id', 'sumber', 'kelompok', 'created_at', 'updated_at']

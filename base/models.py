@@ -59,7 +59,7 @@ class UserProfile(models.Model):
 class RencanaDiet(models.Model):
     
     user = models.ForeignKey(User, related_name="user",on_delete=models.CASCADE)
-    tanggal = created_at = models.DateTimeField(default=datetime.now)
+    tanggal = models.DateTimeField(default=datetime.now)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
@@ -83,6 +83,8 @@ class Minum(models.Model):
 class Satuan(models.Model):
     
     nama = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class Makanan(models.Model):
     
@@ -131,6 +133,8 @@ class MakananDiet(models.Model):
     makanan = models.ForeignKey(Makanan, related_name="rencana_makanan",on_delete=models.CASCADE)
     waktu_makan = models.CharField(max_length=2, choices=WaktuMakan.choices, default=WaktuMakan.PAGI)
     status = models.IntegerField(choices=Status.choices, default=Status.INCOMPLETE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class RiwayatRekomendasiRencanaDiet(models.Model):
     
