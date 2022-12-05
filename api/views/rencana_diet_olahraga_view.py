@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
 from base.models import Olahraga
 from api.serializers.RencanaDietSerializer import OlahragaSerializer
 from base.model_filter import RencanaOlahragaDietFilter
@@ -12,13 +13,20 @@ class RencanaDietOlahragaList(APIView):
     def get(self, request, format=None):
         try:
             queryset = Olahraga.objects.all()
+            paginator = PageNumberPagination()
+            paginator.page_size = 10
+            
+            if request.GET.get('limit'):
+                paginator.page_size = request.GET['limit'];
+                
             filterset = RencanaOlahragaDietFilter(
                 request.GET, queryset=queryset)
 
             if filterset.is_valid():
                 queryset = filterset.qs
 
-            serializer = OlahragaSerializer(queryset, many=True)
+            paginate = paginator.paginate_queryset(queryset, request)
+            serializer = OlahragaSerializer(paginate, many=True)
 
             return Response({
                 "message": "Berhasil mengambil rencana diet olahraga",

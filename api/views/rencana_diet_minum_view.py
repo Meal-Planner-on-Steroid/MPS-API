@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
 from base.models import Minum
+from rest_framework.pagination import PageNumberPagination
 from api.serializers.RencanaDietSerializer import MinumSerializer
 from base.model_filter import RencanaMinumDietFilter
 from api.services.rencana_diet_minum_service import RencanaDietMinumService
@@ -13,12 +14,19 @@ class RencanaDietMinumList(APIView):
     def get(self, request, format=None):
         try:
             queryset = Minum.objects.all()
+            paginator = PageNumberPagination()
+            paginator.page_size = 10
+            
+            if request.GET.get('limit'):
+                paginator.page_size = request.GET['limit'];
+                
             filterset = RencanaMinumDietFilter(request.GET, queryset=queryset)
 
             if filterset.is_valid():
                 queryset = filterset.qs
 
-            serializer = MinumSerializer(queryset, many=True)
+            paginate = paginator.paginate_queryset(queryset, request)
+            serializer = MinumSerializer(paginate, many=True)
 
             return Response({
                 "message": "Berhasil mengambil rencana diet minum",

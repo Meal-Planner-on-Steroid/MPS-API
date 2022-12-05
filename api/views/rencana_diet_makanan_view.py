@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from django.http import Http404
 from rest_framework import status
 from base.models import MakananDiet
+from rest_framework.pagination import PageNumberPagination
 from api.serializers.RencanaDietSerializer import MakananDietSerializer
 from base.model_filter import RencanaDietMakananFilter
 from api.services.rencana_diet_makanan_service import RencanaDietMakananService
@@ -12,12 +13,19 @@ class RencanaDietMakananList(APIView):
     def get(self, request, format=None):
         try:
             queryset = MakananDiet.objects.all()
+            paginator = PageNumberPagination()
+            paginator.page_size = 10
+            
+            if request.GET.get('limit'):
+                paginator.page_size = request.GET['limit'];
+                
             filterset = RencanaDietMakananFilter(request.GET, queryset=queryset)
             
             if filterset.is_valid():
                 queryset = filterset.qs
-                
-            serializer = MakananDietSerializer(queryset, many=True)
+
+            paginate = paginator.paginate_queryset(queryset, request)
+            serializer = MakananDietSerializer(paginate, many=True)
 
             return Response({
                 "message": "Berhasil mengambil rencana diet makanan",
@@ -84,7 +92,7 @@ class RencanaDietMakananDetail(APIView):
             result = RencanaDietMakananService.put(self, request, id)
 
             return Response({
-                "message": "Berhasil hapus rencana diet makanan",
+                "message": "Berhasil update rencana diet makanan",
                 "statusCode": 200,
                 "data": result.data
             }, status=status.HTTP_200_OK)

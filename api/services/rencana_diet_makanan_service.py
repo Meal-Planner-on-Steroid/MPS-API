@@ -22,12 +22,13 @@ class RencanaDietMakananService():
 
             makanan_diet = MakananDiet(
                 waktu_makan=body['waktu_makan'],
-                rencana_diet=RencanaDiet.objects.get(id=body['rencana_diet']['id']),
+                rencana_diet=RencanaDiet.objects.get(
+                    id=body['rencana_diet']['id']),
                 makanan=Makanan.objects.get(id=body['makanan']['id'])
             )
             makanan_diet.save()
-            
-            queryset = Makanan.objects.get(id = makanan_diet.id)
+
+            queryset = Makanan.objects.get(id=makanan_diet.id)
             serializer = MakananDietSerializer(queryset)
 
             return serializer
@@ -40,14 +41,15 @@ class RencanaDietMakananService():
         body = request.data
         try:
             queryset = self.get_object(id)
-
-            serializer = MakananDietSerializer(queryset, data={
-                'waktu_makan': body['waktu_makan'],
-                'status': body['status'],
-                'makanan': Makanan.objects.get(id=body['makanan']['id']),
-                'rencana_diet': RencanaDiet.objects.get(id=body['rencana_diet']['id'])
-            })
-
+            
+            if 'makanan' in body:
+                body['makanan'] = Makanan.objects.get(id=body['makanan']['id'])
+            
+            if 'rencana_diet' in body:
+                body['rencana_diet'] = RencanaDiet.objects.get(id=body['rencana_diet']['id'])
+            
+            serializer = MakananDietSerializer(queryset, data=body)
+            
             if serializer.is_valid():
                 serializer.save()
 

@@ -366,6 +366,7 @@ class RencanaOlahragaDietFilter(django_filters.FilterSet):
     
     status = django_filters.NumberFilter()
     rencana_diet_id = django_filters.NumberFilter()
+    rencana_diet_id__in = NumberInFilter(field_name='rencana_diet_id', lookup_expr='in')
     
     class Meta:
         model = Olahraga
@@ -380,6 +381,7 @@ class RencanaMakananaDietFilter(django_filters.FilterSet):
     status = django_filters.NumberFilter()
     makanan_id = django_filters.NumberFilter(field_name='makanan_id')
     rencana_diet_id = django_filters.NumberFilter(field_name='rencana_diet_id')
+    rencana_diet_id__in = NumberInFilter(field_name='rencana_diet_id', lookup_expr='in')
     
     class Meta:
         model = MakananDiet
@@ -393,6 +395,7 @@ class RencanaDietMakananFilter(django_filters.FilterSet):
     status = django_filters.NumberFilter()
     makanan_id = django_filters.NumberFilter()
     rencana_diet_id = django_filters.NumberFilter()
+    rencana_diet_id__in = NumberInFilter(field_name='rencana_diet_id', lookup_expr='in')
     class Meta:
         model = MakananDiet
         fields = ['waktu_makan', 'status', 'makanan_id', 'rencana_diet_id']
