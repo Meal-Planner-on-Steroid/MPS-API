@@ -1,10 +1,13 @@
 from rest_framework import serializers
 from .TingkatAktivitasSerializer import TingkatAktivitasSerializer
 from base.models import User, UserProfile
+from django.contrib.auth import get_user_model  # If used custom user model
+
+UserModel = get_user_model()
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-        
+
     class Meta:
         model = UserProfile
         fields = [
@@ -20,13 +23,15 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'keseluruhan_energi',
             'butuh_protein',
             'butuh_karbo',
-            'butuh_lemak', 
-            'created_at', 
+            'butuh_lemak',
+            'created_at',
             'updated_at'
         ]
 
+
 class UserSerializer(serializers.ModelSerializer):
+
     class Meta:
-        model = User
-        fields = ['id', 'first_name', 'last_name', 'username', 'email', 'created_at', 'updated_at']
+        model = UserModel
+        fields = ['id', 'first_name', 'last_name', 'username', 'email']
 

@@ -11,6 +11,7 @@ from .views import (
     auth_view,
 )
 
+from .views.index_view import IndexList
 from .views.user_profile_view import UserProfileList, UserProfileDetail
 from .views.aktivitas_view import AktivitasList, AktivitasDetail
 from .views.preferensi_makanan_view import PreferensiMakananList, PreferensiMakananDetail
@@ -29,6 +30,8 @@ from .views.makanan_foto_view import MakananFotoList, MakananFotoDetail
 from .views.satuan_view import SatuanList, SatuanDetail
 
 urlpatterns = [
+    path("", IndexList.as_view()),
+    
     # =========/ Auth endpoints
     path("auth/register", auth_view.register),
     path('auth/login', auth_view.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -40,6 +43,7 @@ urlpatterns = [
     # User
     path("users/<int:id>", user_view.show),
     path("users/<int:id>/edit/", user_view.update),
+    path("users/<int:id>/edit-password/", user_view.updatePassword),
     path("users/<int:id>/delete/", user_view.destroy),
     
     # User-Profile
