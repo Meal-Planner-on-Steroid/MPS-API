@@ -281,6 +281,38 @@ class AlgoritmaGenetika(Seleksi):
 
         except BaseException as e:
             raise
+    
+    def avgNilaiFitnessGizi(self, kromosom: dict) -> dict:
+        """Hitung sum nilai dari kromosom
+        * Utility hitungNilaiFitness
+
+        Args:
+            kromosom (dict): Row dari generasi
+
+        Returns:
+            dict: Sum nilai gizi protein, lemak, karbo
+        """
+        try:
+
+            hasil = {
+                'protein': 0,
+                'lemak': 0,
+                'karbo': 0,
+            }
+
+            for row in kromosom:
+                hasil['protein'] += row['nilai_fitness_protein']
+                hasil['lemak'] += row['nilai_fitness_lemak']
+                hasil['karbo'] += row['nilai_fitness_karbo']
+
+            hasil['protein'] = hasil['protein'] / len(kromosom)
+            hasil['lemak'] = hasil['lemak'] / len(kromosom)
+            hasil['karbo'] = hasil['karbo'] / len(kromosom)
+            
+            return hasil
+
+        except BaseException as e:
+            raise
 
     def ambilRandomMakanan(self, jenis: str, jumlah: int, blok_makanan: list = []) -> list:
         """Mengambil makanan random dari dataset makanan

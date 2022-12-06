@@ -4,7 +4,8 @@
 {% endblock %} {% block content %}
 
 {% comment %} Keterangan umum makanan {% endcomment %}
-
+<form action="{% url "generate-menu-hasil" %}" method="post">
+{% csrf_token %}
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-4">Data Personal</h2>
 
@@ -17,6 +18,7 @@
 				type="number"
 				step="0.1"
 				id="berat_badan"
+				name="berat_badan"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="60"
 				required=""
@@ -37,6 +39,7 @@
 				type="number"
 				step="0.1"
 				id="tinggi_badan"
+				name="tinggi_badan"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="160"
 				required=""
@@ -56,6 +59,7 @@
 			<input
 				type="number"
 				id="usia"
+				name="usia"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg rounded-r-none focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 				placeholder="60"
 				required=""
@@ -74,6 +78,7 @@
 		<div class="">
 			<select
 				id="gender"
+				name="gender"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			>
 				<option selected="">---</option>
@@ -83,17 +88,25 @@
 		</div>
 	</div>
 	<div class="mb-2">
-		<label for="tingkat_aktivitas" class="block mb-2 text-sm font-medium text-gray-900"
+		<label for="nilai_tingkat_aktivitas" class="block mb-2 text-sm font-medium text-gray-900"
 			>Tingkat Aktivitas</label
 		>
 		<div class="">
 			<select
-				id="tingkat_aktivitas"
+				id="nilai_tingkat_aktivitas"
+				name="nilai_tingkat_aktivitas"
 				class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
 			>
-				<option selected="">---</option>
-				<option value="PA">Ringan</option>
-				<option value="LA">Sangat Berat</option>
+				<option selected="" value="">---</option>
+				<option value="2">Perempuan - Berat</option>
+				<option value="1.55">Perempuan - Ringan</option>
+				<option value="1.3">Perempuan - Sangat Ringan</option>
+				<option value="1.7">Perempuan - Sedang</option>
+				<option value="">---</option>
+				<option value="2">Laki-laki - Berat</option>
+				<option value="1.65">Laki-laki - Ringan</option>
+				<option value="1.3">Laki-laki - Sangat Ringan</option>
+				<option value="1.76">Laki-laki - Sedang</option>
 			</select>
 		</div>
 	</div>
@@ -102,7 +115,7 @@
 
 {% comment %} Makanan yang terkait search dan add form {% endcomment %}
 
-<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+{% comment %} <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<div class="flex gap-x-2">
 		<label
 			for="terkait"
@@ -136,11 +149,11 @@
 		<option value="Opera"></option>
 		<option value="Safari"></option>
 	</datalist>
-</div>
+</div> {% endcomment %}
 
 {% comment %} Makanan yang terkait: list yang telah ditambahkan {% endcomment %}
 
-<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+{% comment %} <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">Preferensi makanan</h2>
 
 	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -191,11 +204,11 @@
 			</tbody>
 		</table>
 	</div>
-</div>
+</div> {% endcomment %}
 
 {% comment %} Kandungan gizi makanan {% endcomment %}
 
-<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+{% comment %} <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-4">Goal</h2>
 
 	<div class="mb-2">
@@ -214,17 +227,64 @@
 			<span class="font-medium">*Optional</span>
 		</p>
 	</div>
-</div>
+</div> {% endcomment %}
 
 <button
-	type="button"
+	type="submit"
 	class="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-base px-6 py-3.5 inline-flex items-center mr-2 mb-4 w-full justify-center"
+	id="submitBtn"
 >
-
 	Buat Rekomendasi Menu Makanan
 	<span class="iconify ml-2 -mr-1 w-4 h-4" data-icon="material-symbols:start"></span>
 </button>
 
-{% endblock %} {% block body %}
+</form>
+
+
+{% endblock %} 
+
+{% block body %}
+
+{% comment %} <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+
+<script>
+
+	document.addEventListener("DOMContentLoaded", function () {
+		var formData = new FormData();
+
+		$(document).on('click', '#submitBtn', function(e) {
+			var body = {
+				"berat_badan": parseFloat($('#berat_badan').val()),
+				"tinggi_badan": parseFloat($('#tinggi_badan').val()),
+				"gender": $('#gender').val(),
+				"usia": parseInt($('#usia').val()),
+				"nilai_tingkat_aktivitas": parseFloat($('#nilai_tingkat_aktivitas').val()),
+				"with_detail": true,
+			}
+
+			$.ajax({
+				type: 'POST',
+				url: '{% url "generate-rekomendasi-menu" %}',
+				data: JSON.stringify(body),
+				contentType: 'application/json',
+				success: function (textStatus, status){
+					alert('berhasil')
+					console.log(status)
+					console.log(textStatus)
+					// window.location.href='{% url "camilan-index" %}';
+				},
+				error: function (xhr, errmsg, err){
+					console.log(xhr.status + ":" + xhr.responseText)
+				}
+			});
+
+		});
+
+	});
+	
+</script> {% endcomment %}
 
 {% endblock %}

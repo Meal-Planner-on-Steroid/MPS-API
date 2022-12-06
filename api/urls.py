@@ -107,7 +107,7 @@ urlpatterns = [
     # =========/ Algorithm end-points
     path('kebutuhan-gizi', kebutuhan_gizi_view.kebutuhanGiziController),
     path('generate-rekomendasi-menu',
-         generate_rekomendasi_menu_view.generateRekomendasiController),
+         generate_rekomendasi_menu_view.generateRekomendasiController, name="generate-rekomendasi-menu"),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

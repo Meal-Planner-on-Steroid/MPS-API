@@ -14,7 +14,7 @@
 {% comment %} Status gizi pengguna {% endcomment %}
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">
-		Status Gizi
+		Status Gizi {{ hello }}
 	</h2>
 
 	<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-2">
@@ -27,7 +27,16 @@
 					>
 						IMT
 					</th>
-					<td class="py-4 px-6">xx</td>
+					<td class="py-4 px-6">{{ kebutuhan_gizi.imt|floatformat:2 }}</td>
+				</tr>
+				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						AMB
+					</th>
+					<td class="py-4 px-6">{{ kebutuhan_gizi.amb|floatformat:2 }} kcal</td>
 				</tr>
 				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
 					<th
@@ -36,7 +45,7 @@
 					>
 						Kebutuhan energi
 					</th>
-					<td class="py-4 px-6">xxxx kcal</td>
+					<td class="py-4 px-6">{{ kebutuhan_gizi.total_energi|floatformat:2 }} kcal</td>
 				</tr>
 			</tbody>
 		</table>
@@ -46,7 +55,7 @@
 {% comment %} Kebutuhan gizi pengguna {% endcomment %}
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">
-		Kebutuhan Gizi [username/nama]
+		Kebutuhan Gizi
 	</h2>
 
 	<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-2">
@@ -59,7 +68,10 @@
 					>
 						Protein
 					</th>
-					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">
+						{{ kebutuhan_gizi.kebutuhan_protein.protein_10|floatformat:2 }} g - 
+						{{ kebutuhan_gizi.kebutuhan_protein.protein_15|floatformat:2 }} g
+					</td>
 				</tr>
 				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
 					<th
@@ -68,7 +80,10 @@
 					>
 						Karbohidrat
 					</th>
-					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">
+						{{ kebutuhan_gizi.kebutuhan_lemak.lemak_10|floatformat:2 }} g - 
+						{{ kebutuhan_gizi.kebutuhan_lemak.lemak_25|floatformat:2 }} g
+					</td>
 				</tr>
 				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
 					<th
@@ -77,7 +92,10 @@
 					>
 						Lemak
 					</th>
-					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">
+						{{ kebutuhan_gizi.kebutuhan_karbo.karbo_60|floatformat:2 }} g - 
+						{{ kebutuhan_gizi.kebutuhan_karbo.karbo_75|floatformat:2 }} g
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -88,6 +106,82 @@
 <div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">
 		Hasil generate rekomendasi menu
+	</h2>
+	<hr>
+	{% load extras %}
+	<pre>{{ rekomendasi | pretty_json }}</pre>
+</div>
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Detail proses
+	</h2>
+	<hr>
+	{% load extras %}
+	<pre>{{ detail_proses | pretty_json }}</pre>
+</div>
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Hasil generate rekomendasi menu
+	</h2>
+	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+			<thead
+				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+			>
+				<tr>
+					<th scope="col" class="py-3 px-6">Nama</th>
+					<th scope="col" class="py-3 px-6">Waktu Makan</th>
+					<th scope="col" class="py-3 px-6">Energi</th>
+					<th scope="col" class="py-3 px-6">Protein</th>
+					<th scope="col" class="py-3 px-6">Lemak</th>
+					<th scope="col" class="py-3 px-6">Karbohidrat</th>
+					<th scope="col" class="py-3 px-6">Porsi</th>
+					<th scope="col" class="py-3 px-6">Menu</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in '12345'|make_list %}
+
+				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						{% comment %} <a href="{% url 'user_detail_menu' %}"> Nama makanan </a> {% endcomment %}
+						<a href=""> Nama makanan </a>
+					</th>
+					<td class="py-4 px-6">waktu makan</td>
+					<td class="py-4 px-6">xxxx kcal</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">xx g</td>
+					<td class="py-4 px-6">porsi</td>
+					<td class="py-4 px-6 flex gap-x-2">
+						<a
+							{% comment %} href="{% url 'user_detail_menu' %}" {% endcomment %}
+							href=""
+							class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
+						>
+							<span
+								class="iconify mr-2 -ml-1 w-4 h-4"
+								data-icon="material-symbols:search-rounded"
+							></span>
+							Lihat makanan
+						</a>
+					</td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Detail proses
 	</h2>
 
 	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -109,12 +203,13 @@
 			<tbody>
 				{% for x in '12345'|make_list %}
 
-				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
 					<th
 						scope="row"
 						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
 					>
-						<a href="{% url 'user_detail_menu' %}"> Nama makanan </a>
+						{% comment %} <a href="{% url 'user_detail_menu' %}"> Nama makanan </a> {% endcomment %}
+						<a href=""> Nama makanan </a>
 					</th>
 					<td class="py-4 px-6">waktu makan</td>
 					<td class="py-4 px-6">xxxx kcal</td>
@@ -124,34 +219,8 @@
 					<td class="py-4 px-6">porsi</td>
 					<td class="py-4 px-6 flex gap-x-2">
 						<a
-							href="{% url 'user_detail_menu' %}"
-							class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
-						>
-							<span
-								class="iconify mr-2 -ml-1 w-4 h-4"
-								data-icon="material-symbols:search-rounded"
-							></span>
-							Lihat makanan
-						</a>
-					</td>
-				</tr>
-				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
-					<th
-						scope="row"
-						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-					>
-						<a href="{% url 'user_detail_menu' %}"> Nama makanan </a>
-					</th>
-					<td class="py-4 px-6">waktu makan</td>
-					<td class="py-4 px-6">xxxx kcal</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">porsi</td>
-
-					<td class="py-4 px-6 flex gap-x-2">
-						<a
-							href="{% url 'user_detail_menu' %}"
+							{% comment %} href="{% url 'user_detail_menu' %}" {% endcomment %}
+							href=""
 							class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
 						>
 							<span
