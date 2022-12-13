@@ -69,15 +69,18 @@ def generateRekomendasiController(request):
                 
                 if i % 10 == 0:
                     print('================')
+                    print(avg_fitness)
                     print('Ada di: ',i)         
                 
                 if i >= 50:
                     print('================ ', i)
+                    print(avg_fitness)
                     print('break di i')
                     break
                 
                 if avg_fitness['protein'] > 0.5 and avg_fitness['lemak'] > 0.5 and avg_fitness['karbo'] > 0.5:
                     print('================', i)
+                    print(avg_fitness)
                     print('break di avg')
                     break
                 
