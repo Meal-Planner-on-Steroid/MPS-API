@@ -107,135 +107,768 @@
 	<h2 class="text-xl font-bold dark:text-white mb-2">
 		Hasil generate rekomendasi menu
 	</h2>
-	<hr>
-	{% load extras %}
-	<pre>{{ rekomendasi | pretty_json }}</pre>
+	<div class="grid grid-cols-2 gap-4">
+		{% for hari in haris %}
+			<div>
+				<h3 class="text-lg font-bold dark:text-white mb-2">{{ hari.name }}</h3>
+				<hr class="my-4">
+				<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						>
+							<tr>
+								<th scope="col" class="py-3 px-6">Nama</th>
+								<th scope="col" class="py-3 px-6">Waktu Makan</th>
+								<th scope="col" class="py-3 px-6">Energi</th>
+								<th scope="col" class="py-3 px-6">Protein</th>
+								<th scope="col" class="py-3 px-6">Lemak</th>
+								<th scope="col" class="py-3 px-6">Karbohidrat</th>
+								{% comment %} <th scope="col" class="py-3 px-6">Porsi</th> {% endcomment %}
+								{% comment %} <th scope="col" class="py-3 px-6">Menu</th> {% endcomment %}
+							</tr>
+						</thead>
+						<tbody>
+							{% load lookup %}
+							{% with rekomendasi_makanan=rekomendasi|lookup:hari.id %}
+
+								{% for makanan in rekomendasi_makanan %}
+
+								<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+									<th
+										scope="row"
+										class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										{% comment %} <a href="{% url 'user_detail_menu' %}"> Nama makanan </a> {% endcomment %}
+										<a href=""> {{ makanan.nama|slice:40 }} </a>
+									</th>
+									<td class="py-4 px-6">{{ makanan.jenis }}</td>
+									<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+									<td class="py-4 px-6">{{ makanan.protein }} g</td>
+									<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+									<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+									{% comment %} <td class="py-4 px-6">porsi</td> {% endcomment %}
+									{% comment %} <td class="py-4 px-6 flex gap-x-2">
+										<a
+											href="{% url 'user_detail_menu' %}"
+											href=""
+											class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
+										>
+											<span
+												class="iconify mr-2 -ml-1 w-4 h-4"
+												data-icon="material-symbols:search-rounded"
+											></span>
+											Lihat makanan
+										</a>
+									</td> {% endcomment %}
+								</tr>
+
+								{% endfor %}
+
+							{% endwith %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endfor %}	
+	</div>
 </div>
 
-<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
-	<h2 class="text-xl font-bold dark:text-white mb-2">
-		Detail proses
+<div class="flex-1 bg-green-300 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white">
+		Detail proses generasi start
 	</h2>
-	<hr>
-	{% load extras %}
-	<pre>{{ detail_proses | pretty_json }}</pre>
 </div>
 
-<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+<div class="flex-1 bg-green-200 rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">
-		Hasil generate rekomendasi menu
+		Rekomendasi
 	</h2>
-	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-			<thead
-				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-			>
-				<tr>
-					<th scope="col" class="py-3 px-6">Nama</th>
-					<th scope="col" class="py-3 px-6">Waktu Makan</th>
-					<th scope="col" class="py-3 px-6">Energi</th>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_start.generasi %}
+			<div>
+				<h3 class="text-lg font-bold dark:text-white mb-2">Rekomendasi - {{ forloop.counter0 }}</h3>
+				<hr class="my-4 border-white">
+				<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						>
+							<tr>
+								<th scope="col" class="py-3 px-6">Nama</th>
+								<th scope="col" class="py-3 px-6">Waktu Makan</th>
+								<th scope="col" class="py-3 px-6">Energi</th>
+								<th scope="col" class="py-3 px-6">Protein</th>
+								<th scope="col" class="py-3 px-6">Lemak</th>
+								<th scope="col" class="py-3 px-6">Karbohidrat</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% load lookup %}
+							{% with rekomendasi_makanan=detail_proses_start.generasi|lookup:forloop.counter0 %}
+								{% for makanan in rekomendasi_makanan %}
+
+									<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+										<th
+											scope="row"
+											class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+										>
+											<a href=""> {{ makanan.nama|slice:40 }} </a>
+										</th>
+										<td class="py-4 px-6">{{ makanan.jenis }}</td>
+										<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+										<td class="py-4 px-6">{{ makanan.protein }} g</td>
+										<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+										<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+									</tr>
+								{% endfor %}
+							{% endwith %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="mb-4 flex-1 rounded-2xl bg-green-200 p-6 shadow-sm">
+	<h2 class="mb-2 text-xl font-bold dark:text-white">Nilai Fitness</h2>
+
+	<div class="grid grid-cols-2 gap-4">
+		<div>
+			<h3 class="mb-2 text-lg font-bold">Nilai Gizi</h3>
+			<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+					<th scope="col" class="py-3 px-6">Rekomendasi index</th>
 					<th scope="col" class="py-3 px-6">Protein</th>
 					<th scope="col" class="py-3 px-6">Lemak</th>
 					<th scope="col" class="py-3 px-6">Karbohidrat</th>
-					<th scope="col" class="py-3 px-6">Porsi</th>
-					<th scope="col" class="py-3 px-6">Menu</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for x in '12345'|make_list %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for item_nilai_gizi in detail_proses_start.nilai_fitness.set_nilai_gizi %}
+						<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+							<td class="py-4 px-6">Rekomendasi - {{ item_nilai_gizi.index }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.protein|floatformat:3 }} g</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.lemak|floatformat:3 }} g</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.karbo|floatformat:3 }} g</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			<h3 class="mb-2 text-lg font-bold">Nilai Fitness</h3>
+			<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+					<th scope="col" class="py-3 px-6">Protein</th>
+					<th scope="col" class="py-3 px-6">Lemak</th>
+					<th scope="col" class="py-3 px-6">Karbohidrat</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item_nilai_gizi in detail_proses_start.nilai_fitness.set_nilai_fitness %}
+						<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_protein|floatformat:5 }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_lemak|floatformat:5 }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_karbo|floatformat:5 }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
-				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
-					<th
-						scope="row"
-						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-					>
-						{% comment %} <a href="{% url 'user_detail_menu' %}"> Nama makanan </a> {% endcomment %}
-						<a href=""> Nama makanan </a>
-					</th>
-					<td class="py-4 px-6">waktu makan</td>
-					<td class="py-4 px-6">xxxx kcal</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">porsi</td>
-					<td class="py-4 px-6 flex gap-x-2">
-						<a
-							{% comment %} href="{% url 'user_detail_menu' %}" {% endcomment %}
-							href=""
-							class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
-						>
-							<span
-								class="iconify mr-2 -ml-1 w-4 h-4"
-								data-icon="material-symbols:search-rounded"
-							></span>
-							Lihat makanan
-						</a>
-					</td>
-				</tr>
-
-				{% endfor %}
-			</tbody>
+	<h3 class="my-2 text-lg font-bold">Rata-rata nilai fitness</h3>
+	<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+		<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+		<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+			<th scope="col" class="py-3 px-6">Protein</th>
+			<th scope="col" class="py-3 px-6">Lemak</th>
+			<th scope="col" class="py-3 px-6">Karbohidrat</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+				<td class="py-4 px-6">{{ detail_proses_start.avg_fitness.protein|floatformat:5 }} g</td>
+				<td class="py-4 px-6">{{ detail_proses_start.avg_fitness.lemak|floatformat:5 }} g</td>
+				<td class="py-4 px-6">{{ detail_proses_start.avg_fitness.karbo|floatformat:5 }} g</td>
+			</tr>
+		</tbody>
 		</table>
 	</div>
 </div>
 
-<div class="flex-1 bg-white rounded-2xl shadow-sm p-6 mb-4">
+<div class="flex-1 bg-green-200 rounded-2xl shadow-sm p-6 mb-4">
 	<h2 class="text-xl font-bold dark:text-white mb-2">
-		Detail proses
+		Generasi mutasi
 	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_start.generasi_mutasi %}
+			<div>
+				<hr class="my-4 border-white">
+				<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-2">
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						>
+							<tr>
+								<th scope="col" class="py-3 px-6">Nama</th>
+								<th scope="col" class="py-3 px-6">Waktu Makan</th>
+								<th scope="col" class="py-3 px-6">Energi</th>
+								<th scope="col" class="py-3 px-6">Protein</th>
+								<th scope="col" class="py-3 px-6">Lemak</th>
+								<th scope="col" class="py-3 px-6">Karbohidrat</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% load lookup %}
+							{% with rekomendasi_makanan=detail_proses_start.generasi_mutasi|lookup:forloop.counter0 %}
+								{% for makanan in rekomendasi_makanan %}
 
-	<div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-		<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-			<thead
-				class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-			>
-				<tr>
-					<th scope="col" class="py-3 px-6">Nama</th>
-					<th scope="col" class="py-3 px-6">Waktu Makan</th>
-					<th scope="col" class="py-3 px-6">Energi</th>
+									<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+										<th
+											scope="row"
+											class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+										>
+											<a href=""> {{ makanan.nama|slice:40 }} </a>
+										</th>
+										<td class="py-4 px-6">{{ makanan.jenis }}</td>
+										<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+										<td class="py-4 px-6">{{ makanan.protein }} g</td>
+										<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+										<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+									</tr>
+								{% endfor %}
+							{% endwith %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="flex-1 bg-green-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Generasi Elit
+	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_start.generasi_elit %}
+		<div>
+			<hr class="my-4 border-white">
+			<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+					<thead
+						class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+					>
+						<tr>
+							<th scope="col" class="py-3 px-6">Nama</th>
+							<th scope="col" class="py-3 px-6">Waktu Makan</th>
+							<th scope="col" class="py-3 px-6">Energi</th>
+							<th scope="col" class="py-3 px-6">Protein</th>
+							<th scope="col" class="py-3 px-6">Lemak</th>
+							<th scope="col" class="py-3 px-6">Karbohidrat</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% load lookup %}
+						{% with rekomendasi_makanan=detail_proses_start.generasi_elit|lookup:forloop.counter0 %}
+							{% for makanan in rekomendasi_makanan %}
+
+								<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+									<th
+										scope="row"
+										class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										<a href=""> {{ makanan.nama|slice:40 }} </a>
+									</th>
+									<td class="py-4 px-6">{{ makanan.jenis }}</td>
+									<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+									<td class="py-4 px-6">{{ makanan.protein }} g</td>
+									<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+									<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+								</tr>
+							{% endfor %}
+						{% endwith %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="flex-1 bg-amber-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white">
+		Detail proses generasi mid
+	</h2>
+</div>
+
+<div class="flex-1 bg-amber-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Rekomendasi
+	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_mid.generasi %}
+			<div>
+				<h3 class="text-lg font-bold dark:text-white mb-2">Rekomendasi - {{ forloop.counter0 }}</h3>
+				<hr class="my-4 border-white">
+				<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						>
+							<tr>
+								<th scope="col" class="py-3 px-6">Nama</th>
+								<th scope="col" class="py-3 px-6">Waktu Makan</th>
+								<th scope="col" class="py-3 px-6">Energi</th>
+								<th scope="col" class="py-3 px-6">Protein</th>
+								<th scope="col" class="py-3 px-6">Lemak</th>
+								<th scope="col" class="py-3 px-6">Karbohidrat</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% load lookup %}
+							{% with rekomendasi_makanan=detail_proses_mid.generasi|lookup:forloop.counter0 %}
+								{% for makanan in rekomendasi_makanan %}
+
+									<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+										<th
+											scope="row"
+											class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+										>
+											<a href=""> {{ makanan.nama|slice:40 }} </a>
+										</th>
+										<td class="py-4 px-6">{{ makanan.jenis }}</td>
+										<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+										<td class="py-4 px-6">{{ makanan.protein }} g</td>
+										<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+										<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+									</tr>
+								{% endfor %}
+							{% endwith %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="mb-4 flex-1 rounded-2xl bg-amber-200 p-6 shadow-sm">
+	<h2 class="mb-2 text-xl font-bold dark:text-white">Nilai Fitness</h2>
+
+	<div class="grid grid-cols-2 gap-4">
+		<div>
+			<h3 class="mb-2 text-lg font-bold">Nilai Gizi</h3>
+			<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+					<th scope="col" class="py-3 px-6">Rekomendasi index</th>
 					<th scope="col" class="py-3 px-6">Protein</th>
 					<th scope="col" class="py-3 px-6">Lemak</th>
 					<th scope="col" class="py-3 px-6">Karbohidrat</th>
-					<th scope="col" class="py-3 px-6">Porsi</th>
-					<th scope="col" class="py-3 px-6">Menu</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for x in '12345'|make_list %}
+					</tr>
+				</thead>
+				<tbody>
+					{% for item_nilai_gizi in detail_proses_mid.nilai_fitness.set_nilai_gizi %}
+						<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+							<td class="py-4 px-6">Rekomendasi - {{ item_nilai_gizi.index }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.protein|floatformat:3 }} g</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.lemak|floatformat:3 }} g</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.karbo|floatformat:3 }} g</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			<h3 class="mb-2 text-lg font-bold">Nilai Fitness</h3>
+			<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+					<th scope="col" class="py-3 px-6">Protein</th>
+					<th scope="col" class="py-3 px-6">Lemak</th>
+					<th scope="col" class="py-3 px-6">Karbohidrat</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item_nilai_gizi in detail_proses_mid.nilai_fitness.set_nilai_fitness %}
+						<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_protein|floatformat:5 }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_lemak|floatformat:5 }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_karbo|floatformat:5 }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 
-				<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
-					<th
-						scope="row"
-						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-					>
-						{% comment %} <a href="{% url 'user_detail_menu' %}"> Nama makanan </a> {% endcomment %}
-						<a href=""> Nama makanan </a>
-					</th>
-					<td class="py-4 px-6">waktu makan</td>
-					<td class="py-4 px-6">xxxx kcal</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">xx g</td>
-					<td class="py-4 px-6">porsi</td>
-					<td class="py-4 px-6 flex gap-x-2">
-						<a
-							{% comment %} href="{% url 'user_detail_menu' %}" {% endcomment %}
-							href=""
-							class="py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-full hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 inline-flex items-center"
-						>
-							<span
-								class="iconify mr-2 -ml-1 w-4 h-4"
-								data-icon="material-symbols:search-rounded"
-							></span>
-							Lihat makanan
-						</a>
-					</td>
-				</tr>
-
-				{% endfor %}
-			</tbody>
+	<h3 class="my-2 text-lg font-bold">Rata-rata nilai fitness</h3>
+	<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+		<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+		<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+			<th scope="col" class="py-3 px-6">Protein</th>
+			<th scope="col" class="py-3 px-6">Lemak</th>
+			<th scope="col" class="py-3 px-6">Karbohidrat</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+				<td class="py-4 px-6">{{ detail_proses_mid.avg_fitness.protein|floatformat:5 }} g</td>
+				<td class="py-4 px-6">{{ detail_proses_mid.avg_fitness.lemak|floatformat:5 }} g</td>
+				<td class="py-4 px-6">{{ detail_proses_mid.avg_fitness.karbo|floatformat:5 }} g</td>
+			</tr>
+		</tbody>
 		</table>
 	</div>
 </div>
+
+<div class="flex-1 bg-amber-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Generasi mutasi
+	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_mid.generasi_mutasi %}
+			<div>
+				<hr class="my-4 border-white">
+				<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						>
+							<tr>
+								<th scope="col" class="py-3 px-6">Nama</th>
+								<th scope="col" class="py-3 px-6">Waktu Makan</th>
+								<th scope="col" class="py-3 px-6">Energi</th>
+								<th scope="col" class="py-3 px-6">Protein</th>
+								<th scope="col" class="py-3 px-6">Lemak</th>
+								<th scope="col" class="py-3 px-6">Karbohidrat</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% load lookup %}
+							{% with rekomendasi_makanan=detail_proses_mid.generasi_mutasi|lookup:forloop.counter0 %}
+								{% for makanan in rekomendasi_makanan %}
+
+									<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+										<th
+											scope="row"
+											class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+										>
+											<a href=""> {{ makanan.nama|slice:40 }} </a>
+										</th>
+										<td class="py-4 px-6">{{ makanan.jenis }}</td>
+										<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+										<td class="py-4 px-6">{{ makanan.protein }} g</td>
+										<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+										<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+									</tr>
+								{% endfor %}
+							{% endwith %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="flex-1 bg-amber-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Generasi Elit
+	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_mid.generasi_elit %}
+		<div>
+			<hr class="my-4 border-white">
+			<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+					<thead
+						class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+					>
+						<tr>
+							<th scope="col" class="py-3 px-6">Nama</th>
+							<th scope="col" class="py-3 px-6">Waktu Makan</th>
+							<th scope="col" class="py-3 px-6">Energi</th>
+							<th scope="col" class="py-3 px-6">Protein</th>
+							<th scope="col" class="py-3 px-6">Lemak</th>
+							<th scope="col" class="py-3 px-6">Karbohidrat</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% load lookup %}
+						{% with rekomendasi_makanan=detail_proses_mid.generasi_elit|lookup:forloop.counter0 %}
+							{% for makanan in rekomendasi_makanan %}
+
+								<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+									<th
+										scope="row"
+										class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										<a href=""> {{ makanan.nama|slice:40 }} </a>
+									</th>
+									<td class="py-4 px-6">{{ makanan.jenis }}</td>
+									<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+									<td class="py-4 px-6">{{ makanan.protein }} g</td>
+									<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+									<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+								</tr>
+							{% endfor %}
+						{% endwith %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="flex-1 bg-orange-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white">
+		Detail proses generasi end
+	</h2>
+</div>
+
+<div class="flex-1 bg-orange-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Rekomendasi
+	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_end.generasi %}
+			<div>
+				<h3 class="text-lg font-bold dark:text-white mb-2">Rekomendasi - {{ forloop.counter0 }}</h3>
+				<hr class="my-4 border-white">
+				<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						>
+							<tr>
+								<th scope="col" class="py-3 px-6">Nama</th>
+								<th scope="col" class="py-3 px-6">Waktu Makan</th>
+								<th scope="col" class="py-3 px-6">Energi</th>
+								<th scope="col" class="py-3 px-6">Protein</th>
+								<th scope="col" class="py-3 px-6">Lemak</th>
+								<th scope="col" class="py-3 px-6">Karbohidrat</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% load lookup %}
+							{% with rekomendasi_makanan=detail_proses_end.generasi|lookup:forloop.counter0 %}
+								{% for makanan in rekomendasi_makanan %}
+
+									<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+										<th
+											scope="row"
+											class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+										>
+											<a href=""> {{ makanan.nama|slice:40 }} </a>
+										</th>
+										<td class="py-4 px-6">{{ makanan.jenis }}</td>
+										<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+										<td class="py-4 px-6">{{ makanan.protein }} g</td>
+										<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+										<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+									</tr>
+								{% endfor %}
+							{% endwith %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="mb-4 flex-1 rounded-2xl bg-orange-200 p-6 shadow-sm">
+	<h2 class="mb-2 text-xl font-bold dark:text-white">Nilai Fitness</h2>
+
+	<div class="grid grid-cols-2 gap-4">
+		<div>
+			<h3 class="mb-2 text-lg font-bold">Nilai Gizi</h3>
+			<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+					<th scope="col" class="py-3 px-6">Rekomendasi index</th>
+					<th scope="col" class="py-3 px-6">Protein</th>
+					<th scope="col" class="py-3 px-6">Lemak</th>
+					<th scope="col" class="py-3 px-6">Karbohidrat</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item_nilai_gizi in detail_proses_end.nilai_fitness.set_nilai_gizi %}
+						<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+							<td class="py-4 px-6">Rekomendasi - {{ item_nilai_gizi.index }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.protein|floatformat:3 }} g</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.lemak|floatformat:3 }} g</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.karbo|floatformat:3 }} g</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+		<div>
+			<h3 class="mb-2 text-lg font-bold">Nilai Fitness</h3>
+			<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+				<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+					<tr>
+					<th scope="col" class="py-3 px-6">Protein</th>
+					<th scope="col" class="py-3 px-6">Lemak</th>
+					<th scope="col" class="py-3 px-6">Karbohidrat</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item_nilai_gizi in detail_proses_end.nilai_fitness.set_nilai_fitness %}
+						<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_protein|floatformat:5 }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_lemak|floatformat:5 }}</td>
+							<td class="py-4 px-6">{{ item_nilai_gizi.nilai_fitness_karbo|floatformat:5 }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<h3 class="my-2 text-lg font-bold">Rata-rata nilai fitness</h3>
+	<div class="relative mb-4 overflow-x-auto shadow-md sm:rounded-lg">
+		<table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+		<thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+			<tr>
+			<th scope="col" class="py-3 px-6">Protein</th>
+			<th scope="col" class="py-3 px-6">Lemak</th>
+			<th scope="col" class="py-3 px-6">Karbohidrat</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-900">				
+				<td class="py-4 px-6">{{ detail_proses_end.avg_fitness.protein|floatformat:5 }} g</td>
+				<td class="py-4 px-6">{{ detail_proses_end.avg_fitness.lemak|floatformat:5 }} g</td>
+				<td class="py-4 px-6">{{ detail_proses_end.avg_fitness.karbo|floatformat:5 }} g</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
+<div class="flex-1 bg-orange-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Generasi mutasi
+	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_end.generasi_mutasi %}
+			<div>
+				<hr class="my-4 border-white">
+				<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+						<thead
+							class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+						>
+							<tr>
+								<th scope="col" class="py-3 px-6">Nama</th>
+								<th scope="col" class="py-3 px-6">Waktu Makan</th>
+								<th scope="col" class="py-3 px-6">Energi</th>
+								<th scope="col" class="py-3 px-6">Protein</th>
+								<th scope="col" class="py-3 px-6">Lemak</th>
+								<th scope="col" class="py-3 px-6">Karbohidrat</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% load lookup %}
+							{% with rekomendasi_makanan=detail_proses_end.generasi_mutasi|lookup:forloop.counter0 %}
+								{% for makanan in rekomendasi_makanan %}
+
+									<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+										<th
+											scope="row"
+											class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+										>
+											<a href=""> {{ makanan.nama|slice:40 }} </a>
+										</th>
+										<td class="py-4 px-6">{{ makanan.jenis }}</td>
+										<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+										<td class="py-4 px-6">{{ makanan.protein }} g</td>
+										<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+										<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+									</tr>
+								{% endfor %}
+							{% endwith %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+<div class="flex-1 bg-orange-200 rounded-2xl shadow-sm p-6 mb-4">
+	<h2 class="text-xl font-bold dark:text-white mb-2">
+		Generasi Elit
+	</h2>
+	<div class="grid grid-cols-2 gap-4">
+		{% for index in detail_proses_end.generasi_elit %}
+		<div>
+			<hr class="my-4 border-white">
+			<div class="overflow-x-auto relative shadow-md sm:rounded-lg mb-4">
+				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+					<thead
+						class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+					>
+						<tr>
+							<th scope="col" class="py-3 px-6">Nama</th>
+							<th scope="col" class="py-3 px-6">Waktu Makan</th>
+							<th scope="col" class="py-3 px-6">Energi</th>
+							<th scope="col" class="py-3 px-6">Protein</th>
+							<th scope="col" class="py-3 px-6">Lemak</th>
+							<th scope="col" class="py-3 px-6">Karbohidrat</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% load lookup %}
+						{% with rekomendasi_makanan=detail_proses_end.generasi_elit|lookup:forloop.counter0 %}
+							{% for makanan in rekomendasi_makanan %}
+
+								<tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700 hover:bg-gray-50">
+									<th
+										scope="row"
+										class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										<a href=""> {{ makanan.nama|slice:40 }} </a>
+									</th>
+									<td class="py-4 px-6">{{ makanan.jenis }}</td>
+									<td class="py-4 px-6">{{ makanan.energi }} kcal</td>
+									<td class="py-4 px-6">{{ makanan.protein }} g</td>
+									<td class="py-4 px-6">{{ makanan.lemak }} g</td>
+									<td class="py-4 px-6">{{ makanan.karbo }} g</td>
+								</tr>
+							{% endfor %}
+						{% endwith %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
 
 {% endblock %} {% block body %}{% endblock %}
