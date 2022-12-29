@@ -5,15 +5,15 @@ services:
     volumes:
       - .:/django
     ports:
-      - 8002:8002
-    image: app:djangolearn3
-    container_name: djangolearn3_container
-    command: python manage.py runserver 0.0.0.0:8002
+      - 8001:8001
+    image: app:mps
+    container_name: mps_container
+    command: python manage.py runserver 0.0.0.0:8001
     depends_on:
       - db
   db:
     image: mysql:5.7
-    container_name: mysql_db3
+    container_name: mps_mysql
     ports:
       - 3307:3306
     environment:
