@@ -346,6 +346,7 @@ class RencanaMinumDietFilter(django_filters.FilterSet):
         field_name='progress', lookup_expr='lt')
     
     rencana_diet_id = django_filters.NumberFilter()
+    rencana_diet_id__in = NumberInFilter(field_name='rencana_diet_id', lookup_expr='in')
     
     order_by = django_filters.OrderingFilter(
         # tuple-mapping retains order
