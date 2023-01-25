@@ -47,6 +47,15 @@
 					</th>
 					<td class="py-4 px-6">{{ kebutuhan_gizi.total_energi|floatformat:2 }} kcal</td>
 				</tr>
+				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
+					<th
+						scope="row"
+						class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+					>
+						Energi Sesuai
+					</th>
+					<td class="py-4 px-6">{{ kebutuhan_gizi.energi_sesuai|floatformat:2 }} kcal</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
@@ -69,8 +78,8 @@
 						Protein
 					</th>
 					<td class="py-4 px-6">
-						{{ kebutuhan_gizi.kebutuhan_protein.protein_10|floatformat:2 }} g - 
-						{{ kebutuhan_gizi.kebutuhan_protein.protein_15|floatformat:2 }} g
+						{{ kebutuhan_gizi.kebutuhan_protein.protein_15|floatformat:2 }} g - 
+						{{ kebutuhan_gizi.kebutuhan_protein.protein_20|floatformat:2 }} g
 					</td>
 				</tr>
 				<tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
@@ -81,7 +90,7 @@
 						Karbohidrat
 					</th>
 					<td class="py-4 px-6">
-						{{ kebutuhan_gizi.kebutuhan_lemak.lemak_10|floatformat:2 }} g - 
+						{{ kebutuhan_gizi.kebutuhan_lemak.lemak_20|floatformat:2 }} g - 
 						{{ kebutuhan_gizi.kebutuhan_lemak.lemak_25|floatformat:2 }} g
 					</td>
 				</tr>
@@ -93,8 +102,8 @@
 						Lemak
 					</th>
 					<td class="py-4 px-6">
-						{{ kebutuhan_gizi.kebutuhan_karbo.karbo_60|floatformat:2 }} g - 
-						{{ kebutuhan_gizi.kebutuhan_karbo.karbo_75|floatformat:2 }} g
+						{{ kebutuhan_gizi.kebutuhan_karbo.karbo_55|floatformat:2 }} g - 
+						{{ kebutuhan_gizi.kebutuhan_karbo.karbo_65|floatformat:2 }} g
 					</td>
 				</tr>
 			</tbody>

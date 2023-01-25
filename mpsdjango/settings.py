@@ -31,7 +31,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True if os.environ['DEBUG'] == 'True' else False
 
 ALLOWED_HOSTS = [
-    '192.168.1.18',
+    '192.168.0.11',
     '127.0.0.1',
     '103.187.106.95',
 ]

@@ -37,6 +37,7 @@ def kebutuhanGiziController(request):
             result =  {
                 'amb': amb,
                 'total_energi': total_energi,
+                'energi_sesuai': energi_sesuai,
                 'imt': imt,
                 'kebutuhan_protein': kebutuhan_protein,
                 'kebutuhan_lemak': kebutuhan_lemak,

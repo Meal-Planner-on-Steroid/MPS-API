@@ -60,18 +60,18 @@ class AlgoritmaGenetika(Seleksi):
 
                 # Hitung nilai fitness
                 nilai_fitness_protein = self.hitungNilaiAnggota(
-                    kebutuhan_gizi['kebutuhan_protein']['protein_10'],
                     kebutuhan_gizi['kebutuhan_protein']['protein_15'],
+                    kebutuhan_gizi['kebutuhan_protein']['protein_20'],
                     nilai_gizi['protein']
                 )
                 nilai_fitness_lemak = self.hitungNilaiAnggota(
-                    kebutuhan_gizi['kebutuhan_lemak']['lemak_10'],
+                    kebutuhan_gizi['kebutuhan_lemak']['lemak_20'],
                     kebutuhan_gizi['kebutuhan_lemak']['lemak_25'],
                     nilai_gizi['lemak']
                 )
                 nilai_fitness_karbo = self.hitungNilaiAnggota(
-                    kebutuhan_gizi['kebutuhan_karbo']['karbo_60'],
-                    kebutuhan_gizi['kebutuhan_karbo']['karbo_75'],
+                    kebutuhan_gizi['kebutuhan_karbo']['karbo_55'],
+                    kebutuhan_gizi['kebutuhan_karbo']['karbo_65'],
                     nilai_gizi['karbo']
                 )
 

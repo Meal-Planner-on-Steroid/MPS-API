@@ -159,25 +159,25 @@ class KebutuhanGizi():
             gizi = gizi.lower()
 
             if gizi == 'protein':
-                kebutuhan_protein_10 = (0.1 * energi_sesuai) / 4
                 kebutuhan_protein_15 = (0.15 * energi_sesuai) / 4
+                kebutuhan_protein_20 = (0.2 * energi_sesuai) / 4
                 hasil = {
-                    'protein_10': kebutuhan_protein_10,
                     'protein_15': kebutuhan_protein_15,
+                    'protein_20': kebutuhan_protein_20,
                 }
             elif gizi == 'lemak':
-                kebutuhan_lemak_10 = (0.1 * energi_sesuai) / 9
+                kebutuhan_lemak_20 = (0.2 * energi_sesuai) / 9
                 kebutuhan_lemak_25 = (0.25 * energi_sesuai) / 9
                 hasil = {
-                    'lemak_10': kebutuhan_lemak_10,
+                    'lemak_20': kebutuhan_lemak_20,
                     'lemak_25': kebutuhan_lemak_25,
                 }
             elif gizi == 'karbo':
-                kebutuhan_karbo_60 = (0.6 * energi_sesuai) / 4
-                kebutuhan_karbo_75 = (0.75 * energi_sesuai) / 4
+                kebutuhan_karbo_55 = (0.55 * energi_sesuai) / 4
+                kebutuhan_karbo_65 = (0.65 * energi_sesuai) / 4
                 hasil = {
-                    'karbo_60': kebutuhan_karbo_60,
-                    'karbo_75': kebutuhan_karbo_75,
+                    'karbo_55': kebutuhan_karbo_55,
+                    'karbo_65': kebutuhan_karbo_65,
                 }
             else:
                 raise Exception(
@@ -228,6 +228,7 @@ class KebutuhanGizi():
             result = {
                 'amb': amb,
                 'total_energi': total_energi,
+                'energi_sesuai': energi_sesuai,
                 'imt': imt,
                 'kebutuhan_protein': kebutuhan_protein,
                 'kebutuhan_lemak': kebutuhan_lemak,
