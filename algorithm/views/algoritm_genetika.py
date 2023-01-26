@@ -234,18 +234,20 @@ class AlgoritmaGenetika(Seleksi):
             Exception: Value out of bound
 
         Returns:
-            float: Nilai anggota antara -1 sampai 1
+            float: Nilai anggota antara 0 sampai 1
         """
         try:
             hasil = 0
             b = (a+c) / 2
 
-            if x < a or x > c:
+            if x <= a or x >= c:
                 return hasil
-            elif x >= a and x <= b:
-                hasil = (b-x)/(b-a)
-            elif x >= b and x <= c:
+            elif x > a and x < b:
+                hasil = (x-a)/(b-a)
+            elif x > b and x < c:
                 hasil = (c-x)/(c-b)
+            elif x == b:
+                hasil = 1
             else:
                 raise Exception("Value out of bound")
 
