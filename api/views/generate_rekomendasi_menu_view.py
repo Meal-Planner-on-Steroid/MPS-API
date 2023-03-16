@@ -5,6 +5,7 @@ from algorithm.views.algoritm_genetika import AlgoritmaGenetika
 from algorithm.views.kebutuhan_gizi import KebutuhanGizi
 import logging
 import copy
+# import os
 
 
 @api_view(["POST"])
@@ -16,7 +17,9 @@ def generateRekomendasiController(request):
             with_detail = body['with_detail'] if "with_detail" in body else 0
             list_blok_makanan = body['blok_makanan'] if "blok_makanan" in body else []
             
-            print('with_detail' in body) 
+            # os.system("clear")
+            
+            print('Mulai proses pembuatan rekomendasi makanan') 
 
             # Kebutuhan gizi
             kg = KebutuhanGizi(
@@ -40,13 +43,34 @@ def generateRekomendasiController(request):
             ag = AlgoritmaGenetika(kebutuhan_gizi)
             
             detail_gen = []
-            generasi = ag.generateGenerasi(blok_makanan=list_blok_makanan)
-            rekomendasi = generasi
+            populasi_awal = ag.generateGenerasi(blok_makanan=list_blok_makanan)
+            rekomendasi = populasi_awal
+            generasi = 0
             
-            i = 0
+            avg_tertinggi = {
+                'protein': 0,
+                'lemak': 0,
+                'karbo': 0,
+            }
+            generasi_avg_tertinggi = 0
+            
+            gizi_avg_tertinggi = {
+                'protein': {
+                    'avg': 0,
+                    'generasi': 0
+                },
+                'lemak': {
+                    'avg': 0,
+                    'generasi': 0
+                },
+                'karbo': {
+                    'avg': 0,
+                    'generasi': 0
+                }
+            }
             
             # for row in range(0,100):
-            while True:
+            while generasi <= 200:
                 nilai_fitness = ag.hitungNilaiFitness(rekomendasi, kebutuhan_gizi)
                 avg_fitness = ag.avgNilaiFitnessGizi(copy.deepcopy(nilai_fitness['set_nilai_fitness']))
                 
@@ -67,24 +91,59 @@ def generateRekomendasiController(request):
                     
                 rekomendasi = copy.deepcopy(populasi_baru)
                 
-                if i % 10 == 0:
+                if generasi % 10 == 0:
                     print('================')
                     print(avg_fitness)
-                    print('Ada di: ',i)         
+                    print('Ada di: ',generasi)         
                 
-                if i >= 50:
-                    print('================ ', i)
+                if generasi >= 200:
+                    print('================ ', generasi)
                     print(avg_fitness)
-                    print('break di i')
-                    break
+                    print('break di generasi')
                 
                 if avg_fitness['protein'] > 0.5 and avg_fitness['lemak'] > 0.5 and avg_fitness['karbo'] > 0.5:
-                    print('================', i)
+                    print('================', generasi)
                     print(avg_fitness)
                     print('break di avg')
                     break
                 
-                i += 1
+                # Debug Generasi dengan nilai avg fitness tertinggi
+                is_avg_protein_grater = avg_tertinggi['protein'] < avg_fitness['protein']
+                is_avg_lemak_grater = avg_tertinggi['lemak'] < avg_fitness['lemak']
+                is_avg_karbo_grater = avg_tertinggi['karbo'] < avg_fitness['karbo']
+                
+                if  is_avg_protein_grater and is_avg_lemak_grater and is_avg_karbo_grater:
+                    avg_tertinggi['protein'] = avg_fitness['protein']
+                    avg_tertinggi['lemak'] = avg_fitness['lemak']
+                    avg_tertinggi['karbo'] = avg_fitness['karbo']
+                    generasi_avg_tertinggi = generasi;
+                    
+                # Debug gizi dengan nilai avg fitness tertinggi
+                if gizi_avg_tertinggi['protein']['avg'] < avg_fitness['protein']:
+                    gizi_avg_tertinggi['protein']['avg'] = avg_fitness['protein']
+                    gizi_avg_tertinggi['protein']['generasi'] = generasi
+                
+                if gizi_avg_tertinggi['lemak']['avg'] < avg_fitness['lemak']:
+                    gizi_avg_tertinggi['lemak']['avg'] = avg_fitness['lemak']
+                    gizi_avg_tertinggi['lemak']['generasi'] = generasi
+                    
+                if gizi_avg_tertinggi['karbo']['avg'] < avg_fitness['karbo']:
+                    gizi_avg_tertinggi['karbo']['avg'] = avg_fitness['karbo']
+                    gizi_avg_tertinggi['karbo']['generasi'] = generasi
+                
+                generasi += 1
+                
+            print('avg tertinggi =================')
+            print(f'AVG fitness tertinggi adalah: {avg_tertinggi}')
+            print(f'Yang ada di generasi ke-{generasi_avg_tertinggi}')
+            
+            print('avg gizi tertinggi =================')
+            print(f"AVG fitness protein tertinggi adalah: {gizi_avg_tertinggi['protein']['avg']}")
+            print(f"Yang ada di generasi ke-{gizi_avg_tertinggi['protein']['generasi']}")
+            print(f"AVG fitness lemak tertinggi adalah: {gizi_avg_tertinggi['lemak']['avg']}")
+            print(f"Yang ada di generasi ke-{gizi_avg_tertinggi['lemak']['generasi']}")
+            print(f"AVG fitness karbo tertinggi adalah: {gizi_avg_tertinggi['karbo']['avg']}")
+            print(f"Yang ada di generasi ke-{gizi_avg_tertinggi['karbo']['generasi']}")
             
             result = {
                 'kebutuhan_gizi': kebutuhan_gizi,
@@ -93,8 +152,8 @@ def generateRekomendasiController(request):
             
             if with_detail:
                 result['detail_proses_start'] = detail_gen[0]
-                result['detail_proses_mid'] = detail_gen[round(i/2)]
-                result['detail_proses_end'] = detail_gen[i-1]
+                result['detail_proses_mid'] = detail_gen[round(generasi/2)]
+                result['detail_proses_end'] = detail_gen[generasi-1]
 
             return Response(
                 {
